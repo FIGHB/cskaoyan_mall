@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.selfmapper.MyAdminMapper">
+
+    <select id="selectByExample" resultType="com.cskaoyan.mall.bean.Admin">
+        SELECT id, username, avatar, role_ids roleIds FROM cskaoyan_mall_admin
+        ORDER BY #{sort} #{order}
+    </select>
+
+    <select id="selectAllRole" resultType="map">
+        SELECT id value, name label FROM cskaoyan_mall_role
+    </select>
+
+    <select id="getAllLogList" resultType="com.cskaoyan.mall.bean.Log">
+        SELECT * from cskaoyan_mall_log
+        ORDER BY #{sort} #{order}
+        LIMIT #{offset}, #{limit}
+
+    </select>
+</mapper>
