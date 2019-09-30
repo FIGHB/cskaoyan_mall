@@ -39,5 +39,4 @@ public class AuthController {
         BaseRespVo ok = BaseRespVo.ok(userInfo);
         return ok;
     }
-
 }
