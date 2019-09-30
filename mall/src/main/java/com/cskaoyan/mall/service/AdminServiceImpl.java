@@ -2,8 +2,7 @@ package com.cskaoyan.mall.service;
 
 import com.cskaoyan.mall.bean.Admin;
 import com.cskaoyan.mall.bean.Log;
-import com.cskaoyan.mall.bean.Role;
-import com.cskaoyan.mall.selfmapper.MyAdminMapper;
+import com.cskaoyan.mall.mapper.selfmapper.MyAdminMapper;
 import com.cskaoyan.mall.vo.List_AdminVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.session.SqlSession;

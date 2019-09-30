@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.selfmapper;
+package com.cskaoyan.mall.mapper.selfmapper;
 
 import com.cskaoyan.mall.bean.Admin;
 import com.cskaoyan.mall.bean.Log;

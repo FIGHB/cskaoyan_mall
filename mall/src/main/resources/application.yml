@@ -8,11 +8,8 @@ spring:
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
 
-<<<<<<< HEAD
-=======
 pagehelper:
   helper-dialect: mysql
   params: count
   reasonable: true
   support-methods-arguments: true
->>>>>>> 829ae4126b9787e9dd9f8b6d7e10646c4d85e5f2
