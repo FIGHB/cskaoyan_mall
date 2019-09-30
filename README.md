@@ -32,9 +32,11 @@ cskaoyan-mall
 
 2. 两个包 com.cskaoyan.mall.bean 和 com.cskaoyan.mall.mapper 以及文件夹 resources\com\cskaoyan\mapper 下的内容不允许做任何修改。
 
-    自己的 bean 放到 vo 包下(), 自己的和数据库相关的操作放到 selfmapper 下 以及对应的 xml 文件放到 com/cskaoyan/mall/selfmapper 文件夹下
+    自己的 bean 放到 vo 包下(), 自己的和数据库相关的操作可以在mapper下自建一个包，然后在这个包内写自己的mapper接口，并将对应的 xxxMapper.xml放到 resources 下的对应目录
 
 3. 所有的操作都是在 dev 上进行的，请不要去 master 主干上做任何操作。
+
+4. 每个类上自己写明作者，不要修改其他作者的文件，如果希望别人的类提供对应的方法，可以去找对应的人添加。
 
 ## 遇到的问题
 
