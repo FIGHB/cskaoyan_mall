@@ -47,6 +47,7 @@ cskaoyan-mall
     我的步骤
 
     ```
+    git init
     git remote add origin https://github.com/FIGHB/cskaoyan_test.git
     git fetch origin dev
     git checkout -b dev origin/dev
