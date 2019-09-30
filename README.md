@@ -40,4 +40,12 @@ cskaoyan-mall
     git pull origin dev
     ```
 
+2. 每次提交格式
+
+    ```
+    git commit -m "author:name message"
+    ```
+
+    
+
     
