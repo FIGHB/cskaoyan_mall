@@ -23,4 +23,34 @@ cskaoyan-mall
 
 ## 注意事项
 
-1. 
+1. 每次提交格式
+
+    ```
+    git commit -m "author:name message"
+    ```
+
+
+2. 两个包 com.cskaoyan.bean 和 com.cskaoyan.mapper 以及文件夹 resources\com\cskaoyan\mapper 下的内容不允许做任何修改。
+
+    自己的 bean 放到 vo 包下(), 自己的和数据库相关的操作放到 selfmapper 下 以及对应的 xml 文件放到 com/cskaoyan/mall/selfmapper 文件夹下
+
+3. 
+
+## 遇到的问题
+
+1. 从 github 拉取 分支内容
+
+    ```
+    链接：https://blog.csdn.net/carfge/article/details/79691360
+    ```
+
+    我的步骤
+
+    ```
+    git remote add origin https://github.com/FIGHB/cskaoyan_test.git
+    git fetch origin dev
+    git checkout -b dev origin/dev
+    git pull origin dev
+    ```
+
+2. 
