@@ -56,4 +56,13 @@ cskaoyan-mall
     git pull origin dev
     ```
 
-2. 
+2. 在 xxxMapper.xml文件中用到 like 模糊查询的时候
+
+    ```
+    链接：https://blog.csdn.net/qq_20565303/article/details/75571018
+    这个时候不能使用 #{参数} 来引用会报如下错误：
+    java.sql.SQLException: Parameter index out of range (5 > number of parameters, which is 4).
+    只能改为使用 $ 符号	${参数}	但这会带来注入风险，怎么解决暂时未知...
+    ```
+
+    

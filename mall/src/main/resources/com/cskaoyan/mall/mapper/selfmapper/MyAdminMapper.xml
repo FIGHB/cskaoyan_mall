@@ -5,6 +5,14 @@
     <select id="selectByExample" resultType="com.cskaoyan.mall.bean.Admin">
         SELECT id, username, avatar, role_ids roleIds FROM cskaoyan_mall_admin
         ORDER BY #{sort} #{order}
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="selectByUsername" resultType="com.cskaoyan.mall.bean.Admin">
+        SELECT id, username, avatar, role_ids roleIds FROM cskaoyan_mall_admin
+        WHERE username LIKE &quot;%${username}%&quot;
+        ORDER BY #{sort} #{order}
+        LIMIT #{offset}, #{limit}
     </select>
 
     <select id="selectAllRole" resultType="map">
@@ -16,5 +24,50 @@
         ORDER BY #{sort} #{order}
         LIMIT #{offset}, #{limit}
 
+    </select>
+
+    <insert id="insertStorge">
+    insert into cskaoyan_mall_storage (`key`, `name`,
+      `type`, `size`, `url`, `add_time`,
+      `update_time`, `deleted`)
+    values (
+    #{key}, #{name},
+      #{type}, #{size}, #{url}, #{addTime},
+      #{updateTime}, #{deleted})
+  </insert>
+
+    <select id="selectStorgeId" resultType="int">
+        select max(id) from cskaoyan_mall_storage where
+        url = #{url}
+    </select>
+
+    <insert id="addAdmin">
+    insert into cskaoyan_mall_admin (username, password,
+      last_login_ip, last_login_time, avatar,
+      add_time, update_time, deleted,
+      role_ids)
+    values (#{username}, #{password},
+      #{lastLoginIp}, #{lastLoginTime}, #{avatar},
+      #{addTime}, #{updateTime}, #{deleted},
+      #{strRoleIds})
+  </insert>
+
+    <select id="selectAdminId" resultType="int">
+        select max(id) from cskaoyan_mall_admin where
+        username = #{username}
+    </select>
+
+    <update id="updateAdminByPrimaryKey">
+      update cskaoyan_mall_admin
+      set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      role_ids = #{strRoleIds}
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAdminVoById" resultType="com.cskaoyan.mall.bean.Admin">
+        select * from cskaoyan_mall_admin where id = #{id}
     </select>
 </mapper>

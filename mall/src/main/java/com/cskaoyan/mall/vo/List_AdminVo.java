@@ -1,17 +1,86 @@
 package com.cskaoyan.mall.vo;
 
 
+import java.util.Date;
 
 public class List_AdminVo {
     private Integer id;
 
     private String username;
 
+    private String password;
+
+    private String lastLoginIp;
+
+    private Date lastLoginTime;
+
     private String avatar;
 
+    private Date addTime;
 
+    private Date updateTime;
+
+    private Boolean deleted;
 
     private Integer[] roleIds;
+
+    private String strRoleIds;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLastLoginIp() {
+        return lastLoginIp;
+    }
+
+    public void setLastLoginIp(String lastLoginIp) {
+        this.lastLoginIp = lastLoginIp;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public String getStrRoleIds() {
+        return strRoleIds;
+    }
+
+    public void setStrRoleIds(String strRoleIds) {
+        this.strRoleIds = strRoleIds;
+    }
 
     public Integer getId() {
         return id;
