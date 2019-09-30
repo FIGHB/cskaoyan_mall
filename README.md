@@ -30,11 +30,11 @@ cskaoyan-mall
     ```
 
 
-2. 两个包 com.cskaoyan.bean 和 com.cskaoyan.mapper 以及文件夹 resources\com\cskaoyan\mapper 下的内容不允许做任何修改。
+2. 两个包 com.cskaoyan.mall.bean 和 com.cskaoyan.mall.mapper 以及文件夹 resources\com\cskaoyan\mapper 下的内容不允许做任何修改。
 
     自己的 bean 放到 vo 包下(), 自己的和数据库相关的操作放到 selfmapper 下 以及对应的 xml 文件放到 com/cskaoyan/mall/selfmapper 文件夹下
 
-3. 
+3. 所有的操作都是在 dev 上进行的，请不要去 master 主干上做任何操作。
 
 ## 遇到的问题
 
