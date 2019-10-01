@@ -496,7 +496,7 @@ public class GoodsProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeEqualTo(Date value) {
+        public Criteria andAddTimeEqualTo(String value) {
             addCriterion("add_time =", value, "addTime");
             return (Criteria) this;
         }
