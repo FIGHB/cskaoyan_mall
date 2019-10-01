@@ -47,4 +47,9 @@ public class AuthController {
         return ok;
     }
 
+    @RequestMapping("admin/auth/logout")
+    public BaseRespVo logout() {
+        return BaseRespVo.ok(null);
+    }
+
 }
