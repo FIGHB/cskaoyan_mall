@@ -208,4 +208,15 @@
       code = #{code,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="queryRegionListByType" resultType="com.cskaoyan.mall.vo.MallBean.RegionBean">
+    select id,pid,name,code
+    from cskaoyan_mall_region
+    where type = #{type}
+  </select>
+  <select id="queryRegionListByPid" resultType="com.cskaoyan.mall.vo.MallBean.RegionBean">
+    select id,pid,name,code
+    from cskaoyan_mall_region
+    where pid = #{pid}
+  </select>
 </mapper>

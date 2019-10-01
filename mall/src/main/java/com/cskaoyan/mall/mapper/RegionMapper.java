@@ -2,10 +2,12 @@ package com.cskaoyan.mall.mapper;
 
 import com.cskaoyan.mall.bean.Region;
 import com.cskaoyan.mall.bean.RegionExample;
+import com.cskaoyan.mall.vo.MallBean.RegionBean;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public interface RegionMapper {
     long countByExample(RegionExample example);
 
@@ -28,4 +30,8 @@ public interface RegionMapper {
     int updateByPrimaryKeySelective(Region record);
 
     int updateByPrimaryKey(Region record);
+
+    List<RegionBean> queryRegionListByType(@Param("type") int type);
+
+    List<RegionBean> queryRegionListByPid(@Param("pid") int pid);
 }
