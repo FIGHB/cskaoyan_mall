@@ -28,4 +28,12 @@ public interface SystemMapper {
     int updateByPrimaryKeySelective(System record);
 
     int updateByPrimaryKey(System record);
+	
+    String queryMall(@Param("keyName") String keyName);
+
+    String queryExpress(@Param("keyName") String keyName);
+
+    String queryOrder(@Param("keyName") String keyName);
+
+    String queryWx(@Param("keyName") String keyName);
 }
