@@ -7,10 +7,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @MapperScan("com.cskaoyan.mall.mapper")
 @SpringBootApplication
-<<<<<<< HEAD
-=======
-@MapperScan(basePackages = "com.cskaoyan.mall.mapper")
->>>>>>> 9d17a7f0bc2543dfe454abe8bbd2984b44557318
 @EnableTransactionManagement
 public class MallApplication {
 
