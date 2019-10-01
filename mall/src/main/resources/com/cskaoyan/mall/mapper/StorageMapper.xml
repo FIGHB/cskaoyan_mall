@@ -73,6 +73,10 @@
   <sql id="Base_Column_List">
     id, key, name, type, size, url, add_time, update_time, deleted
   </sql>
+  <select id="selectByKey" resultType="com.cskaoyan.mall.bean.Storage">
+    select id, key, name, type, size, url, add_time, update_time from cskaoyan_mall_storage
+    where key = #{key}
+  </select>
   <select id="selectByExample" parameterType="com.cskaoyan.mall.bean.StorageExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -88,7 +92,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_storage
     where id = #{id,jdbcType=INTEGER}
@@ -104,11 +108,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Storage">
-    insert into cskaoyan_mall_storage (id, key, name, 
-      type, size, url, add_time, 
+    insert into cskaoyan_mall_storage (id, key, name,
+      type, size, url, add_time,
       update_time, deleted)
-    values (#{id,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{type,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.cskaoyan.mall.bean.Storage">
