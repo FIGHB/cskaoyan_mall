@@ -20,6 +20,7 @@ cskaoyan-mall
 | 配置管理 |    4     |   陈武   |
 | 统计报表 |    3     |  赵亚云  |
 |   外链   |    2     |   杨磊   |
+|   首页   |          |   李锐   |
 
 ## 注意事项
 
@@ -32,9 +33,11 @@ cskaoyan-mall
 
 2. 两个包 com.cskaoyan.mall.bean 和 com.cskaoyan.mall.mapper 以及文件夹 resources\com\cskaoyan\mapper 下的内容不允许做任何修改。
 
-    自己的 bean 放到 vo 包下(), 自己的和数据库相关的操作放到 selfmapper 下 以及对应的 xml 文件放到 com/cskaoyan/mall/selfmapper 文件夹下
+    自己的 bean 放到 vo 包下(), 自己的和数据库相关的操作可以在mapper下自建一个包，然后在这个包内写自己的mapper接口，并将对应的 xxxMapper.xml放到 resources 下的对应目录
 
 3. 所有的操作都是在 dev 上进行的，请不要去 master 主干上做任何操作。
+
+4. 每个类上自己写明作者，不要修改其他作者的文件，如果希望别人的类提供对应的方法，可以去找对应的人添加。
 
 ## 遇到的问题
 
@@ -54,4 +57,21 @@ cskaoyan-mall
     git pull origin dev
     ```
 
-2. 
+2. 在 xxxMapper.xml文件中用到 like 模糊查询的时候
+
+    ```
+    链接：https://blog.csdn.net/qq_20565303/article/details/75571018
+    这个时候不能使用 #{参数} 来引用会报如下错误：
+    java.sql.SQLException: Parameter index out of range (5 > number of parameters, which is 4).
+    只能改为使用 $ 符号	${参数}	但这会带来注入风险，怎么解决暂时未知...
+    ```
+
+3. 在 xxxMapper.xml 中调用查询语句时，如果不写 resultType或者 resultMap 就会出现如下错误：
+
+    ```
+    org.apache.ibatis.executor.ExecutorException: A query was run and no Result Maps were found for the Mapped Statement
+    ```
+
+    所以所有的查询语句必须写返回类型，不然就会在结果为空的时候报如上错误
+
+4.通过逆向工程获得的 Mapper 中如果有的包含 mysql 的关键字，则需要手动添加反引号

@@ -13,6 +13,14 @@ public class BaseRespVo<T> {
         return objectLoginVo;
     }
 
+    public static BaseRespVo getBaseResVo(int errno, Object data, String errmsg) {
+        BaseRespVo<Object> baseRespVo = new BaseRespVo<>();
+        baseRespVo.setErrno(errno);
+        if(data != null) baseRespVo.setData(data);
+        if(errmsg != null)baseRespVo.setErrmsg(errmsg);
+        return baseRespVo;
+    }
+
     public T getData() {
         return data;
     }
