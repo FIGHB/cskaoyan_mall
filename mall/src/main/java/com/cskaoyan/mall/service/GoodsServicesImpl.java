@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.services;
+package com.cskaoyan.mall.service;
 
 import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.bean.GoodsExample;

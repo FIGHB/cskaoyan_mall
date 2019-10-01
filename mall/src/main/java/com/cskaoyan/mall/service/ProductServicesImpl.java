@@ -1,13 +1,10 @@
-package com.cskaoyan.mall.services;
+package com.cskaoyan.mall.service;
 
 import com.cskaoyan.mall.bean.GoodsProduct;
-import com.cskaoyan.mall.bean.GoodsProductExample;
 import com.cskaoyan.mall.mapper.GoodsProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**

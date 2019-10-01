@@ -1,11 +1,10 @@
 package com.cskaoyan.mall.controller;
 
 import com.cskaoyan.mall.bean.Goods;
-import com.cskaoyan.mall.services.GoodsServices;
+import com.cskaoyan.mall.service.GoodsServices;
 import com.cskaoyan.mall.utils.SteveListBean;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.SteveGoods;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
