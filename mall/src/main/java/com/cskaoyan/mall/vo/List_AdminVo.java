@@ -3,6 +3,9 @@ package com.cskaoyan.mall.vo;
 
 import java.util.Date;
 
+/**
+ * @author  李锐
+ */
 public class List_AdminVo {
     private Integer id;
 
