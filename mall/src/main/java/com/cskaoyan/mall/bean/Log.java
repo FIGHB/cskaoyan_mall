@@ -25,6 +25,11 @@ public class Log {
 
     private Boolean deleted;
 
+    public Log() {
+        this.setComment("");
+        this.setResult("");
+    }
+
     public Integer getId() {
         return id;
     }
