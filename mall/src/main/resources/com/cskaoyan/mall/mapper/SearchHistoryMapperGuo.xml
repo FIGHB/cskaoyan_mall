@@ -13,13 +13,13 @@
     1=1
     <choose>
       <when test="userId!=null and keyword!=null">
-        and user_id=#{userId} and keyword like concat('%',#{keyword},'%')
+        and user_id=#{userId} and keyword like concat('%',#{keyword},'%') and deleted=0
       </when>
       <when test="userId!=null and keyword==null">
-        and user_id=#{userId}
+        and user_id=#{userId} and deleted=0
       </when>
       <otherwise>
-        and keyword like concat('%',#{keyword},'%')
+        and keyword like concat('%',#{keyword},'%') and deleted=0
       </otherwise>
     </choose>
   </select>

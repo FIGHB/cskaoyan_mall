@@ -128,14 +128,7 @@
     </select>
 
     <select id="selectPermissionByRoleId" resultType="string">
-        select permission from cskaoyan_mall_permission
-        <where>
-            <trim prefixOverrides="and">
-                <if test="roleId != 1">
-                    role_id = #{roleId}
-                </if>
-                    and role_id &gt; 1
-            </trim>
-        </where>
+        select permission from cskaoyan_mall_permission where
+        role_id = #{roleId} and deleted = false
     </select>
 </mapper>

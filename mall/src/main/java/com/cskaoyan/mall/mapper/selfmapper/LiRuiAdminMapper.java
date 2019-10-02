@@ -2,10 +2,14 @@ package com.cskaoyan.mall.mapper.selfmapper;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.vo.List_AdminVo;
+import com.cskaoyan.mall.vo.SysPermissionVo;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,11 +63,26 @@ public interface LiRuiAdminMapper {
     @Select("select count(*) from cskaoyan_mall_storage")
     int selectCountStorage();
 
-    List<String> selectPermissionByRoleId(String roleId);
-
+    //查询是否有这个 permission 存在，不需要看 deleted
     @Select("select count(*) from cskaoyan_mall_permission where role_id = #{roleId} and permission = #{permission}")
     int selectPermissionByPermission(int roleId, String permission);
 
-    @Insert("insert into cskaoyan_mall_permission (role_id,permission) values (#{roleId}, #{permission})")
-    int addPermission(int roleId, String permission);
+    @Insert("insert into cskaoyan_mall_permission (role_id,permission,add_time, update_time) values (#{roleId}, #{permission}, #{date}, #{date})")
+    int addPermission(@Param("roleId") int roleId,@Param("permission") String permission,@Param("date") Date date);
+
+    @Update("update cskaoyan_mall_permission set deleted = false, update_time = #{date} where role_id = #{roleId} and permission = #{permission}")
+    void setPermissionNotDeleted(int roleId, String permission, Date date);
+
+    List<String> selectPermissionByRoleId(String roleId);
+
+    //没有deleted列
+    @Select("select pid, id, label from cskaoyan_mall_permission_details where parent_id = #{id}")
+    List<SysPermissionVo> selectSysPermissionByParentId(int id);
+    //没有deleted列
+    @Select("select id, label, api from cskaoyan_mall_permission_details where parent_id = #{id}")
+    List<SysPermissionVo> selectSysPermissionByParentId2(int id);
+
+    @Update("update cskaoyan_mall_permission set deleted = true where role_id = #{roleId}")
+    void setAllPermissionDeletedByRoleId(int roleId);
+
 }

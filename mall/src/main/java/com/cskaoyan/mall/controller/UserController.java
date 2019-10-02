@@ -136,7 +136,7 @@ public class UserController {
 
 
 
-    private static <T> ItemsList<T> itemsList(List<T> list){
+    public static <T> ItemsList<T> itemsList(List<T> list){
         PageInfo<T> pageInfo=new PageInfo<>(list);
         long total = pageInfo.getTotal();
         ItemsList<T> itemsList=new ItemsList<>();

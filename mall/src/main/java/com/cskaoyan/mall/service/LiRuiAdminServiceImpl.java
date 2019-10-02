@@ -5,8 +5,8 @@ import com.cskaoyan.mall.mapper.AdminMapper;
 import com.cskaoyan.mall.mapper.RoleMapper;
 import com.cskaoyan.mall.mapper.StorageMapper;
 import com.cskaoyan.mall.mapper.selfmapper.LiRuiAdminMapper;
-import com.cskaoyan.mall.utils.SystemPermissionUtils;
 import com.cskaoyan.mall.vo.List_AdminVo;
+import com.cskaoyan.mall.vo.SysPermissionVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -187,12 +187,17 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
 
     @Override
     public boolean addPermissions(int roleId, List<String> permissions) {
-        int count = 0;
+        //设置该 roleId 对应的 permission 为已删除
+        myAdminMapper.setAllPermissionDeletedByRoleId(roleId);
         for (String permission : permissions) {
             int update = myAdminMapper.selectPermissionByPermission(roleId, permission);
-            if(update >= 1)count += myAdminMapper.addPermission(roleId, permission);
+            if(update < 1) {
+                myAdminMapper.addPermission(roleId, permission, new Date());
+            } else {
+                myAdminMapper.setPermissionNotDeleted(roleId, permission, new Date());
+            }
         }
-        return count >= 0;
+        return true;
     }
 
     @Override
@@ -201,13 +206,15 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
         /*中间核心部分*/
         List<String> assignedPermissions = myAdminMapper.selectPermissionByRoleId(roleId);
         //systemPermissions
-        List<Map<String, Object>> lists = SystemPermissionUtils.getSysPermission(assignedPermissions);
+        List<SysPermissionVo> systemPermissions = getSysPermissions(assignedPermissions);
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("systemPermissions", lists);
         map.put("assignedPermissions", assignedPermissions);
+        map.put("systemPermissions", systemPermissions);
         return map;
     }
+
+
 
     //对象存储
 
@@ -234,5 +241,25 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
     public boolean deleteStorageById(Integer id) {
         int update = storageMapper.deleteByPrimaryKey(id);
         return update > 0;
+    }
+
+
+    /**
+     * 查找 systemPermissions
+     */
+    private List<SysPermissionVo> getSysPermissions(List<String> assignedPermissions) {
+        //查询一级列表
+        List<SysPermissionVo> sysPermissionVos = myAdminMapper.selectSysPermissionByParentId(0);
+        for (SysPermissionVo permissionVo : sysPermissionVos) {
+            //查询二级列表
+            List<SysPermissionVo> childrens = myAdminMapper.selectSysPermissionByParentId(permissionVo.getPid());
+            for (SysPermissionVo children : childrens) {
+                //查询三级列表
+                List<SysPermissionVo> childrens2 = myAdminMapper.selectSysPermissionByParentId2(children.getPid());
+                children.setChildren(childrens2);
+            }
+            permissionVo.setChildren(childrens);
+        }
+        return sysPermissionVos;
     }
 }
