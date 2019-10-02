@@ -34,7 +34,7 @@ public interface CategoryMapper {
 
     int updateByPrimaryKey(Category record);
 
-    @Select("select id,`desc`,icon_url iconUrl,keywords,level,name,pic_url picUrl from cskaoyan_mall_category where pid = #{id}")
+    @Select("select id,`desc`,icon_url iconUrl,keywords,level,name,pic_url picUrl from cskaoyan_mall_category where pid = #{id} and deleted = false")
     List<Map<String, Object>> selectCategoryListByPid(int pid);
 
     List<Map> selectSimpleCategoryList();
