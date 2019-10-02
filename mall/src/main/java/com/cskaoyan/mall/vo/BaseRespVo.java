@@ -12,7 +12,7 @@ public class BaseRespVo<T> {
         objectLoginVo.setErrno(0);
         return objectLoginVo;
     }
-
+    /*ok和getBaseResVo功能差不多，建议使用后者，因为不一定成功*/
     public static BaseRespVo getBaseResVo(int errno, Object data, String errmsg) {
         BaseRespVo<Object> baseRespVo = new BaseRespVo<>();
         baseRespVo.setErrno(errno);

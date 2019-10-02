@@ -3,8 +3,7 @@ package com.cskaoyan.mall.controller;
 import com.cskaoyan.mall.service.ConfigService;
 import com.cskaoyan.mall.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -23,51 +22,67 @@ public class ConfigController {
     @RequestMapping("mall")
     public  BaseRespVo<ConfigMallVo> mall() {
         ConfigMallVo queryVo = configService.queryMall();
-        BaseRespVo<ConfigMallVo> queryVoBaseRespVo = new BaseRespVo<>();
-        queryVoBaseRespVo.setData(queryVo);
-        queryVoBaseRespVo.setErrmsg("成功");
-        queryVoBaseRespVo.setErrno(0);
-        return queryVoBaseRespVo;
+        BaseRespVo baseRespVo = BaseRespVo.ok(queryVo);
+        return baseRespVo;
+    }
+
+    @PostMapping("mall")
+    public  BaseRespVo<ConfigMallVo>mallPost(@RequestBody ConfigMallVo configMallVo) {
+        configService.addMall(configMallVo);
+        BaseRespVo baseRespVo = BaseRespVo.ok(configMallVo);
+        return baseRespVo;
     }
 
     /**
      * @return 运费配置
      */
-    @RequestMapping("express")
-    public  BaseRespVo<ConfigExpressVo> express() {
+    @GetMapping("express")
+    public  BaseRespVo<ConfigExpressVo> expressGet() {
         ConfigExpressVo configExpressVo = configService.queryExpress();
-        BaseRespVo<ConfigExpressVo> configExpressVoBaseRespVo = new BaseRespVo<>();
-        configExpressVoBaseRespVo.setData(configExpressVo);
-        configExpressVoBaseRespVo.setErrmsg("成功");
-        configExpressVoBaseRespVo.setErrno(0);
-        return configExpressVoBaseRespVo;
+        BaseRespVo baseRespVo = BaseRespVo.ok(configExpressVo);
+        return baseRespVo;
+    }
+
+    @PostMapping("express")
+    public  BaseRespVo<ConfigExpressVo> expressPost(@RequestBody ConfigExpressVo configExpressVo) {
+        /*将数据改入数据库*/
+        configService.addExpress(configExpressVo);
+        BaseRespVo baseRespVo = BaseRespVo.ok(configExpressVo);
+        return baseRespVo;
     }
 
 
     /**
      * @return 订单配置
      */
-    @RequestMapping("order")
-    public  BaseRespVo<ConfigOrderVo> order() {
+    @GetMapping("order")
+    public  BaseRespVo<ConfigOrderVo> orderGet() {
         ConfigOrderVo configOrderVo = configService.queryOrder();
-        BaseRespVo<ConfigOrderVo> configOrderVoBaseRespVo = new BaseRespVo<>();
-        configOrderVoBaseRespVo.setData(configOrderVo);
-        configOrderVoBaseRespVo.setErrmsg("成功");
-        configOrderVoBaseRespVo.setErrno(0);
-        return configOrderVoBaseRespVo;
+        BaseRespVo baseRespVo = BaseRespVo.ok(configOrderVo);
+        return baseRespVo;
+    }
+
+    @PostMapping("order")
+    public  BaseRespVo<ConfigOrderVo>mallPost(@RequestBody ConfigOrderVo configOrderVo) {
+        configService.addOrder(configOrderVo);
+        BaseRespVo baseRespVo = BaseRespVo.ok(configOrderVo);
+        return baseRespVo;
     }
 
     /**
      * @return 小程序配置
      */
-    @RequestMapping("wx")
-    public  BaseRespVo<ConfigWxVo> wx() {
+    @GetMapping("wx")
+    public  BaseRespVo<ConfigWxVo> wxGet() {
         ConfigWxVo configWxVo = configService.queryWx();
-        BaseRespVo<ConfigWxVo> configWxVoBaseRespVo = new BaseRespVo<>();
-       configWxVoBaseRespVo.setData(configWxVo);
-       configWxVoBaseRespVo.setErrmsg("成功");
-       configWxVoBaseRespVo.setErrno(0);
-        return configWxVoBaseRespVo;
+        BaseRespVo baseRespVo = BaseRespVo.ok(configWxVo);
+        return baseRespVo;
     }
 
+    @PostMapping("wx")
+    public  BaseRespVo<ConfigWxVo>mallPost(@RequestBody ConfigWxVo configWxVo) {
+        configService.addWx(configWxVo);
+        BaseRespVo baseRespVo = BaseRespVo.ok(configWxVo);
+        return baseRespVo;
+    }
 }
