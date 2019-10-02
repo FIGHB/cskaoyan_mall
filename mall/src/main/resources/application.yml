@@ -7,7 +7,7 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-<<<<<<< HEAD
+
 
   servlet:
     multipart:
@@ -20,8 +20,3 @@ pagehelper:
   support-methods-arguments: true
 
 
-=======
-
-pagehelper:
-  helper-dialect: mysql
->>>>>>> 3bdb332483820968d10cf1c50c9dcb1cacce8bd6

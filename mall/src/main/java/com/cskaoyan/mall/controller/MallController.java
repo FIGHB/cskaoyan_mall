@@ -167,16 +167,16 @@ public class MallController {
     /**
      * 李锐
      * 商品类目查看
-     * @return
      */
     @RequestMapping("/category/list")
     public BaseRespVo getCategoryList() {
         List<Map<String, Object>> data = mallService.getCategoryList();
         return BaseRespVo.ok(data);
     }
+
     @RequestMapping("/category/l1")
     public BaseRespVo getSimpaleCategoryList() {
-        List<Category> data = mallService.getSimpleCategoryList();
+        List<Map> data = mallService.getSimpleCategoryList();
         return BaseRespVo.ok(data);
     }
 }

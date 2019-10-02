@@ -43,6 +43,6 @@ public interface MallService {
 
      List<Map<String, Object>> getCategoryList();
 
-     List<Category> getSimpleCategoryList();
+     List<Map> getSimpleCategoryList();
 
 }

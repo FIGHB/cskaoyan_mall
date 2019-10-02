@@ -36,5 +36,5 @@ public interface CategoryMapper {
     @Select("select id,`desc`,icon_url iconUrl,keywords,level,name,pic_url picUrl from cskaoyan_mall_category where pid = #{id}")
     List<Map<String, Object>> selectCategoryListByPid(int pid);
 
-    List<Category> selectSimpleCategoryList();
+    List<Map> selectSimpleCategoryList();
 }

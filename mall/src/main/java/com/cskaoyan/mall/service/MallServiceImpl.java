@@ -105,8 +105,8 @@ public class MallServiceImpl implements MallService {
     }
 
     @Override
-    public List<Category> getSimpleCategoryList() {
-        List<Category> categories =  categoryMapper.selectSimpleCategoryList();
+    public List<Map> getSimpleCategoryList() {
+        List<Map> categories =  categoryMapper.selectSimpleCategoryList();
         return categories;
     }
 
