@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.mapper.steve;
+/*package com.cskaoyan.mall.mapper.steve;
 
 import com.cskaoyan.mall.vo.steve.GoodsAttributeForAddGoods;
 import com.cskaoyan.mall.vo.steve.GoodsForAddGoods;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
+*//**
  * @author Steve
  * @date 2019/10/2-15:15
- */
+ *//*
 
 @Repository
 public interface SteveAddGoodsMapper {
@@ -22,4 +22,4 @@ public interface SteveAddGoodsMapper {
     void insertGoods(GoodsForAddGoods goods);
 
     void insertProducts(List<GoodsProductForAddGoods> products);
-}
+}*/

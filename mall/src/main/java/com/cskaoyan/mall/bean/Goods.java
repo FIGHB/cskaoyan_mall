@@ -96,8 +96,6 @@ public class Goods {
 
     public void setGallery(String[] gallery) {
         this.gallery = gallery;
-<<<<<<< HEAD
-=======
     }
 
     public Boolean getOnSale() {
@@ -122,7 +120,6 @@ public class Goods {
 
     public void setHot(Boolean hot) {
         isHot = hot;
->>>>>>> b5f93062460e0471f4089b2d47b89ec78ba9d672
     }
 
     public String getKeywords() {

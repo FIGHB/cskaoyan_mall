@@ -5,7 +5,6 @@ import com.cskaoyan.mall.mapper.GoodsAttributeMapper;
 import com.cskaoyan.mall.mapper.GoodsMapper;
 import com.cskaoyan.mall.mapper.GoodsProductMapper;
 import com.cskaoyan.mall.mapper.GoodsSpecificationMapper;
-import com.cskaoyan.mall.mapper.steve.SteveAddGoodsMapper;
 import com.cskaoyan.mall.mapper.steve.SteveBrandMapper;
 import com.cskaoyan.mall.vo.NewGoodAddVO;
 import com.cskaoyan.mall.vo.steve.*;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.System;
 import java.util.List;
 
 /**
@@ -58,7 +56,7 @@ public class GoodsServicesImpl implements GoodsServices {
                 && ((steveGoods.getName() == null) || "".equals(steveGoods.getName().trim()))) {
             criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn()).andDeletedEqualTo(false);
         }
-
+        criteria.andDeletedEqualTo(false);
         List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
         return goodsList;
     }
@@ -75,14 +73,15 @@ public class GoodsServicesImpl implements GoodsServices {
 
         if ((steveGoods.getGoodsSn() != null && (!"".equals(steveGoods.getGoodsSn().trim())))
                 && (steveGoods.getName() != null) && (!"".equals(steveGoods.getName().trim()))) {
-            criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn()).andNameLike("%" + steveGoods.getName() + "%");
+            criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn()).andNameLike("%" + steveGoods.getName() + "%").andDeletedEqualTo(false);
         } else if (((steveGoods.getGoodsSn() == null ) || ("".equals(steveGoods.getGoodsSn().trim())))
                 && (steveGoods.getName() != null) && (!"".equals(steveGoods.getName().trim()))) {
-            criteria.andNameLike("%" + steveGoods.getName() + "%");
+            criteria.andNameLike("%" + steveGoods.getName() + "%").andDeletedEqualTo(false);
         } else if ((steveGoods.getGoodsSn() != null) && (!"".equals(steveGoods.getGoodsSn().trim()))
                 && ((steveGoods.getName() == null) || "".equals(steveGoods.getName().trim()))) {
-            criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn());
+            criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn()).andDeletedEqualTo(false);
         }
+        criteria.andDeletedEqualTo(false);
 
         List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
         long totals = goodsList.size();
