@@ -581,4 +581,27 @@
       </if>
     </where>
   </select>
+
+  <select id="queryOrderById" resultType="com.cskaoyan.mall.bean.Order">
+     select id, user_id as userId, order_sn as orderSn, order_status as orderStatus, consignee, mobile,
+     address, message, goods_price as goodsPrice,freight_price as freightPrice,coupon_price as couponPrice,
+     integral_price as integralPrice,groupon_price as grouponPrice, order_price as orderPrice,actual_price as actualPrice,
+     pay_id as payId,pay_time as payTime, ship_sn as shipSn, ship_channel as shipChannel, ship_time as shipTime,
+     confirm_time as confirmTime, comments, end_time as endTime, add_time as addTime, update_time as updateTime, deleted
+    from cskaoyan_mall_order
+    where id = #{id}
+  </select>
+
+  <select id="queryOrderGoodsListByOrderId" resultType="com.cskaoyan.mall.vo.MallBean.OrderGoodsBean">
+    select id,order_id as orderId,goods_id as goodsId,goods_name as goodsName,goods_sn as goodsSn,product_id as productId,number,price,
+    specifications,pic_url as picUrl,comment,add_time as addTime,update_time as updateTime,deleted
+    from cskaoyan_mall_order_goods
+    where order_id = #{orderId}
+  </select>
+
+  <select id="queryUserById" resultType="com.cskaoyan.mall.bean.User">
+    select avatar,nickname
+    from cskaoyan_mall_user
+    where id = #{userId}
+  </select>
 </mapper>

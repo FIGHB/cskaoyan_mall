@@ -85,7 +85,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_system
     where id = #{id,jdbcType=INTEGER}
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.System">
-    insert into cskaoyan_mall_system (id, key_name, key_value, 
+    insert into cskaoyan_mall_system (id, key_name, key_value,
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{keyName,jdbcType=VARCHAR}, #{keyValue,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{keyName,jdbcType=VARCHAR}, #{keyValue,jdbcType=VARCHAR},
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
@@ -225,7 +225,7 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <!--陈武于此处增加配置管理的四个sql语句-->
+  <!--陈武于此处增加配置管理的8个sql语句-->
   <select id="queryMall" resultType="string">
         select key_value from cskaoyan_mall_system where key_name = #{keyName}
   </select>
@@ -238,4 +238,22 @@
   <select id="queryWx" resultType="string">
         select key_value from cskaoyan_mall_system where key_name = #{keyName}
   </select>
+
+
+  <update  id="addMall">
+        update cskaoyan_mall_system set key_value = #{keyValue}
+        where key_name=#{keyName}
+  </update>
+  <update  id="addExpress">
+        update cskaoyan_mall_system set key_value = #{keyValue}
+        where key_name=#{keyName}
+  </update>
+  <update  id="addOrder">
+        update cskaoyan_mall_system set key_value = #{keyValue}
+        where key_name=#{keyName}
+  </update>
+  <update  id="addWx">
+        update cskaoyan_mall_system set key_value = #{keyValue}
+        where key_name=#{keyName}
+  </update>
 </mapper>

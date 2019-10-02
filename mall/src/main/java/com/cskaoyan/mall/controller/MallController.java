@@ -1,17 +1,21 @@
 package com.cskaoyan.mall.controller;
 
 import com.cskaoyan.mall.bean.Brand;
+import com.cskaoyan.mall.bean.Category;
 import com.cskaoyan.mall.bean.Issue;
 import com.cskaoyan.mall.bean.Keyword;
 import com.cskaoyan.mall.service.MallService;
-import com.cskaoyan.mall.utils.ListBean;
 import com.cskaoyan.mall.vo.BaseRespVo;
+import com.cskaoyan.mall.vo.MallBean.CategoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("admin")
@@ -73,6 +77,15 @@ public class MallController {
     @RequestMapping("/order/list")
     public BaseRespVo queryOrderList(int page,int limit,String sort,String order,Integer userId,String orderSn,Short[] orderStatusArray){
         return BaseRespVo.ok(mallService.queryOrderList(page, limit, sort, order,userId,orderSn,orderStatusArray));
+    }
+
+    /**
+     * 周榆淮
+     * 查看订单详情
+     */
+    @RequestMapping("/order/detail")
+    public BaseRespVo queryOrderDetail(int id){
+        return BaseRespVo.ok(mallService.queryOrderDetail(id));
     }
 
     /**
@@ -149,6 +162,52 @@ public class MallController {
     @RequestMapping("/keyword/delete")
     public BaseRespVo deleteKeyWord(@RequestBody Keyword keyword){
         mallService.deleteKeyWord(keyword.getId());
+        return BaseRespVo.ok(null);
+    }
+
+    /**
+     * 李锐
+     * 商品类目查看
+     */
+    @RequestMapping("/category/list")
+    public BaseRespVo getCategoryList() {
+        List<Map<String, Object>> data = mallService.getCategoryList();
+        return BaseRespVo.ok(data);
+    }
+
+    @RequestMapping("/category/l1")
+    public BaseRespVo getSimpaleCategoryList() {
+        List<Map> data = mallService.getSimpleCategoryList();
+        return BaseRespVo.ok(data);
+    }
+
+    /**
+     * 周榆淮
+     * 插入类目
+     */
+    @RequestMapping("/category/create")
+    public BaseRespVo insertCategory(@RequestBody Category category){
+        Category result = mallService.insertCategory(category);
+        return BaseRespVo.ok(result);
+    }
+
+    /**
+     * 周榆淮
+     * 修改类目
+     */
+    @RequestMapping("/category/update")
+    public BaseRespVo updateCategory(@RequestBody CategoryBean categoryBean){
+        mallService.updateCategory(categoryBean);
+        return BaseRespVo.ok(null);
+    }
+
+    /**
+     * 周榆淮
+     * 商品类目删除
+     */
+    @RequestMapping("/category/delete")
+    public BaseRespVo deleteCategory(@RequestBody CategoryBean categoryBean){
+        mallService.deleteCategory(categoryBean);
         return BaseRespVo.ok(null);
     }
 }

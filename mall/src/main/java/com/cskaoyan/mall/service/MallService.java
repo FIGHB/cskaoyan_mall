@@ -1,15 +1,15 @@
 package com.cskaoyan.mall.service;
 
 
-import com.cskaoyan.mall.bean.Brand;
-import com.cskaoyan.mall.bean.Issue;
-import com.cskaoyan.mall.bean.Keyword;
-import com.cskaoyan.mall.bean.Order;
+import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.utils.ListBean;
+import com.cskaoyan.mall.vo.MallBean.CategoryBean;
+import com.cskaoyan.mall.vo.MallBean.OrderDetailBean;
 import com.cskaoyan.mall.vo.MallBean.RegionBean;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public interface MallService {
      List<RegionBean> queryRegionList();
@@ -39,4 +39,16 @@ public interface MallService {
      Keyword updateKeyWord(Keyword keyword);
 
      void deleteKeyWord(Integer id);
+
+     OrderDetailBean queryOrderDetail(int id);
+
+     List<Map<String, Object>> getCategoryList();
+
+     List<Map> getSimpleCategoryList();
+
+     Category insertCategory(Category category);
+
+     void deleteCategory(CategoryBean categoryBean);
+
+     void updateCategory(CategoryBean categoryBean);
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<<<<<<< HEAD
+<mapper namespace="com.cskaoyan.mall.mapper.steve.SteveAddGoodsMapper">
+    <insert id="insertGoodsAttributes">
+        insert into cskaoyan_mall_goods_attribute (attribute,`value`) values
+        <foreach collection="list" item="attributes" separator=",">
+            (#{attribute.attribute},#{attribute.value})
+        </foreach>
+    </insert>
+    <insert id="insertGoods">
+        insert into cskaoyan_mall_goods (brand_id,brief,category_id,counter_price,detail,gallery
+        ,goods_sn,is_hot,is_new,is_on_sale,keywords,`name`,pic_url,retail_price,unit) values
+        (#{goods.brandId},#{goods.brief},#{goods.categoryId},#{goods.counterPrice},
+        #{goods.detail},#{goods.gallery,typeHandler=com.cskaoyan.mall.utils.TransferToStringArrayHandler},
+        #{goods.goodsSn},#{goods.isHot},#{goods.isNew},#{goods.isOnSale},
+        #{goods.keywords},#{goods.name},#{goods.picUrl},#{goods.retailPrice},#{goods.unit})
+    </insert>
+    <insert id="insertProducts">
+        insert into cskaoyan_mall_goods_product (`number`,price,specifications,url) values
+        <foreach collection="list" item="products" separator=",">
+            (#{products.number},#{products.price},
+            #{products.specifications,typeHandler=com.cskaoyan.mall.utils.TransferToStringArrayHandler},
+            #{products.url})
+        </foreach>
+    </insert>
+    <insert id="insertGoodsSpecifications">
+        insert into cskaoyan_mall_goods_specification (pic_url,specification,`value`) values
+        <foreach collection="list" item="specifications" separator=",">
+            (#{specifications.picUrl},#{specifications.specification},#{specifications.value})
+        </foreach>
+    </insert>
+=======
+<mapper namespace="com.cskaoyan.mall.mapper.steve.SteveAddGoods">
+
+    <update id="deleteGoodsById">
+        update cskaoyan_mall_goods
+        set deleted = true
+        where id = #{id}
+    </update>
+>>>>>>> b5f93062460e0471f4089b2d47b89ec78ba9d672
+</mapper>

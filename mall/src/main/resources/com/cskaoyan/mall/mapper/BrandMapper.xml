@@ -282,6 +282,7 @@
       <if test="name != null">
         and name like concat('%',#{name},'%')
       </if>
+        and deleted = false
     </where>
   </select>
 
@@ -295,6 +296,7 @@
       <if test="name != null">
         and name like concat('%',#{name},'%')
       </if>
+        and deleted = false
     </where>
   </select>
 
@@ -318,9 +320,9 @@
     where id = #{brand.id}
   </update>
 
-  <delete id="deleteBrandById">
-    delete
-    from cskaoyan_mall_brand
+  <update id="deleteBrandById">
+    update cskaoyan_mall_brand
+    set deleted = true
     where id = #{id}
-  </delete>
+  </update>
 </mapper>

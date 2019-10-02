@@ -15,10 +15,14 @@ spring:
 
 pagehelper:
   helper-dialect: mysql
+
   params: count
+
   reasonable: true
+
   support-methods-arguments: true
 
 mybatis:
   type-handlers-package: com.cskaoyan.mall.utils
+
 

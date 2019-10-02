@@ -22,6 +22,7 @@
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cskaoyan.mall.bean.Goods">
     <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
@@ -87,7 +88,7 @@
   <sql id="Base_Column_List">
     id, goods_sn, name, category_id, brand_id, gallery, keywords, brief, is_on_sale, 
     sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price, 
-    add_time, update_time, deleted
+    add_time, update_time, deleted, detail
   </sql>
   <sql id="Blob_Column_List">
     detail
@@ -141,19 +142,38 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Goods">
-    insert into cskaoyan_mall_goods (id, goods_sn, name, 
-      category_id, brand_id, gallery, 
-      keywords, brief, is_on_sale, 
-      sort_order, pic_url, share_url, 
-      is_new, is_hot, unit, counter_price, 
-      retail_price, add_time, update_time, 
+    insert into cskaoyan_mall_goods (id, goods_sn, name,
+      category_id, brand_id, gallery,
+      keywords, brief, is_on_sale,
+      sort_order, pic_url, share_url,
+      is_new, is_hot, unit, counter_price,
+      retail_price, add_time, update_time,
       deleted, detail)
-    values (#{id,jdbcType=INTEGER}, #{goodsSn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{categoryId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, #{gallery,jdbcType=VARCHAR}, 
-      #{keywords,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR}, #{isOnSale,jdbcType=BIT}, 
-      #{sortOrder,jdbcType=SMALLINT}, #{picUrl,jdbcType=VARCHAR}, #{shareUrl,jdbcType=VARCHAR}, 
-      #{isNew,jdbcType=BIT}, #{isHot,jdbcType=BIT}, #{unit,jdbcType=VARCHAR}, #{counterPrice,jdbcType=DECIMAL}, 
-      #{retailPrice,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{goodsSn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{categoryId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, #{gallery,jdbcType=VARCHAR},
+      #{keywords,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR}, #{isOnSale,jdbcType=BIT},
+      #{sortOrder,jdbcType=SMALLINT}, #{picUrl,jdbcType=VARCHAR}, #{shareUrl,jdbcType=VARCHAR},
+      #{isNew,jdbcType=BIT}, #{isHot,jdbcType=BIT}, #{unit,jdbcType=VARCHAR}, #{counterPrice,jdbcType=DECIMAL},
+      #{retailPrice,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{deleted,jdbcType=BIT}, #{detail,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="steveInsert" parameterType="com.cskaoyan.mall.bean.Goods">
+    <selectKey resultType="int" keyProperty="record.id" keyColumn="idz" order="AFTER">
+      select last_insert_id() as idz
+    </selectKey>
+    insert into cskaoyan_mall_goods (id, goods_sn, name,
+      category_id, brand_id, gallery,
+      keywords, brief, is_on_sale,
+      sort_order, pic_url, share_url,
+      is_new, is_hot, unit, counter_price,
+      retail_price, add_time, update_time,
+      deleted, detail)
+    values (#{id,jdbcType=INTEGER}, #{goodsSn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{categoryId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, #{gallery,jdbcType=VARCHAR},
+      #{keywords,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR}, #{isOnSale,jdbcType=BIT},
+      #{sortOrder,jdbcType=SMALLINT}, #{picUrl,jdbcType=VARCHAR}, #{shareUrl,jdbcType=VARCHAR},
+      #{isNew,jdbcType=BIT}, #{isHot,jdbcType=BIT}, #{unit,jdbcType=VARCHAR}, #{counterPrice,jdbcType=DECIMAL},
+      #{retailPrice,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=BIT}, #{detail,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cskaoyan.mall.bean.Goods">
@@ -532,4 +552,38 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="deleteGoodsById">
+        update cskaoyan_mall_goods
+        set deleted = true
+        where id = #{id}
+    </update>
+
+  <insert id="insertAttributes">
+    insert into cskaoyan_mall_goods_attribute(goods_id, attribute, `value`) values
+    <foreach collection="attributes" item="attribute" separator=",">
+      (#{goodId},#{attribute.attribute},#{attribute.value})
+    </foreach>
+  </insert>
+
+  <insert id="insertGoods">
+     insert into cskaoyan_mall_goods(id, goods_sn, name, category_id, brand_id,
+     gallery, keywords, brief, is_on_sale, pic_url, is_new, is_hot, unit, counter_price, retail_price)
+     values (#{goods.goodsSn},#{goods.goodsSn},#{goods.name},#{goods.categoryId},#{goods.brandId},#{goods.gallery},#{goods.keywords},#{goods.brief},
+     #{goods.isOnSale},#{goods.picUrl},#{goods.isNew},#{goods.isHot},#{goods.unit},#{goods.counterPrice},#{goods.retailPrice})
+  </insert>
+
+  <insert id="insertProduct">
+     insert into cskaoyan_mall_goods_product(goods_id,specifications,price,number,url) values
+    <foreach collection="products" item="product" separator=",">
+      (#{goodId},#{product.specifications},#{product.price},#{product.number},#{product.url})
+    </foreach>
+  </insert>
+
+  <insert id="insertSpec">
+    insert into cskaoyan_mall_goods_specification(goods_id,specification,value,pic_url) values
+    <foreach collection="specs" item="spec" separator=",">
+      (#{goodId},#{spec.specification},#{spec.value},#{spec.picUrl})
+    </foreach>
+  </insert>
 </mapper>

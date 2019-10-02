@@ -162,7 +162,8 @@ public class LiRuiAdminController {
         }
     }
 
-    //两个关于 permissions 的还没有实现
+    //关于 permissions 查询的还没有添加 systemPermissions 部分的数据，
+    //需要在 SystemPermissionUtils 中实现
     @RequestMapping(value = "admin/role/permissions", method = RequestMethod.GET)
     public BaseRespVo rolePermissions(@RequestParam String roleId) {
         Map<String, Object> data = adminService.getPermissionList(roleId);
@@ -171,7 +172,7 @@ public class LiRuiAdminController {
 
     @RequestMapping(value = "admin/role/permissions", method = RequestMethod.POST)
     public BaseRespVo addPermissions(@RequestBody PermissionsVo  permissionsVo) {
-        if(adminService.addPermissions(permissionsVo.getRoleId(),permissionsVo.getPeimissions())) {
+        if(permissionsVo != null && adminService.addPermissions(permissionsVo.getRoleId(),permissionsVo.getPermissions())) {
             return BaseRespVo.ok("");
         } else {
             return BaseRespVo.getBaseResVo(500,null,"添加失败");

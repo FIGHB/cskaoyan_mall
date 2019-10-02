@@ -1,12 +1,11 @@
 package com.cskaoyan.mall.service;
 
 
-import com.cskaoyan.mall.bean.Brand;
-import com.cskaoyan.mall.bean.Issue;
-import com.cskaoyan.mall.bean.Keyword;
-import com.cskaoyan.mall.bean.Order;
+import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.mapper.*;
 import com.cskaoyan.mall.utils.ListBean;
+import com.cskaoyan.mall.vo.MallBean.CategoryBean;
+import com.cskaoyan.mall.vo.MallBean.OrderDetailBean;
 import com.cskaoyan.mall.vo.MallBean.RegionBean;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MallServiceImpl implements MallService {
@@ -27,7 +27,8 @@ public class MallServiceImpl implements MallService {
     IssueMapper issueMapper;
     @Autowired
     KeywordMapper keywordMapper;
-
+    @Autowired
+    CategoryMapper categoryMapper;
 
     @Override
     public List queryRegionList() {
@@ -79,6 +80,57 @@ public class MallServiceImpl implements MallService {
         long total = orderMapper.queryOrderListTotal(userId, orderSn, orderStatusArray);
         ListBean<Order> orderListBean = new ListBean<>(orderList, total);
         return orderListBean;
+    }
+
+    @Override
+    public OrderDetailBean queryOrderDetail(int id) {
+        OrderDetailBean orderDetailBean = new OrderDetailBean();
+        Order order = orderMapper.queryOrderById(id);
+        orderDetailBean.setOrder(order);
+        orderDetailBean.setOrderGoodsList(orderMapper.queryOrderGoodsListByOrderId(id));
+        orderDetailBean.setUser(orderMapper.queryUserById(order.getUserId()));
+        return orderDetailBean;
+    }
+
+    @Override
+    public List<Map<String, Object>> getCategoryList() {
+        //查取 pid 为0 的列表
+        List<Map<String, Object>> categories =  categoryMapper.selectCategoryListByPid(0);
+        //循环该列表，查询每一个的子列表   pid = id，并放在chriden这个 list 下
+        for (Map category : categories) {
+            int id = Integer.parseInt(category.get("id").toString());
+            List<Map<String, Object>> children = categoryMapper.selectCategoryListByPid(id);
+            category.put("children", children);
+        }
+        return categories;
+    }
+
+    @Override
+    public List<Map> getSimpleCategoryList() {
+        List<Map> categories =  categoryMapper.selectSimpleCategoryList();
+        return categories;
+    }
+
+    @Override
+    public Category insertCategory(Category category) {
+        int result = categoryMapper.insertCategory(category);
+        int id = category.getId();
+        return categoryMapper.queryCategoryById(id);
+    }
+
+    @Override
+    public void deleteCategory(CategoryBean categoryBean) {
+        if (categoryBean.getChildren() != null){
+            for (Category category : categoryBean.getChildren()){
+                categoryMapper.deleteCategoryById(category.getId());
+            }
+        }
+        categoryMapper.deleteCategoryById(categoryBean.getId());
+    }
+
+    @Override
+    public void updateCategory(CategoryBean categoryBean) {
+        categoryMapper.updateCategory(categoryBean);
     }
 
     @Override
@@ -136,4 +188,6 @@ public class MallServiceImpl implements MallService {
     public void deleteKeyWord(Integer id) {
         keywordMapper.deleteKeyWordById(id);
     }
+
+
 }
