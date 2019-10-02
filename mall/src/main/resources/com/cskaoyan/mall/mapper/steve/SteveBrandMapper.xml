@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.steve.SteveBrandMapper">
+    <!--查询商品 和他的子类 -->
+    <resultMap id="forCatefory" type="com.cskaoyan.mall.vo.steve.ForCategory">
+        <result column="id" property="value"/>
+        <result column="name" property="label"/>
+        <collection column="id" property="children"
+                    select="com.cskaoyan.mall.mapper.steve.SteveBrandMapper.queryCategoryChildren"/>
+    </resultMap>
+    <!--一对多的第一次查询 根据pid=0查出所有的分类-->
+    <select id="queryCategory" resultMap="forCatefory">
+          select id,name from cskaoyan_mall_category where pid = #{pid};
+    </select>
+    <!--一对多的第二次查询-->
+    <select id="queryCategoryChildren" resultMap="categoryMap">
+         select id,name from cskaoyan_mall_category where pid = #{id};
+    </select>
+    <resultMap id="categoryMap" type="com.cskaoyan.mall.vo.steve.CategoryChildren">
+        <result column="id" property="value"/>
+        <result column="name" property="label"/>
+    </resultMap>
+</mapper>
