@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.vo;
+package com.cskaoyan.mall.vo.steve;
 
 /**
  * @author Steve
