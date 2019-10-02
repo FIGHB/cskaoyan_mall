@@ -8,8 +8,6 @@ import com.cskaoyan.mall.mapper.selfmapper.LiRuiAdminMapper;
 import com.cskaoyan.mall.utils.SystemPermissionUtils;
 import com.cskaoyan.mall.vo.List_AdminVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,20 +23,26 @@ import java.util.*;
 public class LiRuiAdminServiceImpl implements LiRuiAdminService {
 
     @Autowired
-    SqlSessionFactory sqlSessionFactory;
+    LiRuiAdminMapper myAdminMapper;
 
-    SqlSession sqlSession;
+    @Autowired
+    AdminMapper adminMapper;
+
+    @Autowired
+    RoleMapper roleMapper;
+
+    @Autowired
+    StorageMapper storageMapper;
+
 
     @Override
     public Map<String, Object> getPageList(int page, int limit, String sort, String order, String username) throws IOException {
-        sqlSession = sqlSessionFactory.openSession();
-        LiRuiAdminMapper adminMapper = sqlSession.getMapper(LiRuiAdminMapper.class);
         List<Admin> admins;
         int offset = (page - 1) * limit;
         if(username == null) {
-            admins = adminMapper.selectByExample(offset, limit, sort, order);
+            admins = myAdminMapper.selectByExample(offset, limit, sort, order);
         } else {
-            admins = adminMapper.selectByUsername(username, offset, limit, sort, order);
+            admins = myAdminMapper.selectByUsername(username, offset, limit, sort, order);
         }
         List<Object> objects = new ArrayList<>();
         for (Admin admin : admins) {
@@ -61,7 +65,7 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("items", objects);
-        int total = adminMapper.selectCountAdmin();
+        int total = myAdminMapper.selectCountAdmin();
         map.put("total", total);
         return map;
     }
@@ -69,29 +73,23 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
 
     @Override
     public List<Map<String, Object>> getAllRoleOptions() {
-        sqlSession = sqlSessionFactory.openSession();
-        LiRuiAdminMapper mapper = sqlSession.getMapper(LiRuiAdminMapper.class);
-        List<Map<String, Object>> roles = mapper.selectAllRole();
+        List<Map<String, Object>> roles = myAdminMapper.selectAllRole();
         return roles;
     }
 
     @Override
     public Map<String, Object> getAllLogList(int page, int limit, String sort, String order, String name) {
-        sqlSession = sqlSessionFactory.openSession();
-        LiRuiAdminMapper mapper = sqlSession.getMapper(LiRuiAdminMapper.class);
         int offset = (page - 1) * limit;
-        List<Log> list = mapper.getAllLogList(offset, limit, sort, order, name);
+        List<Log> list = myAdminMapper.getAllLogList(offset, limit, sort, order, name);
         HashMap<String, Object> map = new HashMap<>();
         map.put("items", list);
-        int total = mapper.selectCountLog();
+        int total = myAdminMapper.selectCountLog();
         map.put("total", total);
         return map;
     }
 
     @Override
     public Storage avatorUpload(File filePath, String fileName, long length, String requestURL) {
-        sqlSession = sqlSessionFactory.openSession();
-        LiRuiAdminMapper mapper = sqlSession.getMapper(LiRuiAdminMapper.class);
         Storage storage = new Storage();
         storage.setKey(fileName);
         storage.setName(fileName);
@@ -106,9 +104,9 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
         storage.setAddTime(date);
         storage.setUpdateTime(date);
         storage.setDeleted(false);
-        int update = mapper.insertStorge(storage);
+        int update = myAdminMapper.insertStorge(storage);
         if(update > 0) {
-            int id = mapper.selectStorgeId(storage);
+            int id = myAdminMapper.selectStorgeId(storage);
             storage.setId(id);
         }
         return storage;
@@ -125,37 +123,31 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
         adminVo.setUpdateTime(date);
         adminVo.setLastLoginIp(null);
         adminVo.setLastLoginTime(date);
-        sqlSession = sqlSessionFactory.openSession();
-        LiRuiAdminMapper mapper = sqlSession.getMapper(LiRuiAdminMapper.class);
-        int update = mapper.addAdmin(adminVo);
+        int update = myAdminMapper.addAdmin(adminVo);
         if(update != 1) return false;
-        int id = mapper.selectAdminId(adminVo);
+        int id = myAdminMapper.selectAdminId(adminVo);
         adminVo.setId(id);
         return true;
     }
 
     @Override
     public boolean addRole(Role role) {
-        sqlSession = sqlSessionFactory.openSession();
-        LiRuiAdminMapper mapper = sqlSession.getMapper(LiRuiAdminMapper.class);
         if(role == null) return false;
         Date date = new Date();
         role.setAddTime(date);
         role.setUpdateTime(date);
-        int update = mapper.addRole(role);
+        int update = myAdminMapper.addRole(role);
         if(update != 1) return false;
-        int id = mapper.selectRoleId(role);
+        int id = myAdminMapper.selectRoleId(role);
         role.setId(id);
         return true;
     }
 
     @Override
     public boolean updateAdmin(List_AdminVo adminVo) {
-        sqlSession = sqlSessionFactory.openSession();
-        LiRuiAdminMapper mapper = sqlSession.getMapper(LiRuiAdminMapper.class);
-        int update = mapper.updateAdminByPrimaryKey(adminVo);
+        int update = myAdminMapper.updateAdminByPrimaryKey(adminVo);
         if(update > 1 || update < 0) return false;
-        Admin admin = mapper.selectAdminVoById(adminVo.getId());
+        Admin admin = myAdminMapper.selectAdminVoById(adminVo.getId());
         adminVo.setLastLoginIp(admin.getLastLoginIp());
         adminVo.setLastLoginTime(admin.getLastLoginTime());
         adminVo.setDeleted(admin.getDeleted());
@@ -164,37 +156,29 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
 
     @Override
     public boolean updateRole(Role role) {
-        sqlSession = sqlSessionFactory.openSession();
-        LiRuiAdminMapper mapper = sqlSession.getMapper(LiRuiAdminMapper.class);
-        int update = mapper.updateRoleByPrimaryKey(role);
+        int update = myAdminMapper.updateRoleByPrimaryKey(role);
         if(update != 1) return false;
-        role = mapper.selectRoleById(role.getId());
+        role = myAdminMapper.selectRoleById(role.getId());
         return true;
     }
 
     @Override
     public boolean deleteAdminById(Integer id) {
-        sqlSession = sqlSessionFactory.openSession();
-        AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
-        int update = mapper.deleteByPrimaryKey(id);
+        int update = adminMapper.deleteByPrimaryKey(id);
         return update > 0;
     }
 
     @Override
     public boolean deleteRoleById(Integer id) {
-        sqlSession = sqlSessionFactory.openSession();
-        RoleMapper mapper = sqlSession.getMapper(RoleMapper.class);
-        int update = mapper.deleteByPrimaryKey(id);
+        int update = roleMapper.deleteByPrimaryKey(id);
         return update > 0;
     }
 
     @Override
     public Map<String, Object> getRoleList(int page, int limit, String sort, String order, String name) {
-        sqlSession = sqlSessionFactory.openSession();
-        LiRuiAdminMapper mapper = sqlSession.getMapper(LiRuiAdminMapper.class);
         int offset = (page - 1) * limit;
-        List<Role> roles = mapper.selectRoleList(offset, limit, sort, order, name);
-        int count = mapper.selectCountRole();
+        List<Role> roles = myAdminMapper.selectRoleList(offset, limit, sort, order, name);
+        int count = myAdminMapper.selectCountRole();
         HashMap<String, Object> map = new HashMap<>();
         map.put("total", new Long(count).intValue());
         map.put("items", roles);
@@ -227,8 +211,7 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
 
     //对象存储
 
-    @Autowired
-    LiRuiAdminMapper myAdminMapper;
+
 
     @Override
     public Map<String, Object> getStorageList(int page, int limit, String sort, String order, String key, String name) {
@@ -243,17 +226,13 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
 
     @Override
     public boolean updateStorage(Storage storage) {
-        sqlSession = sqlSessionFactory.openSession();
-        StorageMapper mapper = sqlSession.getMapper(StorageMapper.class);
-        int update = mapper.updateByPrimaryKey(storage);
+        int update = storageMapper.updateByPrimaryKey(storage);
         return update >= 0;
     }
 
     @Override
     public boolean deleteStorageById(Integer id) {
-        sqlSession = sqlSessionFactory.openSession();
-        StorageMapper mapper = sqlSession.getMapper(StorageMapper.class);
-        int update = mapper.deleteByPrimaryKey(id);
+        int update = storageMapper.deleteByPrimaryKey(id);
         return update > 0;
     }
 }
