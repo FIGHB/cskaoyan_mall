@@ -324,7 +324,7 @@
   <select id="selectSimpleCategoryList" resultType="map">
         select id value, name label
         from cskaoyan_mall_category
-        where pid = 0
+        where pid = 0 and deleted = false
     </select>
 
   <insert id="insertCategory">
@@ -341,11 +341,11 @@
     where id = #{id}
   </select>
 
-  <delete id="deleteCategoryById">
-    delete
-    from cskaoyan_mall_category
+  <update id="deleteCategoryById">
+    update cskaoyan_mall_category
+    set deleted = true
     where id = #{id}
-  </delete>
+  </update>
 
   <update id="updateCategory">
     update cskaoyan_mall_category
