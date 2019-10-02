@@ -64,7 +64,7 @@ public class LiRuiAdminController {
      * 头像上传,此处是有最大上传图像大小设置的，所以较大的图片会上传失败
      * @return
      */
-    @RequestMapping("admin/storage/create")
+    //@RequestMapping("admin/storage/create")
     public BaseRespVo avatorUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         if(file.isEmpty()) {
             return BaseRespVo.getBaseResVo(0, null, "抱歉图片上传失败");
