@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@MapperScan("com.cskaoyan.mall.mapper")
 @SpringBootApplication
-@MapperScan(basePackages = "com.cskaoyan.mall.mapper")
 @EnableTransactionManagement
 
 public class MallApplication {

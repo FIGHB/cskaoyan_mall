@@ -225,4 +225,17 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--陈武于此处增加配置管理的四个sql语句-->
+  <select id="queryMall" resultType="string">
+        select key_value from cskaoyan_mall_system where key_name = #{keyName}
+  </select>
+  <select id="queryExpress" resultType="string">
+        select key_value from cskaoyan_mall_system where key_name = #{keyName}
+  </select>
+  <select id="queryOrder" resultType="string">
+        select key_value from cskaoyan_mall_system where key_name = #{keyName}
+  </select>
+  <select id="queryWx" resultType="string">
+        select key_value from cskaoyan_mall_system where key_name = #{keyName}
+  </select>
 </mapper>

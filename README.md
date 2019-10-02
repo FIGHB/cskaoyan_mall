@@ -20,6 +20,7 @@ cskaoyan-mall
 | 配置管理 |    4     |   陈武   |
 | 统计报表 |    3     |  赵亚云  |
 |   外链   |    2     |   杨磊   |
+|   首页   |          |   李锐   |
 
 ## 注意事项
 
@@ -65,4 +66,12 @@ cskaoyan-mall
     只能改为使用 $ 符号	${参数}	但这会带来注入风险，怎么解决暂时未知...
     ```
 
-    
+3. 在 xxxMapper.xml 中调用查询语句时，如果不写 resultType或者 resultMap 就会出现如下错误：
+
+    ```
+    org.apache.ibatis.executor.ExecutorException: A query was run and no Result Maps were found for the Mapped Statement
+    ```
+
+    所以所有的查询语句必须写返回类型，不然就会在结果为空的时候报如上错误
+
+4.通过逆向工程获得的 Mapper 中如果有的包含 mysql 的关键字，则需要手动添加反引号
