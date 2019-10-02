@@ -233,6 +233,7 @@
       <if test="question != null">
         and question like concat('%',#{question},'%')
       </if>
+        and deleted = false
     </where>
   </select>
 
@@ -243,6 +244,7 @@
       <if test="question != null">
         and question like concat('%',#{question},'%')
       </if>
+        and deleted = false
     </where>
   </select>
 
@@ -266,9 +268,9 @@
     where id = #{issue.id}
   </update>
 
-  <delete id="deleteIssueById">
-    delete
-    from cskaoyan_mall_issue
+  <update id="deleteIssueById">
+    update cskaoyan_mall_issue
+    set deleted = true
     where id = #{id}
-  </delete>
+  </update>
 </mapper>

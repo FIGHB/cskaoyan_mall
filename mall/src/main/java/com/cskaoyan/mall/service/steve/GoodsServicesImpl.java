@@ -7,10 +7,12 @@ import com.cskaoyan.mall.mapper.GoodsProductMapper;
 import com.cskaoyan.mall.mapper.GoodsSpecificationMapper;
 import com.cskaoyan.mall.mapper.steve.SteveAddGoodsMapper;
 import com.cskaoyan.mall.mapper.steve.SteveBrandMapper;
+import com.cskaoyan.mall.vo.NewGoodAddVO;
 import com.cskaoyan.mall.vo.steve.*;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.System;
 import java.util.List;
@@ -104,42 +106,18 @@ public class GoodsServicesImpl implements GoodsServices {
         return categoryLists;
     }
 
+    @Transactional
     @Override
-    public boolean addGoods(AddGoods addGoods) {
-        //这玩意是内部类
-        //---------------------------------------
-        //每个里面呀加入一个goodid time deleted
-        //-----------------------------------------
+    public void addGoods(NewGoodAddVO newGoodAddVO) {
+        int goodId = Integer.parseInt(newGoodAddVO.getGoods().getGoodsSn());
+        goodsMapper.insertAttributes(newGoodAddVO.getAttributes(), goodId);
+        goodsMapper.insertGoods(newGoodAddVO.getGoods(),goodId);
+        goodsMapper.insertProduct(newGoodAddVO.getProducts(),goodId);
+        goodsMapper.insertSpec(newGoodAddVO.getSpecifications(),goodId);
+    }
 
-
-        //这个方法将数据分可,分别插入各个对应的表中
-
-
-        //1.将数据插入goods表中  这里需要用到typehander 要返回最后插入以后的id,给下面用
-        //steveAddGoodsMapper.insertGoods(addGoods.getGoods());
-        System.out.println(addGoods.getGoods());
-        goodsMapper.steveInsert(addGoods.getGoods());
-        System.out.println(addGoods.getGoods());
-
-
-        //2.将数据插入good_attributes表中
-        //steveAddGoodsMapper.insertGoodsAttributes(addGoods.getAttributes());
-        for (GoodsAttribute attribute : addGoods.getAttributes()) {
-            goodsAttributeMapper.insert(attribute);
-        }
-
-        //3.将数据插入products表中  这里也需要用到typehander
-        //steveAddGoodsMapper.insertProducts(addGoods.getProducts());
-        for (GoodsProduct product : addGoods.getProducts()) {
-            goodsProductMapper.insert(product);
-
-        }
-
-        //4.将数据插入specifications表中
-        //steveAddGoodsMapper.insertGoodsSpecifications(addGoods.getSpecifications());
-        for (GoodsSpecification specification : addGoods.getSpecifications()) {
-            goodsSpecificationMapper.insert(specification);
-        }
-        return true;
+    @Override
+    public void deleteGoodsById(Integer id) {
+        goodsMapper.deleteGoodsById(id);
     }
 }

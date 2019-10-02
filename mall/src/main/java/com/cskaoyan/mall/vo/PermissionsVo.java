@@ -3,15 +3,15 @@ package com.cskaoyan.mall.vo;
 import java.util.List;
 
 public class PermissionsVo {
-    private List<String> peimissions;
+    private List<String> permissions;
     private int roleId;
 
-    public List<String> getPeimissions() {
-        return peimissions;
+    public List<String> getPermissions() {
+        return permissions;
     }
 
-    public void setPeimissions(List<String> peimissions) {
-        this.peimissions = peimissions;
+    public void setPermissions(List<String> permissions) {
+        this.permissions = permissions;
     }
 
     public int getRoleId() {

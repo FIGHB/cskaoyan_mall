@@ -96,6 +96,33 @@ public class Goods {
 
     public void setGallery(String[] gallery) {
         this.gallery = gallery;
+<<<<<<< HEAD
+=======
+    }
+
+    public Boolean getOnSale() {
+        return isOnSale;
+    }
+
+    public void setOnSale(Boolean onSale) {
+        isOnSale = onSale;
+    }
+
+    public Boolean getNew() {
+        return isNew;
+    }
+
+    public void setNew(Boolean aNew) {
+        isNew = aNew;
+    }
+
+    public Boolean getHot() {
+        return isHot;
+    }
+
+    public void setHot(Boolean hot) {
+        isHot = hot;
+>>>>>>> b5f93062460e0471f4089b2d47b89ec78ba9d672
     }
 
     public String getKeywords() {

@@ -57,15 +57,6 @@ cskaoyan-mall
     git pull origin dev
     ```
 
-2. 在 xxxMapper.xml文件中用到 like 模糊查询的时候
-
-    ```
-    链接：https://blog.csdn.net/qq_20565303/article/details/75571018
-    这个时候不能使用 #{参数} 来引用会报如下错误：
-    java.sql.SQLException: Parameter index out of range (5 > number of parameters, which is 4).
-    只能改为使用 $ 符号	${参数}	但这会带来注入风险，怎么解决暂时未知...
-    ```
-
 3. 在 xxxMapper.xml 中调用查询语句时，如果不写 resultType或者 resultMap 就会出现如下错误：
 
     ```
@@ -74,4 +65,4 @@ cskaoyan-mall
 
     所以所有的查询语句必须写返回类型，不然就会在结果为空的时候报如上错误
 
-4.通过逆向工程获得的 Mapper 中如果有的包含 mysql 的关键字，则需要手动添加反引号
+3. 通过逆向工程获得的 Mapper 中如果有的包含 mysql 的关键字，则需要手动添加反引号
