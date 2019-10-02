@@ -3,9 +3,10 @@ package com.cskaoyan.mall.mapper;
 import com.cskaoyan.mall.bean.Order;
 import com.cskaoyan.mall.bean.OrderExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public interface OrderMapper {
     long countByExample(OrderExample example);
 
@@ -28,4 +29,8 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<Order> queryOrderList(@Param("userId") Integer userId,@Param("orderSn") String orderSn,@Param("orderStatusArray") Short[] orderStatusArray);
+
+    long queryOrderListTotal(@Param("userId") Integer userId,@Param("orderSn") String orderSn,@Param("orderStatusArray") Short[] orderStatusArray);
 }

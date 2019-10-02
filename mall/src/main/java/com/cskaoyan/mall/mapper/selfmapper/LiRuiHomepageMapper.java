@@ -12,6 +12,7 @@ public interface LiRuiHomepageMapper {
 
     @Select("select count(*) from cskaoyan_mall_goods")
     String countGoodsTotal();
+
     @Select("select count(*) from cskaoyan_mall_order")
     String countOrderTotal();
 

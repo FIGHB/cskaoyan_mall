@@ -45,10 +45,7 @@
             <artifactId>druid</artifactId>
             <version>1.1.12</version>
         </dependency>
-<<<<<<< HEAD
-=======
         <!-- 分页插件 -->
->>>>>>> c345d68cc2bde0a62da52e45cd338cb645db9d1d
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>

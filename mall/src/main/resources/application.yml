@@ -10,9 +10,3 @@ spring:
 
 pagehelper:
   helper-dialect: mysql
-  params: count
-  reasonable: true
-  support-methods-arguments: true
-
-
-
