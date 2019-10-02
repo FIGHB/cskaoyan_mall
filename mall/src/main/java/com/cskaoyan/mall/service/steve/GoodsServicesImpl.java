@@ -4,10 +4,12 @@ import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.mapper.GoodsMapper;
 import com.cskaoyan.mall.mapper.steve.SteveAddGoods;
 import com.cskaoyan.mall.mapper.steve.SteveBrandMapper;
+import com.cskaoyan.mall.vo.NewGoodAddVO;
 import com.cskaoyan.mall.vo.steve.*;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -98,20 +100,18 @@ public class GoodsServicesImpl implements GoodsServices {
         return categoryLists;
     }
 
+    @Transactional
     @Override
-    public boolean addGoods(AddGoods addGoods) {
-        //这个方法将数据分可,分别插入各个对应的表中
-        //1.将数据插入good_attributes表中
-        steveAddGoods.insertGoodsAttributes(addGoods.getAttributes());
+    public void addGoods(NewGoodAddVO newGoodAddVO) {
+        int goodId = Integer.parseInt(newGoodAddVO.getGoods().getGoodsSn());
+        goodsMapper.insertAttributes(newGoodAddVO.getAttributes(), goodId);
+        goodsMapper.insertGoods(newGoodAddVO.getGoods(),goodId);
+        goodsMapper.insertProduct(newGoodAddVO.getProducts(),goodId);
+        goodsMapper.insertSpec(newGoodAddVO.getSpecifications(),goodId);
+    }
 
-        //2.将数据插入goods表中  这里需要用到typehander
-        steveAddGoods.insertGoods(addGoods.getGoods());
-
-        //3.将数据插入products表中  这里也需要用到typehander
-        steveAddGoods.insertProducts(addGoods.getProducts());
-
-        //4.将数据插入specifications表中
-        steveAddGoods.insertGoodsSpecifications(addGoods.getSpecifications());
-        return true;
+    @Override
+    public void deleteGoodsById(Integer id) {
+        goodsMapper.deleteGoodsById(id);
     }
 }

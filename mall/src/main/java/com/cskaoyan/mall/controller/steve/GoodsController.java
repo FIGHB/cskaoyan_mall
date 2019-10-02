@@ -6,8 +6,10 @@ import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.service.steve.GoodsServices;
 import com.cskaoyan.mall.utils.SteveListBean;
 import com.cskaoyan.mall.vo.BaseRespVo;
+import com.cskaoyan.mall.vo.NewGoodAddVO;
 import com.cskaoyan.mall.vo.steve.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,16 +54,19 @@ public class GoodsController {
         return baseRespVo;
     }
 
+    /**
+     * 添加商品
+     * @return
+     */
     @RequestMapping("admin/goods/create")
-    public BaseRespVo addGoods(AddGoods addGoods){
-        //将接收到的数据,在services分开,分别插入数据库
-        boolean flag = goodsServices.addGoods(addGoods);
+    public BaseRespVo addGoods(@RequestBody NewGoodAddVO newGoodAddVO){
+        goodsServices.addGoods(newGoodAddVO);
+        return  BaseRespVo.ok(null);
+    }
 
-        //这里如果传成功,data里面没有值的
-        BaseRespVo baseRespVo = null;
-        if (flag){
-            BaseRespVo.ok(null);
-        }
-        return baseRespVo;
+    @RequestMapping("/admin/goods/delete")
+    public BaseRespVo deleteGoods(@RequestBody Goods goods){
+        goodsServices.deleteGoodsById(goods.getId());
+        return BaseRespVo.ok(null);
     }
 }
