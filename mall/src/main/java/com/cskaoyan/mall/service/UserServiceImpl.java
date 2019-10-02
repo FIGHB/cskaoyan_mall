@@ -2,12 +2,13 @@ package com.cskaoyan.mall.service;
 /*国旭*/
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.mapper.*;
-import com.cskaoyan.mall.vo.FeedbackGuo;
-import com.cskaoyan.mall.vo.SearchHistoryGuo;
-import com.cskaoyan.mall.vo.SearchHistoryShow;
+import com.cskaoyan.mall.vo.*;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,6 +36,32 @@ public class UserServiceImpl implements UserService{
         return users;
     }
 
+    public static UserGuo transferUserToUserGuo(User user) {
+        UserGuo userGuo = new UserGuo();
+        userGuo.setId(user.getId());
+        userGuo.setUsername(user.getUsername());
+        userGuo.setPassword(user.getPassword());
+        userGuo.setGender(user.getGender());
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String birthday = simpleDateFormat.format(user.getBirthday());
+        userGuo.setBirthday(birthday);
+        userGuo.setLastLoginIp(user.getLastLoginIp());
+        String lastLogininTime = simpleDateFormat.format(user.getLastLoginTime());
+        userGuo.setLastLoginTime(lastLogininTime);
+        userGuo.setUserLevel(user.getUserLevel());
+        userGuo.setNickname(user.getNickname());
+        userGuo.setMobile(user.getMobile());
+        userGuo.setAvatar(user.getAvatar());
+        userGuo.setWeixinOpenid(user.getWeixinOpenid());
+        userGuo.setStatus(user.getStatus());
+        String addTime = simpleDateFormat.format(user.getAddTime());
+        userGuo.setAddTime(addTime);
+        String updateTime = simpleDateFormat.format(user.getUpdateTime());
+        userGuo.setUpdateTime(updateTime);
+        userGuo.setDeleted(user.getDeleted());
+        return userGuo;
+    }
+
     @Override
     public List<Address> getAddressList() {
         AddressExample addressExample = new AddressExample();
@@ -53,6 +80,21 @@ public class UserServiceImpl implements UserService{
         return collects;
     }
 
+    public static CollectGuo transferCollectToCollectGuo(Collect collect) {
+        CollectGuo collectGuo = new CollectGuo();
+        collectGuo.setId(collect.getId());
+        collectGuo.setUserId(collect.getUserId());
+        collectGuo.setValueId(collect.getValueId());
+        collectGuo.setType(collect.getType());
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String addTime = simpleDateFormat.format(collect.getAddTime());
+        collectGuo.setAddTime(addTime);
+        collectGuo.setDeleted(collect.getDeleted());
+        String updateTime = simpleDateFormat.format(collect.getUpdateTime());
+        collectGuo.setUpdateTime(updateTime);
+        return collectGuo;
+    }
+
     @Override
     public List<Footprint> getFootPrintList() {
         FootprintExample footprintExample=new FootprintExample();
@@ -60,6 +102,20 @@ public class UserServiceImpl implements UserService{
         criteria.andIdIsNotNull();
         List<Footprint> footprints = footprintMapper.selectByExample(footprintExample);
         return footprints;
+    }
+
+    public static FootprintGuo transferFootprintToFootprintGuo(Footprint footprint) {
+        FootprintGuo footprintGuo = new FootprintGuo();
+        footprintGuo.setId(footprint.getId());
+        footprintGuo.setUserId(footprint.getUserId());
+        footprintGuo.setGoodsId(footprint.getGoodsId());
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String addTime = simpleDateFormat.format(footprint.getAddTime());
+        footprintGuo.setAddTime(addTime);
+        String updateTime = simpleDateFormat.format(footprint.getUpdateTime());
+        footprintGuo.setUpdateTime(updateTime);
+        footprintGuo.setDeleted(footprint.getDeleted());
+        return footprintGuo;
     }
 
     @Override

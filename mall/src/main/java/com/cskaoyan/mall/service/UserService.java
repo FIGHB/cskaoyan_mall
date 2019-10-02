@@ -1,8 +1,7 @@
 package com.cskaoyan.mall.service;
 
 import com.cskaoyan.mall.bean.*;
-import com.cskaoyan.mall.vo.FeedbackGuo;
-import com.cskaoyan.mall.vo.SearchHistoryGuo;
+import com.cskaoyan.mall.vo.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
