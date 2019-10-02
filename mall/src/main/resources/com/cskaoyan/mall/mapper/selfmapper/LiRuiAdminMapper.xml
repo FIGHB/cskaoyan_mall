@@ -114,7 +114,7 @@
     <select id="getStorageList" resultType="java.util.Map">
         SELECT * from cskaoyan_mall_storage
         <where>
-            <trim suffixOverrides="and">
+            <trim prefixOverrides="and">
                 <if test="name != null and name != ''">
                     name like &quot;%${name}%&quot;
                 </if>
@@ -127,16 +127,15 @@
         LIMIT #{offset}, #{limit}
     </select>
 
-    <select id="selectPermissionByRoleId" resultMap="permissionArray">
+    <select id="selectPermissionByRoleId" resultType="string">
         select permission from cskaoyan_mall_permission
         <where>
-            <if test="roleId != 1">
-                role_id = #{roleId}
-            </if>
+            <trim prefixOverrides="and">
+                <if test="roleId != 1">
+                    role_id = #{roleId}
+                </if>
+                    and role_id &gt; 1
+            </trim>
         </where>
     </select>
-
-    <resultMap id="permissionArray" type="string">
-        <id column="peimission" property="permission"/>
-    </resultMap>
 </mapper>

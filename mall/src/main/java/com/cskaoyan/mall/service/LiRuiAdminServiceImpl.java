@@ -5,6 +5,7 @@ import com.cskaoyan.mall.mapper.AdminMapper;
 import com.cskaoyan.mall.mapper.RoleMapper;
 import com.cskaoyan.mall.mapper.StorageMapper;
 import com.cskaoyan.mall.mapper.selfmapper.LiRuiAdminMapper;
+import com.cskaoyan.mall.utils.SystemPermissionUtils;
 import com.cskaoyan.mall.vo.List_AdminVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.session.SqlSession;
@@ -202,17 +203,24 @@ public class LiRuiAdminServiceImpl implements LiRuiAdminService {
 
     @Override
     public boolean addPermissions(int roleId, List<String> permissions) {
-        return false;
+        int count = 0;
+        for (String permission : permissions) {
+            int update = myAdminMapper.selectPermissionByPermission(roleId, permission);
+            if(update >= 1)count += myAdminMapper.addPermission(roleId, permission);
+        }
+        return count >= 0;
     }
 
     @Override
     public Map<String, Object> getPermissionList(String roleId) {
 
         /*中间核心部分*/
-        String[] assignedPermissions = myAdminMapper.selectPermissionByRoleId(roleId);
+        List<String> assignedPermissions = myAdminMapper.selectPermissionByRoleId(roleId);
+        //systemPermissions
+        List<Map<String, Object>> lists = SystemPermissionUtils.getSysPermission(assignedPermissions);
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("systemPermissions", "");
+        map.put("systemPermissions", lists);
         map.put("assignedPermissions", assignedPermissions);
         return map;
     }

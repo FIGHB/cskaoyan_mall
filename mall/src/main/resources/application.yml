@@ -10,3 +10,6 @@ spring:
 
 pagehelper:
   helper-dialect: mysql
+
+mybatis:
+  type-handlers-package: com.cskaoyan.mall.utils

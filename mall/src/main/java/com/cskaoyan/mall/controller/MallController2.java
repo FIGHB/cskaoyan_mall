@@ -13,20 +13,20 @@ import java.util.Map;
 @RestController
 @RequestMapping("admin")
 public class MallController2 {
-
-    @Autowired
-    MallService2 mallService2;
-
-    @RequestMapping("/category/list")
-    public BaseRespVo getCategoryList() {
-        List<Map<String, Object>> data = mallService2.getCategoryList();
-        return BaseRespVo.ok(data);
-    }
-
-    @RequestMapping("/category/l1")
-    public BaseRespVo getSimpaleCategoryList() {
-        List<Category> data = mallService2.getSimpleCategoryList();
-        return BaseRespVo.ok(data);
-    }
+//
+//    @Autowired
+//    MallService2 mallService2;
+//
+//    @RequestMapping("/category/list")
+//    public BaseRespVo getCategoryList() {
+//        List<Map<String, Object>> data = mallService2.getCategoryList();
+//        return BaseRespVo.ok(data);
+//    }
+//
+//    @RequestMapping("/category/l1")
+//    public BaseRespVo getSimpaleCategoryList() {
+//        List<Category> data = mallService2.getSimpleCategoryList();
+//        return BaseRespVo.ok(data);
+//    }
 
 }
