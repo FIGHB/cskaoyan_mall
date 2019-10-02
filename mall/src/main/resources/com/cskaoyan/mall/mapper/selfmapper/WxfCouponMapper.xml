@@ -41,26 +41,32 @@
     code, time_type, days, start_time, end_time, add_time, update_time, deleted
      from cskaoyan_mall_coupon
   </select>
-
+  <sql id="queryConditions">
+    where 1=1
+    <trim>
+      <if test="name != null or name !=''">
+        and name like '%${name}%'
+      </if>
+      <if test="type !=null">
+        and type = #{type}
+      </if>
+      <if test="status !=null">
+        and status = #{status}
+      </if>
+    </trim>
+  </sql>
   <select id="queryTotal" resultType="long">
     select count(id) from cskaoyan_mall_coupon
+    <include refid="queryConditions"/>
   </select>
 
   <select id="queryCouponByCondition" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from cskaoyan_mall_coupon
-    where name like #{name}
-    <trim>
-      <if test="coupon.type !=null">
-        and type = #{coupon.type}
-      </if>
-      <if test="coupon.status !=null">
-        and status = #{coupon.status}
-      </if>
-    </trim>
+    <include refid="queryConditions"/>
   </select>
 
-  <select id="selectLastInsert" resultType="com.cskaoyan.mall.bean.Coupon">
+  <select id="selectLastInsert" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> from cskaoyan_mall_coupon
     where id = LAST_INSERT_ID()
   </select>
@@ -137,7 +143,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="desc != null">
-        #{`desc`,jdbcType=VARCHAR},
+        #{desc,jdbcType=VARCHAR},
       </if>
       <if test="tag != null">
         #{tag,jdbcType=VARCHAR},
@@ -152,7 +158,7 @@
         #{min,jdbcType=DECIMAL},
       </if>
       <if test="limit != null">
-        #{`limit`,jdbcType=SMALLINT},
+        #{limit,jdbcType=SMALLINT},
       </if>
       <if test="type != null">
         #{type,jdbcType=SMALLINT},

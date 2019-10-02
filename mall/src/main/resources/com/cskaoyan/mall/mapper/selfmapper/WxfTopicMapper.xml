@@ -25,11 +25,11 @@
   <sql id="Blob_Column_List">
     content
   </sql>
-  <select id="selectAllTopic" resultType="com.cskaoyan.mall.bean.Topic">
+  <select id="selectAllTopic" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from cskaoyan_mall_topic
   </select>
-  <select id="queryTopicByCondition" resultType="com.cskaoyan.mall.bean.Topic">
+  <select id="queryTopicByCondition" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from cskaoyan_mall_topic
     where 1=1
@@ -55,7 +55,7 @@
     </trim>
   </select>
 
-  <select id="selectLastInsert" resultType="com.cskaoyan.mall.bean.Topic">
+  <select id="selectLastInsert" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> from cskaoyan_mall_topic
     where id = LAST_INSERT_ID()
   </select>
