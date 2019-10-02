@@ -326,4 +326,30 @@
         from cskaoyan_mall_category
         where pid = 0
     </select>
+
+  <insert id="insertCategory">
+    <selectKey resultType="int" keyProperty="category.id" keyColumn="id" order="AFTER">
+      SELECT last_insert_id()
+    </selectKey>
+    insert into cskaoyan_mall_category(`desc`,icon_url,keywords,level,name,pic_url,pid)
+    values (#{category.desc},#{category.iconUrl},#{category.keywords},#{category.level},#{category.name},#{category.picUrl},#{category.pid})
+  </insert>
+
+  <select id="queryCategoryById" resultType="com.cskaoyan.mall.bean.Category">
+    select add_time as addTime, `desc`, icon_url as iconUrl, id, keywords, level, name, pic_url as picUrl, pid, update_time as updateTime
+    from cskaoyan_mall_category
+    where id = #{id}
+  </select>
+
+  <delete id="deleteCategoryById">
+    delete
+    from cskaoyan_mall_category
+    where id = #{id}
+  </delete>
+
+  <update id="updateCategory">
+    update cskaoyan_mall_category
+    set `desc`=#{category.desc}, icon_url=#{category.iconUrl}, id=#{category.id}, keywords=#{category.keywords},level=#{category.level}, name=#{category.name},pic_url=#{category.picUrl}
+    where id = #{category.id}
+  </update>
 </mapper>
