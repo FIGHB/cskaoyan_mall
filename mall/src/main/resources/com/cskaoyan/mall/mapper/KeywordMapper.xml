@@ -282,6 +282,7 @@
       <if test="url != null">
         and url like concat('%',#{url},'%')
       </if>
+      and deleted = false
     </where>
   </select>
 
@@ -295,6 +296,7 @@
       <if test="url != null">
         and url like concat('%',#{url},'%')
       </if>
+       and deleted = false
     </where>
   </select>
 
@@ -318,9 +320,9 @@
     where id = #{keyword.id}
   </update>
 
-  <delete id="deleteKeyWordById">
-    delete
-    from cskaoyan_mall_keyword
+  <update id="deleteKeyWordById">
+    update cskaoyan_mall_keyword
+    set deleted = true
     where id = #{id}
-  </delete>
+  </update>
 </mapper>

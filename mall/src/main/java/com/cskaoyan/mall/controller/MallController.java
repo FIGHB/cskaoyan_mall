@@ -6,6 +6,7 @@ import com.cskaoyan.mall.bean.Issue;
 import com.cskaoyan.mall.bean.Keyword;
 import com.cskaoyan.mall.service.MallService;
 import com.cskaoyan.mall.vo.BaseRespVo;
+import com.cskaoyan.mall.vo.MallBean.CategoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -178,5 +179,35 @@ public class MallController {
     public BaseRespVo getSimpaleCategoryList() {
         List<Map> data = mallService.getSimpleCategoryList();
         return BaseRespVo.ok(data);
+    }
+
+    /**
+     * 周榆淮
+     * 插入类目
+     */
+    @RequestMapping("/category/create")
+    public BaseRespVo insertCategory(@RequestBody Category category){
+        Category result = mallService.insertCategory(category);
+        return BaseRespVo.ok(result);
+    }
+
+    /**
+     * 周榆淮
+     * 修改类目
+     */
+    @RequestMapping("/category/update")
+    public BaseRespVo updateCategory(@RequestBody CategoryBean categoryBean){
+        mallService.updateCategory(categoryBean);
+        return BaseRespVo.ok(null);
+    }
+
+    /**
+     * 周榆淮
+     * 商品类目删除
+     */
+    @RequestMapping("/category/delete")
+    public BaseRespVo deleteCategory(@RequestBody CategoryBean categoryBean){
+        mallService.deleteCategory(categoryBean);
+        return BaseRespVo.ok(null);
     }
 }

@@ -3,6 +3,7 @@ package com.cskaoyan.mall.service;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.utils.ListBean;
+import com.cskaoyan.mall.vo.MallBean.CategoryBean;
 import com.cskaoyan.mall.vo.MallBean.OrderDetailBean;
 import com.cskaoyan.mall.vo.MallBean.RegionBean;
 
@@ -45,4 +46,9 @@ public interface MallService {
 
      List<Map> getSimpleCategoryList();
 
+     Category insertCategory(Category category);
+
+     void deleteCategory(CategoryBean categoryBean);
+
+     void updateCategory(CategoryBean categoryBean);
 }

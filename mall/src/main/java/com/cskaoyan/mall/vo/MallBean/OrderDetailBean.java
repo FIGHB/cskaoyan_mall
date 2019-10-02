@@ -1,14 +1,13 @@
 package com.cskaoyan.mall.vo.MallBean;
 
 import com.cskaoyan.mall.bean.Order;
-import com.cskaoyan.mall.bean.OrderGoods;
 import com.cskaoyan.mall.bean.User;
 
 import java.util.List;
 
 public class OrderDetailBean {
     Order order;
-    List<OrderGoodsBean> orderGoodsList;
+    List<OrderGoodsBean> orderGoods;
     User user;
 
     public Order getOrder() {
@@ -19,12 +18,12 @@ public class OrderDetailBean {
         this.order = order;
     }
 
-    public List<OrderGoodsBean> getOrderGoodsList() {
-        return orderGoodsList;
+    public List<OrderGoodsBean> getOrderGoods() {
+        return orderGoods;
     }
 
-    public void setOrderGoodsList(List<OrderGoodsBean> orderGoodsList) {
-        this.orderGoodsList = orderGoodsList;
+    public void setOrderGoodsList(List<OrderGoodsBean> orderGoods) {
+        this.orderGoods = orderGoods;
     }
 
     public User getUser() {

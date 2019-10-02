@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
     public List<User> getUserList() {
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
-        criteria.andIdIsNotNull();
+        criteria.andIdIsNotNull().andDeletedEqualTo(false);
         List<User> users = userMapper.selectByExample(userExample);
         return users;
     }
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService{
     public List<Address> getAddressList() {
         AddressExample addressExample = new AddressExample();
         AddressExample.Criteria criteria = addressExample.createCriteria();
-        criteria.andIdIsNotNull();
+        criteria.andIdIsNotNull().andDeletedEqualTo(false);
         List<Address> addresses = addressMapper.selectByExample(addressExample);
         return addresses;
     }
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
     public List<Collect> getConlectList() {
         CollectExample collectExample=new CollectExample();
         CollectExample.Criteria criteria = collectExample.createCriteria();
-        criteria.andIdIsNotNull();
+        criteria.andIdIsNotNull().andDeletedEqualTo(false);
         List<Collect> collects=collectMapper.selectByExample(collectExample);
         return collects;
     }
@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService{
     public List<Footprint> getFootPrintList() {
         FootprintExample footprintExample=new FootprintExample();
         FootprintExample.Criteria criteria = footprintExample.createCriteria();
-        criteria.andIdIsNotNull();
+        criteria.andIdIsNotNull().andDeletedEqualTo(false);
         List<Footprint> footprints = footprintMapper.selectByExample(footprintExample);
         return footprints;
     }
@@ -139,11 +139,11 @@ public class UserServiceImpl implements UserService{
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
         if (mobile==null){
-            criteria.andUsernameLike("%"+username+"%");
+            criteria.andUsernameLike("%"+username+"%").andDeletedEqualTo(false);
         }else if(username==null){
-            criteria.andMobileLike("%"+mobile+"%");
+            criteria.andMobileLike("%"+mobile+"%").andDeletedEqualTo(false);
         }else {
-            criteria.andUsernameLike("%"+username+"%").andMobileLike("%"+mobile+"%");
+            criteria.andUsernameLike("%"+username+"%").andMobileLike("%"+mobile+"%").andDeletedEqualTo(false);
         }
         List<User> users = userMapper.selectByExample(userExample);
         return users;
@@ -154,11 +154,11 @@ public class UserServiceImpl implements UserService{
         AddressExample addressExample = new AddressExample();
         AddressExample.Criteria criteria = addressExample.createCriteria();
         if(userId==null){
-            criteria.andNameLike("%"+name+"%");
+            criteria.andNameLike("%"+name+"%").andDeletedEqualTo(false);
         }else if (name==null){
-            criteria.andUserIdEqualTo(userId);
+            criteria.andUserIdEqualTo(userId).andDeletedEqualTo(false);
         }else {
-            criteria.andNameLike("%"+name+"%").andUserIdEqualTo(userId);
+            criteria.andNameLike("%"+name+"%").andUserIdEqualTo(userId).andDeletedEqualTo(false);
         }
         List<Address> addresses = addressMapper.selectByExample(addressExample);
         return addresses;
@@ -169,11 +169,11 @@ public class UserServiceImpl implements UserService{
         CollectExample collectExample = new CollectExample();
         CollectExample.Criteria criteria = collectExample.createCriteria();
         if(valueId!=null&&userId!=null){
-            criteria.andValueIdEqualTo(valueId).andUserIdEqualTo(userId);
+            criteria.andValueIdEqualTo(valueId).andUserIdEqualTo(userId).andDeletedEqualTo(false);
         }else if(userId==null&&valueId!=null){
-            criteria.andValueIdEqualTo(valueId);
+            criteria.andValueIdEqualTo(valueId).andDeletedEqualTo(false);
         }else{
-            criteria.andValueIdEqualTo(userId);
+            criteria.andValueIdEqualTo(userId).andDeletedEqualTo(false);
         }
         List<Collect> collects = collectMapper.selectByExample(collectExample);
         return collects;
@@ -184,11 +184,11 @@ public class UserServiceImpl implements UserService{
         FootprintExample footprintExample = new FootprintExample();
         FootprintExample.Criteria criteria = footprintExample.createCriteria();
         if(goodsId!=null&&userId!=null){
-            criteria.andGoodsIdEqualTo(goodsId).andUserIdEqualTo(userId);
+            criteria.andGoodsIdEqualTo(goodsId).andUserIdEqualTo(userId).andDeletedEqualTo(false);
         }else if(goodsId==null&&userId!=null){
-            criteria.andUserIdEqualTo(userId);
+            criteria.andUserIdEqualTo(userId).andDeletedEqualTo(false);
         }else {
-            criteria.andGoodsIdEqualTo(goodsId);
+            criteria.andGoodsIdEqualTo(goodsId).andDeletedEqualTo(false);
         }
         List<Footprint> footprints = footprintMapper.selectByExample(footprintExample);
         return footprints;

@@ -4,6 +4,7 @@ package com.cskaoyan.mall.service;
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.mapper.*;
 import com.cskaoyan.mall.utils.ListBean;
+import com.cskaoyan.mall.vo.MallBean.CategoryBean;
 import com.cskaoyan.mall.vo.MallBean.OrderDetailBean;
 import com.cskaoyan.mall.vo.MallBean.RegionBean;
 import com.github.pagehelper.PageHelper;
@@ -108,6 +109,28 @@ public class MallServiceImpl implements MallService {
     public List<Map> getSimpleCategoryList() {
         List<Map> categories =  categoryMapper.selectSimpleCategoryList();
         return categories;
+    }
+
+    @Override
+    public Category insertCategory(Category category) {
+        int result = categoryMapper.insertCategory(category);
+        int id = category.getId();
+        return categoryMapper.queryCategoryById(id);
+    }
+
+    @Override
+    public void deleteCategory(CategoryBean categoryBean) {
+        if (categoryBean.getChildren() != null){
+            for (Category category : categoryBean.getChildren()){
+                categoryMapper.deleteCategoryById(category.getId());
+            }
+        }
+        categoryMapper.deleteCategoryById(categoryBean.getId());
+    }
+
+    @Override
+    public void updateCategory(CategoryBean categoryBean) {
+        categoryMapper.updateCategory(categoryBean);
     }
 
     @Override
