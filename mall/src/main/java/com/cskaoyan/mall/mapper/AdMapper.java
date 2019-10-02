@@ -17,7 +17,7 @@ public interface AdMapper {
 
     int insertSelective(Ad record);
 
-    Ad[] selectAllAd();
+
 
     Ad selectByContent(@Param("content") String content);
 

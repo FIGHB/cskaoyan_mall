@@ -74,8 +74,8 @@
     id, key, name, type, size, url, add_time, update_time, deleted
   </sql>
   <select id="selectByKey" resultType="com.cskaoyan.mall.bean.Storage">
-    select id, key, name, type, size, url, add_time, update_time from cskaoyan_mall_storage
-    where key = #{key}
+    select id, `key`, name, type, size, url, add_time, update_time from cskaoyan_mall_storage
+    where `key` = #{key}
   </select>
   <select id="selectByExample" parameterType="com.cskaoyan.mall.bean.StorageExample" resultMap="BaseResultMap">
     select
@@ -122,7 +122,7 @@
         id,
       </if>
       <if test="key != null">
-        key,
+        `key`,
       </if>
       <if test="name != null">
         name,

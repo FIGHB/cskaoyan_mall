@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 
+/**
+ * @author 李锐、周榆淮
+ */
 @RestController
 public class AuthController {
 
@@ -39,5 +42,4 @@ public class AuthController {
         BaseRespVo ok = BaseRespVo.ok(userInfo);
         return ok;
     }
-
 }

@@ -5,7 +5,12 @@ import com.cskaoyan.mall.vo.BaseRespVo;
 
 public interface AdService {
     BaseRespVo queryAllAd(int start, int limit);
+
     BaseRespVo insert(Ad ad);
 
     BaseRespVo update(Ad ad);
+
+    BaseRespVo delete(Ad ad);
+
+    BaseRespVo queryByNameAndContent(int start, int limit,Ad ad);
 }
