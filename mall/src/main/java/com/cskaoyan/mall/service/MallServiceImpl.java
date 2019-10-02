@@ -1,10 +1,10 @@
 package com.cskaoyan.mall.service;
 
 
-import com.cskaoyan.mall.bean.Brand;
-import com.cskaoyan.mall.mapper.BrandMapper;
-import com.cskaoyan.mall.mapper.RegionMapper;
+import com.cskaoyan.mall.bean.*;
+import com.cskaoyan.mall.mapper.*;
 import com.cskaoyan.mall.utils.ListBean;
+import com.cskaoyan.mall.vo.MallBean.OrderDetailBean;
 import com.cskaoyan.mall.vo.MallBean.RegionBean;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +12,22 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MallServiceImpl implements MallService {
     @Autowired
     RegionMapper regionMapper;
-
     @Autowired
     BrandMapper brandMapper;
+    @Autowired
+    OrderMapper orderMapper;
+    @Autowired
+    IssueMapper issueMapper;
+    @Autowired
+    KeywordMapper keywordMapper;
+    @Autowired
+    CategoryMapper categoryMapper;
 
     @Override
     public List queryRegionList() {
@@ -62,4 +70,101 @@ public class MallServiceImpl implements MallService {
     public void deleteBrand(Integer id) {
         brandMapper.deleteBrandById(id);
     }
+
+    @Override
+    public ListBean<Order> queryOrderList(int page, int limit, String sort, String order, Integer userId,String orderSn,Short[] orderStatusArray) {
+        String orderBy = String.format("%s %s",sort,order);
+        PageHelper.startPage(page, limit, orderBy);
+        List<Order> orderList = orderMapper.queryOrderList(userId, orderSn, orderStatusArray);
+        long total = orderMapper.queryOrderListTotal(userId, orderSn, orderStatusArray);
+        ListBean<Order> orderListBean = new ListBean<>(orderList, total);
+        return orderListBean;
+    }
+
+    @Override
+    public OrderDetailBean queryOrderDetail(int id) {
+        OrderDetailBean orderDetailBean = new OrderDetailBean();
+        Order order = orderMapper.queryOrderById(id);
+        orderDetailBean.setOrder(order);
+        orderDetailBean.setOrderGoodsList(orderMapper.queryOrderGoodsListByOrderId(id));
+        orderDetailBean.setUser(orderMapper.queryUserById(order.getUserId()));
+        return orderDetailBean;
+    }
+
+    @Override
+    public List<Map<String, Object>> getCategoryList() {
+        //查取 pid 为0 的列表
+        List<Map<String, Object>> categories =  categoryMapper.selectCategoryListByPid(0);
+        //循环该列表，查询每一个的子列表   pid = id，并放在chriden这个 list 下
+        for (Map category : categories) {
+            int id = Integer.parseInt(category.get("id").toString());
+            List<Map<String, Object>> children = categoryMapper.selectCategoryListByPid(id);
+            category.put("children", children);
+        }
+        return categories;
+    }
+
+    @Override
+    public List<Map> getSimpleCategoryList() {
+        List<Map> categories =  categoryMapper.selectSimpleCategoryList();
+        return categories;
+    }
+
+    @Override
+    public ListBean<Issue> queryIssueList(int page, int limit, String sort, String order, String question) {
+        String orderBy = String.format("%s %s",sort,order);
+        PageHelper.startPage(page, limit, orderBy);
+        List<Issue> issueList = issueMapper.queryIssueList(question);
+        long total = issueMapper.queryIssueListTotal(question);
+        ListBean<Issue> issueListBean = new ListBean<>(issueList, total);
+        return issueListBean;
+    }
+
+    @Override
+    public Issue insertIssueList(Issue issue) {
+        int result = issueMapper.insertIssueList(issue);
+        int id = issue.getId();
+        return issueMapper.queryIssueById(id);
+    }
+
+    @Override
+    public Issue updateIssue(Issue issue) {
+        issueMapper.updateIssue(issue);
+        return issueMapper.queryIssueById(issue.getId());
+    }
+
+    @Override
+    public void deleteIssue(Integer id) {
+        issueMapper.deleteIssueById(id);
+    }
+
+    @Override
+    public ListBean<Keyword> queryKeyWordList(int page, int limit, String sort, String order, String keyword, String url) {
+        String orderBy = String.format("%s %s",sort,order);
+        PageHelper.startPage(page, limit, orderBy);
+        List<Keyword> keywordList = keywordMapper.queryKeyWordList(keyword, url);
+        long total = keywordMapper.queryKeyWordListTotal(keyword, url);
+        ListBean<Keyword> keywordListBean = new ListBean<>(keywordList, total);
+        return keywordListBean;
+    }
+
+    @Override
+    public Keyword insertKeyWordList(Keyword keyword) {
+        int result = keywordMapper.insertKeyWordList(keyword);
+        int id = keyword.getId();
+        return keywordMapper.queryKeyWordById(id);
+    }
+
+    @Override
+    public Keyword updateKeyWord(Keyword keyword) {
+        keywordMapper.updateKeyWord(keyword);
+        return keywordMapper.queryKeyWordById(keyword.getId());
+    }
+
+    @Override
+    public void deleteKeyWord(Integer id) {
+        keywordMapper.deleteKeyWordById(id);
+    }
+
+
 }

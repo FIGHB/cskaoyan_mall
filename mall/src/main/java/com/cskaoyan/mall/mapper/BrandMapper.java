@@ -2,6 +2,7 @@ package com.cskaoyan.mall.mapper;
 
 import com.cskaoyan.mall.bean.Brand;
 import com.cskaoyan.mall.bean.BrandExample;
+import com.cskaoyan.mall.bean.Issue;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
