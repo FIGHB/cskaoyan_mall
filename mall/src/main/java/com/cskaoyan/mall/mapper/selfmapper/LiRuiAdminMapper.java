@@ -2,6 +2,7 @@ package com.cskaoyan.mall.mapper.selfmapper;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.vo.List_AdminVo;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -58,5 +59,11 @@ public interface LiRuiAdminMapper {
     @Select("select count(*) from cskaoyan_mall_storage")
     int selectCountStorage();
 
-    String[] selectPermissionByRoleId(String roleId);
+    List<String> selectPermissionByRoleId(String roleId);
+
+    @Select("select count(*) from cskaoyan_mall_permission where role_id = #{roleId} and permission = #{permission}")
+    int selectPermissionByPermission(int roleId, String permission);
+
+    @Insert("insert into cskaoyan_mall_permission (role_id,permission) values (#{roleId}, #{permission})")
+    int addPermission(int roleId, String permission);
 }

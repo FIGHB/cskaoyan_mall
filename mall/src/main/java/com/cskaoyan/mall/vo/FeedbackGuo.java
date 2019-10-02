@@ -1,5 +1,7 @@
 package com.cskaoyan.mall.vo;
 
+import java.util.Arrays;
+
 /*国旭*/
 public class FeedbackGuo {
     private Integer id;
@@ -10,7 +12,7 @@ public class FeedbackGuo {
     private String content;
     private Integer status;
     private Boolean hasPicture;
-    private String picUrls;
+    private String[] picUrls;
     private String addTime;
     private String updateTime;
     private Boolean deleted;
@@ -79,11 +81,12 @@ public class FeedbackGuo {
         this.hasPicture = hasPicture;
     }
 
-    public String getPicUrls() {
+
+    public String[] getPicUrls() {
         return picUrls;
     }
 
-    public void setPicUrls(String picUrls) {
+    public void setPicUrls(String[] picUrls) {
         this.picUrls = picUrls;
     }
 
@@ -122,7 +125,7 @@ public class FeedbackGuo {
                 ", content='" + content + '\'' +
                 ", status=" + status +
                 ", hasPicture=" + hasPicture +
-                ", picUrls='" + picUrls + '\'' +
+                ", picUrls=" + Arrays.toString(picUrls) +
                 ", addTime='" + addTime + '\'' +
                 ", updateTime='" + updateTime + '\'' +
                 ", deleted=" + deleted +
