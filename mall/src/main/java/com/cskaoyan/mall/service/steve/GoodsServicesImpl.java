@@ -1,14 +1,18 @@
 package com.cskaoyan.mall.service.steve;
 
 import com.cskaoyan.mall.bean.*;
+import com.cskaoyan.mall.mapper.GoodsAttributeMapper;
 import com.cskaoyan.mall.mapper.GoodsMapper;
-import com.cskaoyan.mall.mapper.steve.SteveAddGoods;
+import com.cskaoyan.mall.mapper.GoodsProductMapper;
+import com.cskaoyan.mall.mapper.GoodsSpecificationMapper;
+import com.cskaoyan.mall.mapper.steve.SteveAddGoodsMapper;
 import com.cskaoyan.mall.mapper.steve.SteveBrandMapper;
 import com.cskaoyan.mall.vo.steve.*;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.System;
 import java.util.List;
 
 /**
@@ -21,8 +25,16 @@ public class GoodsServicesImpl implements GoodsServices {
     GoodsMapper goodsMapper;
     @Autowired
     SteveBrandMapper steveBrandMapper;
+    //@Autowired
+    //SteveAddGoodsMapper steveAddGoodsMapper;
+
+    //下面的用逆向工程里面的自动生成
     @Autowired
-    SteveAddGoods steveAddGoods;
+    GoodsAttributeMapper goodsAttributeMapper;
+    @Autowired
+    GoodsSpecificationMapper goodsSpecificationMapper;
+    @Autowired
+    GoodsProductMapper goodsProductMapper;
 
     @Override
     public List<Goods> queryGoods(SteveGoods steveGoods) {
@@ -36,13 +48,13 @@ public class GoodsServicesImpl implements GoodsServices {
 
         if ((steveGoods.getGoodsSn() != null && (!"".equals(steveGoods.getGoodsSn().trim())))
                 && (steveGoods.getName() != null) && (!"".equals(steveGoods.getName().trim()))) {
-            criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn()).andNameLike("%" + steveGoods.getName() + "%");
+            criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn()).andNameLike("%" + steveGoods.getName() + "%").andDeletedEqualTo(false);
         } else if (((steveGoods.getGoodsSn() == null ) || ("".equals(steveGoods.getGoodsSn().trim())))
                 && (steveGoods.getName() != null) && (!"".equals(steveGoods.getName().trim()))) {
-            criteria.andNameLike("%" + steveGoods.getName() + "%");
+            criteria.andNameLike("%" + steveGoods.getName() + "%").andDeletedEqualTo(false);
         } else if ((steveGoods.getGoodsSn() != null) && (!"".equals(steveGoods.getGoodsSn().trim()))
                 && ((steveGoods.getName() == null) || "".equals(steveGoods.getName().trim()))) {
-            criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn());
+            criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn()).andDeletedEqualTo(false);
         }
 
         List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
@@ -89,29 +101,45 @@ public class GoodsServicesImpl implements GoodsServices {
         //首先查出来category 根据数据库中的pid等于0,查出所有的分类
         List<ForCategory> categoryLists = steveBrandMapper.queryCategory(0);
 
-        //然后遍历catagoryList,根据每一个id,查出来他的子id
-        /*for (ForCategory category : categoryLists) {
-            //根据每一个id,查出来所有子类
-            List<CategoryChildren> categoryChildrenList = steveBrandMapper.queryCategoryChildren(category.getValue());
-            category.setChildren(categoryChildrenList);
-        }*/
         return categoryLists;
     }
 
     @Override
     public boolean addGoods(AddGoods addGoods) {
-        //这个方法将数据分可,分别插入各个对应的表中
-        //1.将数据插入good_attributes表中
-        steveAddGoods.insertGoodsAttributes(addGoods.getAttributes());
+        //这玩意是内部类
+        //---------------------------------------
+        //每个里面呀加入一个goodid time deleted
+        //-----------------------------------------
 
-        //2.将数据插入goods表中  这里需要用到typehander
-        steveAddGoods.insertGoods(addGoods.getGoods());
+
+        //这个方法将数据分可,分别插入各个对应的表中
+
+
+        //1.将数据插入goods表中  这里需要用到typehander 要返回最后插入以后的id,给下面用
+        //steveAddGoodsMapper.insertGoods(addGoods.getGoods());
+        System.out.println(addGoods.getGoods());
+        goodsMapper.steveInsert(addGoods.getGoods());
+        System.out.println(addGoods.getGoods());
+
+
+        //2.将数据插入good_attributes表中
+        //steveAddGoodsMapper.insertGoodsAttributes(addGoods.getAttributes());
+        for (GoodsAttribute attribute : addGoods.getAttributes()) {
+            goodsAttributeMapper.insert(attribute);
+        }
 
         //3.将数据插入products表中  这里也需要用到typehander
-        steveAddGoods.insertProducts(addGoods.getProducts());
+        //steveAddGoodsMapper.insertProducts(addGoods.getProducts());
+        for (GoodsProduct product : addGoods.getProducts()) {
+            goodsProductMapper.insert(product);
+
+        }
 
         //4.将数据插入specifications表中
-        steveAddGoods.insertGoodsSpecifications(addGoods.getSpecifications());
+        //steveAddGoodsMapper.insertGoodsSpecifications(addGoods.getSpecifications());
+        for (GoodsSpecification specification : addGoods.getSpecifications()) {
+            goodsSpecificationMapper.insert(specification);
+        }
         return true;
     }
 }

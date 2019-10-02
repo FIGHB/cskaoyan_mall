@@ -6,18 +6,20 @@ import com.cskaoyan.mall.vo.steve.GoodsProductForAddGoods;
 import com.cskaoyan.mall.vo.steve.GoodsSpecificationForAddGoods;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Steve
  * @date 2019/10/2-15:15
  */
 @Repository
-public interface SteveAddGoods {
+public interface SteveAddGoodsMapper {
 
-    void insertGoodsAttributes(GoodsAttributeForAddGoods attributes);
+    void insertGoodsAttributes(List<GoodsAttributeForAddGoods> attributes);
 
     void insertGoods(GoodsForAddGoods goods);
 
-    void insertProducts(GoodsProductForAddGoods products);
+    void insertProducts(List<GoodsProductForAddGoods> products);
 
-    void insertGoodsSpecifications(GoodsSpecificationForAddGoods specifications);
+    void insertGoodsSpecifications(List<GoodsSpecificationForAddGoods> specifications);
 }

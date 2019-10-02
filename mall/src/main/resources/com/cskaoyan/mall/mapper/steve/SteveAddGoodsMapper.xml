@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mall.mapper.steve.SteveAddGoods">
-    <insert id="insertUser">
-        insert into cskaoyanmall () value
-        (#{user.username},#{user.password},#{user.age},#{user.gender},
-        #{user.hobbys,typeHandler=com.cskaoyan.mybatis.TransferStringArrayHandler},
-        #{user.userDetail,typeHandler=com.cskaoyan.mybatis.TransferUserDetailHandler})
+<mapper namespace="com.cskaoyan.mall.mapper.steve.SteveAddGoodsMapper">
+    <insert id="insertGoodsAttributes">
+        insert into cskaoyan_mall_goods_attribute (attribute,`value`) values
+        <foreach collection="list" item="attributes" separator=",">
+            (#{attribute.attribute},#{attribute.value})
+        </foreach>
+    </insert>
+    <insert id="insertGoods">
+        insert into cskaoyan_mall_goods (brand_id,brief,category_id,counter_price,detail,gallery
+        ,goods_sn,is_hot,is_new,is_on_sale,keywords,`name`,pic_url,retail_price,unit) values
+        (#{goods.brandId},#{goods.brief},#{goods.categoryId},#{goods.counterPrice},
+        #{goods.detail},#{goods.gallery,typeHandler=com.cskaoyan.mall.utils.TransferToStringArrayHandler},
+        #{goods.goodsSn},#{goods.isHot},#{goods.isNew},#{goods.isOnSale},
+        #{goods.keywords},#{goods.name},#{goods.picUrl},#{goods.retailPrice},#{goods.unit})
+    </insert>
+    <insert id="insertProducts">
+        insert into cskaoyan_mall_goods_product (`number`,price,specifications,url) values
+        <foreach collection="list" item="products" separator=",">
+            (#{products.number},#{products.price},
+            #{products.specifications,typeHandler=com.cskaoyan.mall.utils.TransferToStringArrayHandler},
+            #{products.url})
+        </foreach>
+    </insert>
+    <insert id="insertGoodsSpecifications">
+        insert into cskaoyan_mall_goods_specification (pic_url,specification,`value`) values
+        <foreach collection="list" item="specifications" separator=",">
+            (#{specifications.picUrl},#{specifications.specification},#{specifications.value})
+        </foreach>
     </insert>
 </mapper>

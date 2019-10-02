@@ -15,6 +15,9 @@ public interface GoodsMapper {
 
     int insert(Goods record);
 
+    //steve 2019.10.2
+    int steveInsert(@Param("record") Goods record);
+
     int insertSelective(Goods record);
 
     List<Goods> selectByExampleWithBLOBs(GoodsExample example);
