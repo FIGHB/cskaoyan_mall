@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/*国旭*/
 @MappedTypes(String[].class)
 public class TransferToStringArrayHandler implements TypeHandler<String[]> {
 
