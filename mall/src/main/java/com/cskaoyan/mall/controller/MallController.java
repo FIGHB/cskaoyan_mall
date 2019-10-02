@@ -1,6 +1,7 @@
 package com.cskaoyan.mall.controller;
 
 import com.cskaoyan.mall.bean.Brand;
+import com.cskaoyan.mall.bean.Category;
 import com.cskaoyan.mall.bean.Issue;
 import com.cskaoyan.mall.bean.Keyword;
 import com.cskaoyan.mall.service.MallService;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("admin")
@@ -73,6 +76,15 @@ public class MallController {
     @RequestMapping("/order/list")
     public BaseRespVo queryOrderList(int page,int limit,String sort,String order,Integer userId,String orderSn,Short[] orderStatusArray){
         return BaseRespVo.ok(mallService.queryOrderList(page, limit, sort, order,userId,orderSn,orderStatusArray));
+    }
+
+    /**
+     * 周榆淮
+     * 查看订单详情
+     */
+    @RequestMapping("/order/detail")
+    public BaseRespVo queryOrderDetail(int id){
+        return BaseRespVo.ok(mallService.queryOrderDetail(id));
     }
 
     /**
@@ -150,5 +162,21 @@ public class MallController {
     public BaseRespVo deleteKeyWord(@RequestBody Keyword keyword){
         mallService.deleteKeyWord(keyword.getId());
         return BaseRespVo.ok(null);
+    }
+
+    /**
+     * 李锐
+     * 商品类目查看
+     * @return
+     */
+    @RequestMapping("/category/list")
+    public BaseRespVo getCategoryList() {
+        List<Map<String, Object>> data = mallService.getCategoryList();
+        return BaseRespVo.ok(data);
+    }
+    @RequestMapping("/category/l1")
+    public BaseRespVo getSimpaleCategoryList() {
+        List<Category> data = mallService.getSimpleCategoryList();
+        return BaseRespVo.ok(data);
     }
 }
