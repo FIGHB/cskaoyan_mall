@@ -3,9 +3,11 @@ package com.cskaoyan.mall.mapper;
 import com.cskaoyan.mall.bean.Storage;
 import com.cskaoyan.mall.bean.StorageExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface StorageMapper {
     long countByExample(StorageExample example);
 
@@ -28,4 +30,6 @@ public interface StorageMapper {
     int updateByPrimaryKeySelective(Storage record);
 
     int updateByPrimaryKey(Storage record);
+
+    Storage selectByKey(@Param("key") String key);
 }

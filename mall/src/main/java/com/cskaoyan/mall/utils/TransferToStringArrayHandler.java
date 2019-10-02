@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.transfer;
+package com.cskaoyan.mall.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

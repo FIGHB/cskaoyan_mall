@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.selfmapper.WxfAdMapper">
+
+  <resultMap id="BaseResultMap" type="com.cskaoyan.mall.bean.Ad">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="link" jdbcType="VARCHAR" property="link" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="position" jdbcType="TINYINT" property="position" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, link, url, position, content, start_time, end_time, enabled, add_time,
+    update_time, deleted
+  </sql>
+
+  <select id="selectAllAd" resultType="com.cskaoyan.mall.bean.Ad">
+    select <include refid="Base_Column_List"/> from cskaoyan_mall_ad
+  </select>
+
+  <select id="selectByAddTime" resultType="com.cskaoyan.mall.bean.Ad">
+    select <include refid="Base_Column_List"/> from cskaoyan_mall_ad
+    where add_time = #{add_time}
+  </select>
+
+  <select id="selectLastInsert" resultType="com.cskaoyan.mall.bean.Ad">
+    select <include refid="Base_Column_List"/> from cskaoyan_mall_ad
+    where id = LAST_INSERT_ID()
+  </select>
+
+  <select id="queryByNameAndContent" resultType="com.cskaoyan.mall.bean.Ad">
+    select <include refid="Base_Column_List"/> from cskaoyan_mall_ad
+    where name like #{name} and content like #{content}
+  </select>
+
+  <select id="queryTotal" resultType="long">
+    select count(id) from cskaoyan_mall_coupon
+  </select>
+
+
+
+
+</mapper>
