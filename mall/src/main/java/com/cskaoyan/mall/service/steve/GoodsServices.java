@@ -22,7 +22,7 @@ public interface GoodsServices {
 
     List<ForCategory> queryCategory();
 
-    void addGoods(NewGoodAddVO newGoodAddVO);
+    int addGoods(NewGoodAddVO newGoodAddVO);
 
     void deleteGoodsById(Integer id);
 }
