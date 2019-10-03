@@ -2,6 +2,8 @@ package com.cskaoyan.mall.controller;
 
 import com.cskaoyan.mall.bean.GrouponRules;
 import com.cskaoyan.mall.service.GrouponService;
+import com.cskaoyan.mall.utils.GetString;
+import com.cskaoyan.mall.utils.IsNumber;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +15,16 @@ public class GrouponController {
     @Autowired
     GrouponService grouponService;
     @RequestMapping("/admin/groupon/list")
-    public BaseRespVo grouponList(int page, int limit, GrouponRules grouponRules){
+    public BaseRespVo grouponList(int page, int limit, GetString getString){
+        GrouponRules grouponRules = new GrouponRules();
+        String goodsId = getString.getGoodsId();
+        if(goodsId!=null){
+            if(IsNumber.isNumber(goodsId)) {
+                grouponRules.setGoodsId(Integer.parseInt(goodsId));
+            }else {
+                return BaseRespVo.fail(401, "参数不对");
+            }
+        }
         BaseRespVo baseRespVo = grouponService.selectAllGroupon(page,limit, grouponRules);
         return baseRespVo;
     }
@@ -37,7 +48,16 @@ public class GrouponController {
     }
 
     @RequestMapping("/admin/groupon/listRecord")
-    public BaseRespVo listRecord(int page,int limit,GrouponRules grouponRules){
+    public BaseRespVo listRecord(int page,int limit,GetString getString){
+        GrouponRules grouponRules = new GrouponRules();
+        String goodsId = getString.getGoodsId();
+        if(goodsId!=null){
+            if(IsNumber.isNumber(goodsId)) {
+                grouponRules.setGoodsId(Integer.parseInt(goodsId));
+            }else {
+                return BaseRespVo.fail(401, "参数不对");
+            }
+        }
         BaseRespVo baseRespVo = grouponService.listRecord(page,limit,grouponRules);
         return baseRespVo;
     }
