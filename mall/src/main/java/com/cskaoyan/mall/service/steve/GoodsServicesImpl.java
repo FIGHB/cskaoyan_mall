@@ -9,11 +9,12 @@ import com.cskaoyan.mall.mapper.steve.SteveBrandMapper;
 import com.cskaoyan.mall.vo.NewGoodAddVO;
 import com.cskaoyan.mall.vo.steve.*;
 import com.github.pagehelper.PageHelper;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.System;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -104,15 +105,34 @@ public class GoodsServicesImpl implements GoodsServices {
     @Override
     public int addGoods(NewGoodAddVO newGoodAddVO) {
         int goodId = Integer.parseInt(newGoodAddVO.getGoods().getGoodsSn());
-        goodsMapper.insertAttributes(newGoodAddVO.getAttributes(), goodId);
+        if (!newGoodAddVO.getAttributes().isEmpty()) {
+            goodsMapper.insertAttributes(newGoodAddVO.getAttributes(), goodId);
+
+        }
+        //数据校验
         try {
-            goodsMapper.insertGoods(newGoodAddVO.getGoods(), goodId);
-        }catch (Exception e){
+            Goods goods = newGoodAddVO.getGoods();
+            if (goods.getGoodsSn() != null && goods.getName() != null && goods.getCategoryId() != null
+                    && goods.getBrandId() != null && goods.getGallery() != null && goods.getKeywords() != null
+                    && goods.getPicUrl() != null && goods.getCounterPrice() != null
+                    && goods.getRetailPrice() != null && goods.getUnit() != null && goods.getDetail() != null
+                    && goods.getBrief() != null
+            ) {
+                goodsMapper.insertGoods(newGoodAddVO.getGoods(), goodId);
+            } else {
+                System.out.println(goods);
+                return 3;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             return 1;
         }
-        goodsMapper.insertProduct(newGoodAddVO.getProducts(), goodId);
-        goodsMapper.insertSpec(newGoodAddVO.getSpecifications(), goodId);
+        if (!newGoodAddVO.getProducts().isEmpty()) {
+            goodsMapper.insertProduct(newGoodAddVO.getProducts(), goodId);
+        }
+        if (!newGoodAddVO.getSpecifications().isEmpty()) {
+            goodsMapper.insertSpec(newGoodAddVO.getSpecifications(), goodId);
+        }
         return 0;
     }
 
@@ -121,28 +141,106 @@ public class GoodsServicesImpl implements GoodsServices {
         goodsMapper.deleteGoodsById(id);
     }
 
-    /*@Transactional
+    @Transactional
     @Override
     public int updateGoods(NewGoodAddVO newGoodAddVO) {
         int goodId = Integer.parseInt(newGoodAddVO.getGoods().getGoodsSn());
-
-        for (GoodsAttribute attribute : newGoodAddVO.getAttributes()) {
-            goodsAttributeMapper.updateByPrimaryKey(attribute);
+        if (Integer.parseInt(newGoodAddVO.getGoods().getGoodsSn()) == goodId) {
+            Goods goods = newGoodAddVO.getGoods();
+            if (goods.getGoodsSn() == null || goods.getName() == null || goods.getCategoryId() == null
+                    || goods.getBrandId() == null || goods.getGallery() == null || goods.getKeywords() == null
+                    || goods.getPicUrl() == null || goods.getCounterPrice() == null
+                    || goods.getRetailPrice() == null || goods.getUnit() == null || goods.getDetail() == null
+                    || goods.getBrief() == null
+            ) {
+                return 3;
+            } else {
+                newGoodAddVO.getGoods().setUpdateTime(new Date());
+                goodsMapper.updateByPrimaryKey(newGoodAddVO.getGoods());
+            }
         }
 
-        if (newGoodAddVO.getAttributes().get(0).equals(newGoodAddVO.getGoods().getId())){
-            goodsMapper.updateByPrimaryKey(newGoodAddVO.getGoods());
-        }else {
-            return 2;
+        //对product进行操作
+        List<GoodsProduct> goodsProductList = null;
+        if (newGoodAddVO.getProducts().get(0).getGoodsId() != null) {
+            GoodsProductExample goodsProductExample = new GoodsProductExample();
+            GoodsProductExample.Criteria criteria = goodsProductExample.createCriteria();
+            criteria.andGoodsIdEqualTo(goodId);
+            goodsProductList = goodsProductMapper.selectByExample(goodsProductExample);
+            //还需要将查出来的所有的数据,deleted写成0
+            for (GoodsProduct goodsProduct : goodsProductList) {
+                goodsProduct.setDeleted(true);
+                goodsProductMapper.updateByPrimaryKey(goodsProduct);
+            }
+            //这里判断是要插入还是update
+            for (GoodsProduct goodsProduct : newGoodAddVO.getProducts()) {
+                if (goodsProduct.getAddTime() != null) {
+                    //goodsProduct.setDeleted(false);
+                    goodsProduct.setUpdateTime(new Date());
+                    goodsProductMapper.updateByPrimaryKey(goodsProduct);
+                } else {
+                    goodsProduct.setGoodsId(goodId);
+                    goodsProduct.setAddTime(new Date());
+                    goodsProduct.setDeleted(false);
+                    goodsProductMapper.insert(goodsProduct);
+                }
+            }
         }
 
-        for (GoodsProduct product : newGoodAddVO.getProducts()) {
-            goodsProductMapper.updateByPrimaryKey(product);
+        //对规格进行操作
+        List<GoodsSpecification> goodsSpecificationList = null;
+        if (newGoodAddVO.getSpecifications().get(0).getGoodsId() != null) {
+            GoodsSpecificationExample goodsSpecificationExample = new GoodsSpecificationExample();
+            GoodsSpecificationExample.Criteria criteria = goodsSpecificationExample.createCriteria();
+            criteria.andGoodsIdEqualTo(goodId);
+            goodsSpecificationList = goodsSpecificationMapper.selectByExample(goodsSpecificationExample);
+            //还需要将查出来的所有的数据,deleted写成0
+            for (GoodsSpecification goodsSpecification : goodsSpecificationList) {
+                goodsSpecification.setDeleted(true);
+                goodsSpecificationMapper.updateByPrimaryKey(goodsSpecification);
+            }
+            //这里判断是要插入还是update
+            for (GoodsSpecification goodsSpecification : newGoodAddVO.getSpecifications()) {
+                if (goodsSpecification.getAddTime() != null) {
+                    //goodsSpecification.setDeleted(false);
+                    goodsSpecification.setUpdateTime(new Date());
+                    goodsSpecificationMapper.updateByPrimaryKey(goodsSpecification);
+                } else {
+                    goodsSpecification.setGoodsId(goodId);
+                    goodsSpecification.setAddTime(new Date());
+                    goodsSpecification.setDeleted(false);
+                    goodsSpecificationMapper.insert(goodsSpecification);
+                }
+            }
         }
-
-        for (GoodsSpecification specification : newGoodAddVO.getSpecifications()) {
-            goodsSpecificationMapper.updateByPrimaryKey(specification);
+        System.out.println(newGoodAddVO);
+        //对Attribute进行操作
+        List<GoodsAttribute> goodsAttributeList = null;
+        if (!newGoodAddVO.getAttributes().isEmpty()) {
+            GoodsAttributeExample goodsAttributeExample = new GoodsAttributeExample();
+            GoodsAttributeExample.Criteria criteria = goodsAttributeExample.createCriteria();
+            criteria.andGoodsIdEqualTo(goodId);
+            goodsAttributeList = goodsAttributeMapper.selectByExample(goodsAttributeExample);
+            //还需要将查出来的所有的数据,deleted写成1
+            for (GoodsAttribute goodsAttribute : goodsAttributeList) {
+                goodsAttribute.setDeleted(true);
+                goodsAttributeMapper.updateByPrimaryKey(goodsAttribute);
+            }
+            //这里判断是要插入还是update
+            for (GoodsAttribute goodsAttribute : newGoodAddVO.getAttributes()) {
+                if (goodsAttribute.getAddTime() != null) {
+                    goodsAttribute.setUpdateTime(new Date());
+                    goodsAttributeMapper.updateByPrimaryKey(goodsAttribute);
+                } else {
+                    goodsAttribute.setGoodsId(goodId);
+                    goodsAttribute.setAddTime(new Date());
+                    goodsAttribute.setDeleted(false);
+                    goodsAttributeMapper.insert(goodsAttribute);
+                }
+            }
         }
+        System.out.println(newGoodAddVO);
         return 0;
-    }*/
+    }
 }
+

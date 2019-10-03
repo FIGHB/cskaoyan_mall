@@ -26,5 +26,5 @@ public interface GoodsServices {
 
     void deleteGoodsById(Integer id);
 
-    //int updateGoods(NewGoodAddVO newGoodAddVO);
+    int updateGoods(NewGoodAddVO newGoodAddVO);
 }
