@@ -25,4 +25,6 @@ public interface GoodsServices {
     int addGoods(NewGoodAddVO newGoodAddVO);
 
     void deleteGoodsById(Integer id);
+
+    //int updateGoods(NewGoodAddVO newGoodAddVO);
 }

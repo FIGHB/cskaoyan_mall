@@ -88,4 +88,29 @@ public class GoodsController {
         goodsServices.deleteGoodsById(goods.getId());
         return BaseRespVo.ok(null);
     }
+
+    /*@RequestMapping("admin/goods/update")
+    public BaseRespVo updateGoods(@RequestBody NewGoodAddVO newGoodAddVO){
+        Date date = new Date();
+        newGoodAddVO.getGoods().setAddTime(date);
+        for (GoodsAttribute attribute : newGoodAddVO.getAttributes()) {
+            attribute.setUpdateTime(date);
+        }
+        for (GoodsProduct product : newGoodAddVO.getProducts()) {
+            product.setUpdateTime(date);
+        }
+        for (GoodsSpecification specification : newGoodAddVO.getSpecifications()) {
+            specification.setUpdateTime(date);
+        }
+        System.out.println(newGoodAddVO);
+
+        int flag = goodsServices.updateGoods(newGoodAddVO);
+        if (flag == 0){
+            return  BaseRespVo.ok(null);
+        }else if (flag == 1){
+            return BaseRespVo.err(null);
+        }else{
+            return BaseRespVo.updateErr(null);
+        }
+    }*/
 }

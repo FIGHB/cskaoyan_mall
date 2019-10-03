@@ -1,11 +1,15 @@
 package com.cskaoyan.mall.service.steve;
 
 import com.cskaoyan.mall.bean.*;
+import com.cskaoyan.mall.mapper.GoodsAttributeMapper;
 import com.cskaoyan.mall.mapper.GoodsMapper;
+import com.cskaoyan.mall.mapper.GoodsProductMapper;
+import com.cskaoyan.mall.mapper.GoodsSpecificationMapper;
 import com.cskaoyan.mall.mapper.steve.SteveBrandMapper;
 import com.cskaoyan.mall.vo.NewGoodAddVO;
 import com.cskaoyan.mall.vo.steve.*;
 import com.github.pagehelper.PageHelper;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +26,12 @@ public class GoodsServicesImpl implements GoodsServices {
     GoodsMapper goodsMapper;
     @Autowired
     SteveBrandMapper steveBrandMapper;
+    @Autowired
+    GoodsProductMapper goodsProductMapper;
+    @Autowired
+    GoodsAttributeMapper goodsAttributeMapper;
+    @Autowired
+    GoodsSpecificationMapper goodsSpecificationMapper;
 
     @Override
     public List<Goods> queryGoods(SteveGoods steveGoods) {
@@ -110,4 +120,29 @@ public class GoodsServicesImpl implements GoodsServices {
     public void deleteGoodsById(Integer id) {
         goodsMapper.deleteGoodsById(id);
     }
+
+    /*@Transactional
+    @Override
+    public int updateGoods(NewGoodAddVO newGoodAddVO) {
+        int goodId = Integer.parseInt(newGoodAddVO.getGoods().getGoodsSn());
+
+        for (GoodsAttribute attribute : newGoodAddVO.getAttributes()) {
+            goodsAttributeMapper.updateByPrimaryKey(attribute);
+        }
+
+        if (newGoodAddVO.getAttributes().get(0).equals(newGoodAddVO.getGoods().getId())){
+            goodsMapper.updateByPrimaryKey(newGoodAddVO.getGoods());
+        }else {
+            return 2;
+        }
+
+        for (GoodsProduct product : newGoodAddVO.getProducts()) {
+            goodsProductMapper.updateByPrimaryKey(product);
+        }
+
+        for (GoodsSpecification specification : newGoodAddVO.getSpecifications()) {
+            goodsSpecificationMapper.updateByPrimaryKey(specification);
+        }
+        return 0;
+    }*/
 }
