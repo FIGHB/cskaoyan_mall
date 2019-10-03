@@ -15,6 +15,8 @@ public interface WxfGrouponRulesMapper {
 
     long queryTotal(GrouponRules grouponRules);
 
+    long queryGrouponVoTotal(GrouponRules grouponRules);
+
     GrouponRules selectLastInsert();
 
     GrouponVo[] queryGrouponVo(GrouponRules grouponRules);

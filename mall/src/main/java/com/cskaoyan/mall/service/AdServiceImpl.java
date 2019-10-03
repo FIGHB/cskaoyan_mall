@@ -23,24 +23,12 @@ public class AdServiceImpl implements AdService {
     WxfAdMapper wxfAdMapper;
 
     @Override
-    public BaseRespVo queryAllAd(int start, int limit) {
-        PageHelper.startPage(start,limit);
-        Ad[] ads = wxfAdMapper.selectAllAd();
-        long total = wxfAdMapper.queryTotal();
-        return BaseRespVo.ok(new PageVo<>(ads, total));
-    }
-
-    @Override
     @Transactional
     public BaseRespVo insert(Ad ad) {
         Date date = new Date();
         ad.setAddTime(date);
         ad.setUpdateTime(date);
         adMapper.insertSelective(ad);
-        //Ad adResp = adMapper.selectByContent(ad.getContent());
-        /*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String format = simpleDateFormat.format(ad.getAddTime());*/
-        //Ad adResp = wxfAdMapper.selectByAddTime(ad.getAddTime());
         Ad adResp = wxfAdMapper.selectLastInsert();
         return BaseRespVo.ok(adResp);
     }
@@ -61,9 +49,8 @@ public class AdServiceImpl implements AdService {
     @Override
     public BaseRespVo queryByNameAndContent(int start, int limit,Ad ad) {
         PageHelper.startPage(start,limit);
-        Ad[] ads = wxfAdMapper.queryByNameAndContent("%"+ad.getName()+"%","%"+ad.getContent()+"%");
-        PageInfo<Ad> adPageInfo = new PageInfo<>(Arrays.asList(ads));
-        long total = adPageInfo.getTotal();
+        Ad[] ads = wxfAdMapper.queryByNameAndContent(ad);
+        long total = wxfAdMapper.queryTotal(ad);
         return BaseRespVo.ok(new PageVo<>(ads, total));
     }
 }

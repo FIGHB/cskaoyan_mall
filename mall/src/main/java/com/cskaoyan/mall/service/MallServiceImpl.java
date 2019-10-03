@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,8 @@ public class MallServiceImpl implements MallService {
 
     @Override
     public Brand insertBrandList(Brand brand) {
+        Date date = new Date();
+        brand.setAddTime(date);
         int result = brandMapper.insertBrandList(brand);
         int id = brand.getId();
         return brandMapper.queryBrandById(id);
@@ -63,6 +66,8 @@ public class MallServiceImpl implements MallService {
 
     @Override
     public Brand updateBrand(Brand brand) {
+        Date date = new Date();
+        brand.setUpdateTime(date);
         brandMapper.updateBrand(brand);
         return brandMapper.queryBrandById(brand.getId());
     }
@@ -113,6 +118,8 @@ public class MallServiceImpl implements MallService {
 
     @Override
     public Category insertCategory(Category category) {
+        Date date = new Date();
+        category.setAddTime(date);
         int result = categoryMapper.insertCategory(category);
         int id = category.getId();
         return categoryMapper.queryCategoryById(id);
@@ -130,6 +137,8 @@ public class MallServiceImpl implements MallService {
 
     @Override
     public void updateCategory(CategoryBean categoryBean) {
+        Date date = new Date();
+        categoryBean.setUpdateTime(date);
         categoryMapper.updateCategory(categoryBean);
     }
 
@@ -145,6 +154,8 @@ public class MallServiceImpl implements MallService {
 
     @Override
     public Issue insertIssueList(Issue issue) {
+        Date date = new Date();
+        issue.setAddTime(date);
         int result = issueMapper.insertIssueList(issue);
         int id = issue.getId();
         return issueMapper.queryIssueById(id);
@@ -152,6 +163,8 @@ public class MallServiceImpl implements MallService {
 
     @Override
     public Issue updateIssue(Issue issue) {
+        Date date = new Date();
+        issue.setUpdateTime(date);
         issueMapper.updateIssue(issue);
         return issueMapper.queryIssueById(issue.getId());
     }
@@ -173,6 +186,8 @@ public class MallServiceImpl implements MallService {
 
     @Override
     public Keyword insertKeyWordList(Keyword keyword) {
+        Date date = new Date();
+        keyword.setAddTime(date);
         int result = keywordMapper.insertKeyWordList(keyword);
         int id = keyword.getId();
         return keywordMapper.queryKeyWordById(id);
@@ -180,6 +195,8 @@ public class MallServiceImpl implements MallService {
 
     @Override
     public Keyword updateKeyWord(Keyword keyword) {
+        Date date = new Date();
+        keyword.setUpdateTime(date);
         keywordMapper.updateKeyWord(keyword);
         return keywordMapper.queryKeyWordById(keyword.getId());
     }

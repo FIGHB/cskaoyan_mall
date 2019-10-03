@@ -29,30 +29,25 @@
     select <include refid="Base_Column_List"/>
     from cskaoyan_mall_topic
   </select>
+  <sql id="queryConditions">
+    where 1=1
+    <trim>
+      <if test="title !=null or title != ''">
+        and title like '%${title}%'
+      </if>
+      <if test="subtitle != null or subtitle !=''">
+        and subtitle like '%${subtitle}%'
+      </if>
+    </trim>
+  </sql>
   <select id="queryTopicByCondition" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from cskaoyan_mall_topic
-    where 1=1
-    <trim>
-      <if test="title !=null or title != ''">
-        and title like '%${title}%'
-      </if>
-      <if test="subtitle != null or subtitle !=''">
-        and subtitle like '%${subtitle}%'
-      </if>
-    </trim>
+    <include refid="queryConditions"/>
   </select>
   <select id="queryTotal" resultType="long">
     select count(id) from cskaoyan_mall_topic
-    where 1=1
-    <trim>
-      <if test="title !=null or title != ''">
-        and title like '%${title}%'
-      </if>
-      <if test="subtitle != null or subtitle !=''">
-        and subtitle like '%${subtitle}%'
-      </if>
-    </trim>
+    <include refid="queryConditions"/>
   </select>
 
   <select id="selectLastInsert" resultMap="BaseResultMap">

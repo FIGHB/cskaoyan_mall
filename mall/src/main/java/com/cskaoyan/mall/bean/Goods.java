@@ -98,30 +98,6 @@ public class Goods {
         this.gallery = gallery;
     }
 
-    public Boolean getOnSale() {
-        return isOnSale;
-    }
-
-    public void setOnSale(Boolean onSale) {
-        isOnSale = onSale;
-    }
-
-    public Boolean getNew() {
-        return isNew;
-    }
-
-    public void setNew(Boolean aNew) {
-        isNew = aNew;
-    }
-
-    public Boolean getHot() {
-        return isHot;
-    }
-
-    public void setHot(Boolean hot) {
-        isHot = hot;
-    }
-
     public String getKeywords() {
         return keywords;
     }
@@ -159,7 +135,7 @@ public class Goods {
     }
 
     public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl == null ? null : picUrl.trim();
+        this.picUrl = picUrl;
     }
 
     public String getShareUrl() {

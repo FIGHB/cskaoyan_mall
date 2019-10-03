@@ -18,23 +18,12 @@
     id, goods_id, goods_name, pic_url, discount, discount_member, add_time, update_time,
     expire_time, deleted
   </sql>
-  <sql id="Rules_Column_List">
-    r.id as rulesId, r.goods_id, r.goods_name, r.pic_url, r.discount, r.discount_member, r.add_time, r.update_time,
-    r.expire_time
-  </sql>
-  <sql id="Goods_Column_List">
-    g.id as goodsId, g.goods_sn, g.name, g.category_id, g.brand_id, g.gallery, g.keywords, g.brief, g.is_on_sale,
-    sort_order, g.pic_url, g.share_url, g.is_new, g.is_hot, g.unit, g.counter_price, g.retail_price,
-    g.add_time, g.update_time
-  </sql>
-  <sql id="Goupon_Column_List">
-     gr.id as grouponId, gr.order_id, gr.groupon_id, gr.rules_id, gr.user_id, gr.creator_user_id, gr.add_time, gr.update_time,
-    gr.share_url, gr.payed
-  </sql>
+
   <select id="selectLastInsert" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> from cskaoyan_mall_groupon_rules
     where id = LAST_INSERT_ID()
   </select>
+
   <sql id="queryConditions">
     where 1=1
     <trim>
@@ -43,15 +32,11 @@
       </if>
     </trim>
   </sql>
+
   <select id="queryGrouponByCondition" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from cskaoyan_mall_groupon_rules
-    where 1=1
-    <trim>
-      <if test="goodsId !=null">
-        and goods_id = #{goodsId}
-      </if>
-    </trim>
+    <include refid="queryConditions"/>
   </select>
   <select id="queryTotal" resultType="long">
     select count(id) from cskaoyan_mall_groupon_rules
@@ -97,6 +82,16 @@
     <result column="share_url" jdbcType="VARCHAR" property="groupon.shareUrl" />
     <result column="payed" jdbcType="BIT" property="groupon.payed" />
   </resultMap>
+
+  <sql id="queryGrouponVoConditions">
+    where 1=1
+    <trim>
+      <if test="goodsId != null">
+        and r.goods_id = #{goodsId}
+      </if>
+    </trim>
+  </sql>
+
   <select id="queryGrouponVo" resultMap="GrouponVoResult">
     select
     gr.id as grouponId, gr.order_id, gr.groupon_id, gr.rules_id, gr.user_id, gr.creator_user_id, gr.add_time as gr_add_time, gr.update_time as gr_update_time,
@@ -106,12 +101,13 @@
     from cskaoyan_mall_groupon gr
     left join  cskaoyan_mall_groupon_rules r on r.id = gr.rules_id
     left join cskaoyan_mall_goods g on r.goods_id = g.id
-    where 1=1
-    <trim>
-      <if test="goodsId != null">
-        and r.goods_id = #{goodsId}
-      </if>
-    </trim>
+    <include refid="queryGrouponVoConditions"/>
+  </select>
 
+  <select id="queryGrouponVoTotal" resultType="long">
+    select count(*) from cskaoyan_mall_groupon gr
+    left join  cskaoyan_mall_groupon_rules r on r.id = gr.rules_id
+    left join cskaoyan_mall_goods g on r.goods_id = g.id
+    <include refid="queryGrouponVoConditions"/>
   </select>
 </mapper>

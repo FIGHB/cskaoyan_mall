@@ -40,7 +40,7 @@ public class GoodsController {
         return baseRespVo;
     }
 
-    @RequestMapping("admin/goods/catAndBrand")
+    /*@RequestMapping("admin/goods/catAndBrand")
     public BaseRespVo queryBrandListAndCategoryList(){
        BaseRespVo<Object> objectBaseRespVo = new BaseRespVo<>();
 
@@ -54,7 +54,7 @@ public class GoodsController {
 
         BaseRespVo baseRespVo = BaseRespVo.ok(brandListAndCategoryList);
         return baseRespVo;
-    }
+    }*/
 
     /**
      * 添加商品
