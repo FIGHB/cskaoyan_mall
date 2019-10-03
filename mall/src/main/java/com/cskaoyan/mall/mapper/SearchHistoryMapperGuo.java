@@ -7,11 +7,11 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 /*国旭*/
 public interface SearchHistoryMapperGuo {
-    @Select("select id, user_id, keyword, add_time from cskaoyan_mall_search_history")
+    @Select("select id, user_id, keyword, add_time from cskaoyan_mall_search_history where deleted=0")
     List<SearchHistoryGuo> getSearchHistoryList();
-    @Select("select user_id from cskaoyan_mall_search_history where id=#{id}")
+    @Select("select user_id from cskaoyan_mall_search_history where id=#{id} and deleted=0")
     int getUserIdById(int id);
-    @Select("select add_time from cskaoyan_mall_search_history where id=#{id}")
+    @Select("select add_time from cskaoyan_mall_search_history where id=#{id} and deleted=0")
     String getAddTimeById(int id);
     List<SearchHistoryGuo> getSearchHistoryListByScreen(@Param("userId") Integer userId,@Param("keyword") String keyword);
 }

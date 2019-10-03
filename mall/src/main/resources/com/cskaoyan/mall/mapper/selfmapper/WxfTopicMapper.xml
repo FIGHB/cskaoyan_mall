@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.selfmapper.WxfTopicMapper">
+  <resultMap id="BaseResultMap" type="com.cskaoyan.mall.bean.Topic">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="read_count" jdbcType="VARCHAR" property="readCount" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="sort_order" jdbcType="INTEGER" property="sortOrder" />
+    <result column="goods" jdbcType="VARCHAR" property="goods" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cskaoyan.mall.bean.Topic">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, title, subtitle, price, read_count, pic_url, sort_order, goods, add_time, update_time,
+    deleted
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectAllTopic" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from cskaoyan_mall_topic
+  </select>
+  <sql id="queryConditions">
+    where 1=1
+    <trim>
+      <if test="title !=null or title != ''">
+        and title like '%${title}%'
+      </if>
+      <if test="subtitle != null or subtitle !=''">
+        and subtitle like '%${subtitle}%'
+      </if>
+    </trim>
+  </sql>
+  <select id="queryTopicByCondition" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from cskaoyan_mall_topic
+    <include refid="queryConditions"/>
+  </select>
+  <select id="queryTotal" resultType="long">
+    select count(id) from cskaoyan_mall_topic
+    <include refid="queryConditions"/>
+  </select>
+
+  <select id="selectLastInsert" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from cskaoyan_mall_topic
+    where id = LAST_INSERT_ID()
+  </select>
+
+</mapper>

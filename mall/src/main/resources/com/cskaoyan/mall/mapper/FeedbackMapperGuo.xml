@@ -11,14 +11,14 @@
     <result column="content" property="content"/>
     <result column="status" property="status"/>
     <result column="has_picture" property="hasPicture"/>
-    <result column="pic_urls" property="picUrls"/>
+    <result column="pic_urls" property="picUrls" typeHandler="com.cskaoyan.mall.utils.TransferToStringArrayHandler"/>
     <result column="add_time" property="addTime"/>
     <result column="update_time" property="updateTime"/>
     <result column="deleted" property="deleted"/>
   </resultMap>
   <select id="getFeedbackListBySreen" resultMap="thisResultMap1">
         select id, user_id, username, mobile, feed_type, content, status, has_picture, pic_urls, add_time, update_time, deleted
-        from cskaoyan_mall_feedback where 1=1
+        from cskaoyan_mall_feedback where 1=1 and deleted=0
         <choose>
           <when test="id!=null and username!=null">
             and id=#{id} and username like concat('%',#{username},'%')
@@ -48,6 +48,6 @@
   </resultMap>
   <select id="getFeedbackList" resultMap="thisResultMap">
         select id, user_id, username, mobile, feed_type, content, status, has_picture, pic_urls, add_time, update_time, deleted
-        from cskaoyan_mall_feedback
+        from cskaoyan_mall_feedback where deleted=0
    </select>
 </mapper>

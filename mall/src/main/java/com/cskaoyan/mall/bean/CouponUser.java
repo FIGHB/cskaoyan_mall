@@ -1,5 +1,7 @@
 package com.cskaoyan.mall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class CouponUser {
@@ -11,16 +13,21 @@ public class CouponUser {
 
     private Short status;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date usedTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date startTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date endTime;
 
     private Integer orderId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date addTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date updateTime;
 
     private Boolean deleted;

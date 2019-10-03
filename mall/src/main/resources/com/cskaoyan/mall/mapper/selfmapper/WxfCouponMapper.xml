@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.selfmapper.WxfCouponMapper">
+  <resultMap id="BaseResultMap" type="com.cskaoyan.mall.bean.Coupon">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="discount" jdbcType="DECIMAL" property="discount" />
+    <result column="min" jdbcType="DECIMAL" property="min" />
+    <result column="limit" jdbcType="SMALLINT" property="limit" />
+    <result column="type" jdbcType="SMALLINT" property="type" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="goods_type" jdbcType="SMALLINT" property="goodsType" />
+    <result column="goods_value" jdbcType="VARCHAR" property="goodsValue" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="time_type" jdbcType="SMALLINT" property="timeType" />
+    <result column="days" jdbcType="SMALLINT" property="days" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, `desc`, tag, total, discount, min, `limit`, type, status, goods_type, goods_value,
+    code, time_type, days, start_time, end_time, add_time, update_time, deleted
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_coupon
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAllCoupon" resultMap="BaseResultMap">
+    select id, name, `desc`, tag, total, discount, min, `limit`, type, status, goods_type, goods_value,
+    code, time_type, days, start_time, end_time, add_time, update_time, deleted
+     from cskaoyan_mall_coupon
+  </select>
+  <sql id="queryConditions">
+    where 1=1
+    <trim>
+      <if test="name != null or name !=''">
+        and name like '%${name}%'
+      </if>
+      <if test="type !=null">
+        and type = #{type}
+      </if>
+      <if test="status !=null">
+        and status = #{status}
+      </if>
+    </trim>
+  </sql>
+  <select id="queryTotal" resultType="long">
+    select count(id) from cskaoyan_mall_coupon
+    <include refid="queryConditions"/>
+  </select>
+
+  <select id="queryCouponByCondition" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from cskaoyan_mall_coupon
+    <include refid="queryConditions"/>
+  </select>
+
+  <select id="selectLastInsert" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from cskaoyan_mall_coupon
+    where id = LAST_INSERT_ID()
+  </select>
+
+  <insert id="insertSelective" parameterType="com.cskaoyan.mall.bean.Coupon">
+    insert into cskaoyan_mall_coupon
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="desc != null">
+        `desc`,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="min != null">
+        min,
+      </if>
+      <if test="limit != null">
+        `limit`,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="goodsType != null">
+        goods_type,
+      </if>
+      <if test="goodsValue != null">
+        goods_value,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="timeType != null">
+        time_type,
+      </if>
+      <if test="days != null">
+        days,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="min != null">
+        #{min,jdbcType=DECIMAL},
+      </if>
+      <if test="limit != null">
+        #{limit,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="goodsType != null">
+        #{goodsType,jdbcType=SMALLINT},
+      </if>
+      <if test="goodsValue != null">
+        #{goodsValue,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="timeType != null">
+        #{timeType,jdbcType=SMALLINT},
+      </if>
+      <if test="days != null">
+        #{days,jdbcType=SMALLINT},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

@@ -3,9 +3,11 @@ package com.cskaoyan.mall.mapper;
 import com.cskaoyan.mall.bean.Role;
 import com.cskaoyan.mall.bean.RoleExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface RoleMapper {
     long countByExample(RoleExample example);
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.GuoBrandMapper">
+  <resultMap id="myResultMap" type="com.cskaoyan.mall.bean.Brand">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="desc" property="desc"/>
+    <result column="pic_url" property="picUrl"/>
+    <result column="sort_Order" property="sortOrder"/>
+    <result column="floor_price" property="floorPrice"/>
+    <result column="add_time" property="addTime"/>
+    <result column="updateTime" property="updateTime"/>
+    <result column="deleted" property="deleted"/>
+  </resultMap>
+  <select id="getBrandList" resultMap="myResultMap">
+    select id, `name`, `desc`, pic_url, sort_order, floor_price, add_time, update_time, deleted from cskaoyan_mall_brand
+    where deleted=0
+  </select>
+</mapper>

@@ -282,6 +282,7 @@
       <if test="name != null">
         and name like concat('%',#{name},'%')
       </if>
+        and deleted = false
     </where>
   </select>
 
@@ -295,6 +296,7 @@
       <if test="name != null">
         and name like concat('%',#{name},'%')
       </if>
+        and deleted = false
     </where>
   </select>
 
@@ -302,8 +304,8 @@
     <selectKey resultType="int" keyProperty="brand.id" keyColumn="id" order="AFTER">
       SELECT last_insert_id()
     </selectKey>
-    insert into cskaoyan_mall_brand(`desc`,floor_price,name,pic_url)
-    values (#{brand.desc},#{brand.floorPrice},#{brand.name},#{brand.picUrl})
+    insert into cskaoyan_mall_brand(`desc`,floor_price,name,pic_url,add_time)
+    values (#{brand.desc},#{brand.floorPrice},#{brand.name},#{brand.picUrl},#{brand.addTime})
   </insert>
 
   <select id="queryBrandById" resultType="com.cskaoyan.mall.bean.Brand">
@@ -314,13 +316,13 @@
   
   <update id="updateBrand">
     update cskaoyan_mall_brand
-    set name = #{brand.name}, `desc` = #{brand.desc}, pic_url = #{brand.picUrl},floor_price = #{brand.floorPrice}
+    set name = #{brand.name}, `desc` = #{brand.desc}, pic_url = #{brand.picUrl},floor_price = #{brand.floorPrice},update_time = #{brand.updateTime}
     where id = #{brand.id}
   </update>
 
-  <delete id="deleteBrandById">
-    delete
-    from cskaoyan_mall_brand
+  <update id="deleteBrandById">
+    update cskaoyan_mall_brand
+    set deleted = true
     where id = #{id}
-  </delete>
+  </update>
 </mapper>

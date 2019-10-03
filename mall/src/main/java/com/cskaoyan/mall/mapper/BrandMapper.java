@@ -2,10 +2,12 @@ package com.cskaoyan.mall.mapper;
 
 import com.cskaoyan.mall.bean.Brand;
 import com.cskaoyan.mall.bean.BrandExample;
+import com.cskaoyan.mall.bean.Issue;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 @Component
 public interface BrandMapper {

@@ -3,9 +3,10 @@ package com.cskaoyan.mall.mapper;
 import com.cskaoyan.mall.bean.Admin;
 import com.cskaoyan.mall.bean.AdminExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public interface AdminMapper {
     long countByExample(AdminExample example);
 

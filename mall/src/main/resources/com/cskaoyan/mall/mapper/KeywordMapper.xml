@@ -272,4 +272,57 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="queryKeyWordList" resultType="com.cskaoyan.mall.bean.Keyword">
+    select id,keyword,url,is_hot as isHot,is_default as isDefault,sort_order as sortOrder,add_time as addTime,update_time as updateTime,deleted
+    from cskaoyan_mall_keyword
+    <where>
+      <if test="keyword != null">
+        and keyword like concat('%',#{keyword},'%')
+      </if>
+      <if test="url != null">
+        and url like concat('%',#{url},'%')
+      </if>
+      and deleted = false
+    </where>
+  </select>
+
+  <select id="queryKeyWordListTotal" resultType="long">
+    select count(*)
+    from cskaoyan_mall_keyword
+    <where>
+      <if test="keyword != null">
+        and keyword like concat('%',#{keyword},'%')
+      </if>
+      <if test="url != null">
+        and url like concat('%',#{url},'%')
+      </if>
+       and deleted = false
+    </where>
+  </select>
+
+  <insert id="insertKeyWordList">
+    <selectKey resultType="int" keyProperty="keyword.id" keyColumn="id" order="AFTER">
+      SELECT last_insert_id()
+    </selectKey>
+    insert into cskaoyan_mall_keyword(is_default,is_hot,keyword,url,add_time)
+    values (#{keyword.isDefault},#{keyword.isHot},#{keyword.keyword},#{keyword.url},#{keyword.addTime})
+  </insert>
+
+  <select id="queryKeyWordById" resultType="com.cskaoyan.mall.bean.Keyword">
+     select id,keyword,url,is_hot as isHot,is_default as isDefault,sort_order as sortOrder,add_time as addTime,update_time as updateTime,deleted
+    from cskaoyan_mall_keyword
+    where id = #{id}
+  </select>
+
+  <update id="updateKeyWord">
+    update cskaoyan_mall_keyword
+    set keyword = #{keyword.keyword}, url = #{keyword.url}, is_default = #{keyword.isDefault}, is_hot = #{keyword.isHot}, update_time = #{keyword.updateTime}
+    where id = #{keyword.id}
+  </update>
+
+  <update id="deleteKeyWordById">
+    update cskaoyan_mall_keyword
+    set deleted = true
+    where id = #{id}
+  </update>
 </mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.selfmapper.WxfCouponUserMapper">
+  <resultMap id="BaseResultMap" type="com.cskaoyan.mall.bean.CouponUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="coupon_id" jdbcType="INTEGER" property="couponId" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="used_time" jdbcType="TIMESTAMP" property="usedTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, coupon_id, status, used_time, start_time, end_time, order_id, add_time,
+    update_time, deleted
+  </sql>
+  <select id="selectByCouponId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from cskaoyan_mall_coupon_user
+    where coupon_id = #{coupon_id}
+  </select>
+
+  <sql id="queryConditions">
+    where coupon_id = #{couponId}
+    <trim>
+      <if test="userId !=null or userId != ''">
+        and user_id = #{userId}
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+    </trim>
+  </sql>
+
+  <select id="queryTotal" resultType="long">
+    select count(id) from cskaoyan_mall_coupon_user
+    <include refid="queryConditions"/>
+  </select>
+
+  <select id="queryCouponUserByCondition" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from cskaoyan_mall_coupon_user
+    <include refid="queryConditions"/>
+  </select>
+</mapper>
