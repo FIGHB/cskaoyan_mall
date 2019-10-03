@@ -71,8 +71,9 @@ public class GrouponServiceImpl implements GrouponService {
     public BaseRespVo listRecord(int page, int limit, GrouponRules grouponRules) {
         PageHelper.startPage(page,limit);
         GrouponVo[] grouponVos = wxfGrouponRulesMapper.queryGrouponVo(grouponRules);
-        PageInfo<GrouponVo> tPageInfo = new PageInfo<GrouponVo>(Arrays.asList(grouponVos));
-        long total = tPageInfo.getTotal();
+        /*PageInfo<GrouponVo> tPageInfo = new PageInfo<GrouponVo>(Arrays.asList(grouponVos));
+        long total = tPageInfo.getTotal();*/
+        long total = wxfGrouponRulesMapper.queryGrouponVoTotal(grouponRules);
         return BaseRespVo.ok(new PageVo<>(grouponVos,total));
     }
 }
