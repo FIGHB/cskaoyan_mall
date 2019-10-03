@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 public interface WxfCouponMapper {
     Coupon[] selectAllCoupon();
 
-    long queryTotal();
+    long queryTotal(Coupon coupon);
 
     Coupon selectByPrimaryKey(Integer id);
 
@@ -15,5 +15,5 @@ public interface WxfCouponMapper {
 
     Coupon selectLastInsert();
 
-    Coupon[] queryCouponByCondition(@Param("name") String name,@Param("coupon") Coupon coupon);
+    Coupon[] queryCouponByCondition(Coupon coupon);
 }

@@ -26,6 +26,10 @@ public class TopicServiceImpl implements TopicService{
 
     @Override
     public BaseRespVo insert(Topic topic) {
+        if(topic.getPicUrl()==null||topic.getPrice()==null
+                ||topic.getContent()==null ||topic.getReadCount()==null){
+            return BaseRespVo.fail(401,"参数不对");
+        }
         topicMapper.insertSelective(topic);
         Topic topicResp = wxfTopicMapper.selectLastInsert();
         return BaseRespVo.ok(topicResp);

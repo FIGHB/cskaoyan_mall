@@ -18,8 +18,8 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, name, link, url, position, content, start_time, end_time, enabled, add_time,
-    update_time, deleted
+    id, name, link, url, position, content, start_time as startTime, end_time as endTime, enabled, add_time as addTime,
+    update_time as updateTime, deleted
   </sql>
 
   <select id="selectAllAd" resultType="com.cskaoyan.mall.bean.Ad">
@@ -42,7 +42,7 @@
   </select>
 
   <select id="queryTotal" resultType="long">
-    select count(id) from cskaoyan_mall_coupon
+    select count(id) from cskaoyan_mall_ad
   </select>
 
 

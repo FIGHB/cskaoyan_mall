@@ -5,7 +5,6 @@ import com.cskaoyan.mall.bean.CouponUser;
 import com.cskaoyan.mall.vo.BaseRespVo;
 
 public interface CouponService {
-    BaseRespVo queryAllCoupon(int start, int limit);
 
     BaseRespVo queryCouponByCondition(int page, int limit, Coupon coupon);
 
