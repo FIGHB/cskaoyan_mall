@@ -2,10 +2,9 @@ package com.cskaoyan.mall.controller;
 
 
 import com.cskaoyan.mall.bean.Comment;
+import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.service.GuoGoodsService;
-import com.cskaoyan.mall.vo.BaseRespVo;
-import com.cskaoyan.mall.vo.CommentShow;
-import com.cskaoyan.mall.vo.ItemsList;
+import com.cskaoyan.mall.vo.*;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,4 +37,37 @@ public class GuoGoodsController {
         BaseRespVo ok = BaseRespVo.ok(null);
         return ok;
     }
+
+
+
+    /*8888888888888888888888888888888888888888888888888888888888888888888888888888888888888*/
+    /*@RequestMapping("/goods/list")
+    @ResponseBody
+    public BaseRespVo getGoodsList(GoodsShow goodsShow){
+        PageHelper.startPage(goodsShow.getPage(),goodsShow.getLimit(),goodsShow.getSort()+" "+goodsShow.getOrder());
+        List<Goods> goodsList=guoGoodsService.getGoodsList(goodsShow);
+        ItemsList<Goods> goodsItemsList = UserController.itemsList(goodsList);
+        BaseRespVo ok = BaseRespVo.ok(goodsItemsList);
+        return ok;
+    }*/
+    @RequestMapping("/goods/detail")
+    @ResponseBody
+    public BaseRespVo getGoodsDetailByGoodsId(Integer id){
+        GoodsDetail goodsDetail=guoGoodsService.getGoodsDetailByGoodsId(id);
+        BaseRespVo ok = BaseRespVo.ok(goodsDetail);
+        return ok;
+    }
+    @RequestMapping("/goods/catAndBrand")
+    @ResponseBody
+    public BaseRespVo getCategorys(){
+        Categorys categorys=guoGoodsService.getCategorys();
+        BaseRespVo ok = BaseRespVo.ok(categorys);
+        return ok;
+    }
+    /*@RequestMapping("/goods/update")
+    @ResponseBody
+    public BaseRespVo updateDetails(@RequestBody GoodsDetail goodsDetail){
+        guoGoodsService.updateDetails(goodsDetail);
+        return null;
+    }*/
 }
