@@ -25,7 +25,7 @@
   </select>
 
   <sql id="queryConditions">
-    where 1=1
+    where deleted = 'false'
     <trim>
       <if test="goodsId !=null">
         and goods_id = #{goodsId}

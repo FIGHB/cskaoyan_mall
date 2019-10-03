@@ -11,8 +11,10 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 @MappedTypes(String[].class)
 public class TransferStringArrayHandler implements TypeHandler<String[]> {
+
     //由javabean转换成数据库接收的类型
     @Override
     public void setParameter(PreparedStatement preparedStatement, int i, String[] strings, JdbcType jdbcType) throws SQLException {
@@ -24,7 +26,7 @@ public class TransferStringArrayHandler implements TypeHandler<String[]> {
             e.printStackTrace();
         }
     }
-    //由数据库查询的结果转换成javabean类型
+    //以下三个为由数据库查询的结果转换成javabean类型
     @Override
     public String[] getResult(ResultSet resultSet, String s) throws SQLException {
         String value = resultSet.getString(s);
