@@ -1,5 +1,7 @@
 package com.cskaoyan.mall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Ad {
@@ -15,14 +17,18 @@ public class Ad {
 
     private String content;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date startTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date endTime;
 
     private Boolean enabled;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date addTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date updateTime;
 
     private Boolean deleted;

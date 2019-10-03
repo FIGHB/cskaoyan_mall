@@ -172,7 +172,7 @@ public class LiRuiAdminController {
 
     @RequestMapping(value = "admin/role/permissions", method = RequestMethod.POST)
     public BaseRespVo addPermissions(@RequestBody PermissionsVo  permissionsVo) {
-        if(permissionsVo != null && adminService.addPermissions(permissionsVo.getRoleId(),permissionsVo.getPeimissions())) {
+        if(permissionsVo != null && adminService.addPermissions(permissionsVo.getRoleId(),permissionsVo.getPermissions())) {
             return BaseRespVo.ok("");
         } else {
             return BaseRespVo.getBaseResVo(500,null,"添加失败");

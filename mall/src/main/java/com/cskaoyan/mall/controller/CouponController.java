@@ -18,17 +18,12 @@ public class CouponController {
 
     @RequestMapping("/admin/coupon/list")
     public BaseRespVo couponList(int page, int limit, Coupon coupon){
-        BaseRespVo baseRespVo = null;
-        if(coupon.getName()==null){
-            baseRespVo = couponService.queryAllCoupon(page, limit);
-        }else {
-            baseRespVo = couponService.queryCouponByCondition(page,limit,coupon);
-        }
+        BaseRespVo baseRespVo = couponService.queryCouponByCondition(page,limit,coupon);
         return baseRespVo;
     }
 
     @RequestMapping("/admin/coupon/delete")
-    public BaseRespVo delete(Coupon coupon){
+    public BaseRespVo delete(@RequestBody Coupon coupon){
         BaseRespVo delete = couponService.delete(coupon);
         return delete;
     }
@@ -46,7 +41,7 @@ public class CouponController {
     }
 
     @RequestMapping("/admin/coupon/create")
-    public BaseRespVo create(Coupon coupon){
+    public BaseRespVo create(@RequestBody Coupon coupon){
         BaseRespVo insert = couponService.insert(coupon);
         return insert;
     }

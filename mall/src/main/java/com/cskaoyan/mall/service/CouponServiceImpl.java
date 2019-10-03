@@ -23,21 +23,13 @@ public class CouponServiceImpl implements CouponService {
 
     @Autowired
     WxfCouponUserMapper wxfCouponUserMapper;
-    @Override
-    public BaseRespVo queryAllCoupon(int start, int limit) {
-        PageHelper.startPage(start,limit);
-        Coupon[] coupons = wxfCouponMapper.selectAllCoupon();
-        long total = wxfCouponMapper.queryTotal();
-        return BaseRespVo.ok(new PageVo<>(coupons, total));
-    }
+
 
     @Override
     public BaseRespVo queryCouponByCondition(int page, int limit, Coupon coupon) {
-
         PageHelper.startPage(page,limit);
-        Coupon[] coupons = wxfCouponMapper.queryCouponByCondition("%"+coupon.getName()+"%", coupon);
-        PageInfo<Coupon> pageInfo = new PageInfo<Coupon>(Arrays.asList(coupons));
-        long total = pageInfo.getTotal();
+        Coupon[] coupons = wxfCouponMapper.queryCouponByCondition(coupon);
+        long total = wxfCouponMapper.queryTotal(coupon);
         return BaseRespVo.ok(new PageVo<>(coupons, total));
     }
 
@@ -66,8 +58,7 @@ public class CouponServiceImpl implements CouponService {
     public BaseRespVo queryCouponUserByCondition(int page, int limit,CouponUser couponUser) {
         PageHelper.startPage(page,limit);
         CouponUser[] couponUsers = wxfCouponUserMapper.queryCouponUserByCondition(couponUser);
-        PageInfo<CouponUser> tPageInfo = new PageInfo<>(Arrays.asList(couponUsers));
-        long total = tPageInfo.getTotal();
+        long total = wxfCouponUserMapper.queryTotal(couponUser);
         return BaseRespVo.ok(new PageVo<>(couponUsers, total));
     }
 

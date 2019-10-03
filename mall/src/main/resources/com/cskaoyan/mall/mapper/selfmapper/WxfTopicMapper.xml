@@ -25,13 +25,11 @@
   <sql id="Blob_Column_List">
     content
   </sql>
-  <select id="selectAllTopic" resultType="com.cskaoyan.mall.bean.Topic">
+  <select id="selectAllTopic" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from cskaoyan_mall_topic
   </select>
-  <select id="queryTopicByCondition" resultType="com.cskaoyan.mall.bean.Topic">
-    select <include refid="Base_Column_List"/>
-    from cskaoyan_mall_topic
+  <sql id="queryConditions">
     where 1=1
     <trim>
       <if test="title !=null or title != ''">
@@ -41,21 +39,18 @@
         and subtitle like '%${subtitle}%'
       </if>
     </trim>
+  </sql>
+  <select id="queryTopicByCondition" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from cskaoyan_mall_topic
+    <include refid="queryConditions"/>
   </select>
   <select id="queryTotal" resultType="long">
     select count(id) from cskaoyan_mall_topic
-    where 1=1
-    <trim>
-      <if test="title !=null or title != ''">
-        and title like '%${title}%'
-      </if>
-      <if test="subtitle != null or subtitle !=''">
-        and subtitle like '%${subtitle}%'
-      </if>
-    </trim>
+    <include refid="queryConditions"/>
   </select>
 
-  <select id="selectLastInsert" resultType="com.cskaoyan.mall.bean.Topic">
+  <select id="selectLastInsert" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> from cskaoyan_mall_topic
     where id = LAST_INSERT_ID()
   </select>

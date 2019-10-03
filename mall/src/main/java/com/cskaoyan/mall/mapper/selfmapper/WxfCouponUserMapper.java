@@ -10,4 +10,6 @@ public interface WxfCouponUserMapper {
     CouponUser[] selectByCouponId(@Param("coupon_id") int couponId);
 
     CouponUser[] queryCouponUserByCondition(CouponUser couponUser);
+
+    long queryTotal(CouponUser couponUser);
 }

@@ -12,6 +12,14 @@ public class BaseRespVo<T> {
         objectLoginVo.setErrno(0);
         return objectLoginVo;
     }
+
+    public static BaseRespVo err(Object data){
+        BaseRespVo<Object> objectLoginVo = new BaseRespVo<>();
+        objectLoginVo.setData(data);
+        objectLoginVo.setErrmsg("失败,用户id重复");
+        objectLoginVo.setErrno(1);
+        return objectLoginVo;
+    }
     /*ok和getBaseResVo功能差不多，建议使用后者，因为不一定成功*/
     public static BaseRespVo getBaseResVo(int errno, Object data, String errmsg) {
         BaseRespVo<Object> baseRespVo = new BaseRespVo<>();
@@ -19,6 +27,14 @@ public class BaseRespVo<T> {
         if(data != null) baseRespVo.setData(data);
         if(errmsg != null)baseRespVo.setErrmsg(errmsg);
         return baseRespVo;
+    }
+
+    public static BaseRespVo fail(int errno,  String errmsg) {
+        BaseRespVo<Object> baseRespVo = new BaseRespVo<>();
+        baseRespVo.setErrno(errno);
+        if(errmsg != null)baseRespVo.setErrmsg(errmsg);
+        return baseRespVo;
+
     }
 
     public T getData() {
