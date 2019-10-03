@@ -18,10 +18,10 @@ public class GrouponController {
     public BaseRespVo grouponList(int page, int limit, GetString getString){
         GrouponRules grouponRules = new GrouponRules();
         String goodsId = getString.getGoodsId();
-        if(goodsId.length()>10){
-            return BaseRespVo.fail(401, "参数不对");
-        }
         if(goodsId!=null&&goodsId!=""){
+            if(goodsId.length()>10){
+                return BaseRespVo.fail(401, "参数不对");
+            }
             if(IsNumber.isNumber(goodsId)) {
                 grouponRules.setGoodsId(Integer.parseInt(goodsId));
             }else {
@@ -54,10 +54,10 @@ public class GrouponController {
     public BaseRespVo listRecord(int page,int limit,GetString getString){
         GrouponRules grouponRules = new GrouponRules();
         String goodsId = getString.getGoodsId();
-        if(goodsId.length()>10){
-            return BaseRespVo.fail(401, "参数不对");
-        }
         if(goodsId!=null&&goodsId!=""){
+            if(goodsId.length()>10){
+                return BaseRespVo.fail(401, "参数不对");
+            }
             if(IsNumber.isNumber(goodsId)) {
                 grouponRules.setGoodsId(Integer.parseInt(goodsId));
             }else {
