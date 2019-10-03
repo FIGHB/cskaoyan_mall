@@ -331,8 +331,8 @@
     <selectKey resultType="int" keyProperty="category.id" keyColumn="id" order="AFTER">
       SELECT last_insert_id()
     </selectKey>
-    insert into cskaoyan_mall_category(`desc`,icon_url,keywords,level,name,pic_url,pid)
-    values (#{category.desc},#{category.iconUrl},#{category.keywords},#{category.level},#{category.name},#{category.picUrl},#{category.pid})
+    insert into cskaoyan_mall_category(`desc`,icon_url,keywords,level,name,pic_url,pid,add_time)
+    values (#{category.desc},#{category.iconUrl},#{category.keywords},#{category.level},#{category.name},#{category.picUrl},#{category.pid},#{category.addTime})
   </insert>
 
   <select id="queryCategoryById" resultType="com.cskaoyan.mall.bean.Category">
@@ -349,7 +349,7 @@
 
   <update id="updateCategory">
     update cskaoyan_mall_category
-    set `desc`=#{category.desc}, icon_url=#{category.iconUrl}, id=#{category.id}, keywords=#{category.keywords},level=#{category.level}, name=#{category.name},pic_url=#{category.picUrl}
+    set `desc`=#{category.desc}, icon_url=#{category.iconUrl}, id=#{category.id}, keywords=#{category.keywords},level=#{category.level}, name=#{category.name},pic_url=#{category.picUrl},update_time=#{category.updateTime}
     where id = #{category.id}
   </update>
 </mapper>
