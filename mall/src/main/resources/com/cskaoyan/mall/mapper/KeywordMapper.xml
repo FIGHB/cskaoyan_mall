@@ -304,8 +304,8 @@
     <selectKey resultType="int" keyProperty="keyword.id" keyColumn="id" order="AFTER">
       SELECT last_insert_id()
     </selectKey>
-    insert into cskaoyan_mall_keyword(is_default,is_hot,keyword,url)
-    values (#{keyword.isDefault},#{keyword.isHot},#{keyword.keyword},#{keyword.url})
+    insert into cskaoyan_mall_keyword(is_default,is_hot,keyword,url,add_time)
+    values (#{keyword.isDefault},#{keyword.isHot},#{keyword.keyword},#{keyword.url},#{keyword.addTime})
   </insert>
 
   <select id="queryKeyWordById" resultType="com.cskaoyan.mall.bean.Keyword">
@@ -316,7 +316,7 @@
 
   <update id="updateKeyWord">
     update cskaoyan_mall_keyword
-    set keyword = #{keyword.keyword}, url = #{keyword.url}, is_default = #{keyword.isDefault}, is_hot = #{keyword.isHot}
+    set keyword = #{keyword.keyword}, url = #{keyword.url}, is_default = #{keyword.isDefault}, is_hot = #{keyword.isHot}, update_time = #{keyword.updateTime}
     where id = #{keyword.id}
   </update>
 

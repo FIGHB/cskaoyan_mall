@@ -1,10 +1,7 @@
 package com.cskaoyan.mall.service.steve;
 
 import com.cskaoyan.mall.bean.*;
-import com.cskaoyan.mall.mapper.GoodsAttributeMapper;
 import com.cskaoyan.mall.mapper.GoodsMapper;
-import com.cskaoyan.mall.mapper.GoodsProductMapper;
-import com.cskaoyan.mall.mapper.GoodsSpecificationMapper;
 import com.cskaoyan.mall.mapper.steve.SteveBrandMapper;
 import com.cskaoyan.mall.vo.NewGoodAddVO;
 import com.cskaoyan.mall.vo.steve.*;
@@ -25,22 +22,12 @@ public class GoodsServicesImpl implements GoodsServices {
     GoodsMapper goodsMapper;
     @Autowired
     SteveBrandMapper steveBrandMapper;
-    //@Autowired
-    //SteveAddGoodsMapper steveAddGoodsMapper;
-
-    //下面的用逆向工程里面的自动生成
-    @Autowired
-    GoodsAttributeMapper goodsAttributeMapper;
-    @Autowired
-    GoodsSpecificationMapper goodsSpecificationMapper;
-    @Autowired
-    GoodsProductMapper goodsProductMapper;
 
     @Override
     public List<Goods> queryGoods(SteveGoods steveGoods) {
-        PageHelper.startPage(steveGoods.getPage(), steveGoods.getLimit());
+        PageHelper.startPage(steveGoods.getPage(), steveGoods.getLimit(), steveGoods.getSort() + " " + steveGoods.getOrder());
         GoodsExample goodsExample = new GoodsExample();
-        goodsExample.setOrderByClause("add_time desc");
+        //goodsExample.setOrderByClause("add_time desc");
         //这玩意是内部类
         GoodsExample.Criteria criteria = goodsExample.createCriteria();
 
@@ -49,7 +36,7 @@ public class GoodsServicesImpl implements GoodsServices {
         if ((steveGoods.getGoodsSn() != null && (!"".equals(steveGoods.getGoodsSn().trim())))
                 && (steveGoods.getName() != null) && (!"".equals(steveGoods.getName().trim()))) {
             criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn()).andNameLike("%" + steveGoods.getName() + "%").andDeletedEqualTo(false);
-        } else if (((steveGoods.getGoodsSn() == null ) || ("".equals(steveGoods.getGoodsSn().trim())))
+        } else if (((steveGoods.getGoodsSn() == null) || ("".equals(steveGoods.getGoodsSn().trim())))
                 && (steveGoods.getName() != null) && (!"".equals(steveGoods.getName().trim()))) {
             criteria.andNameLike("%" + steveGoods.getName() + "%").andDeletedEqualTo(false);
         } else if ((steveGoods.getGoodsSn() != null) && (!"".equals(steveGoods.getGoodsSn().trim()))
@@ -74,7 +61,7 @@ public class GoodsServicesImpl implements GoodsServices {
         if ((steveGoods.getGoodsSn() != null && (!"".equals(steveGoods.getGoodsSn().trim())))
                 && (steveGoods.getName() != null) && (!"".equals(steveGoods.getName().trim()))) {
             criteria.andGoodsSnEqualTo(steveGoods.getGoodsSn()).andNameLike("%" + steveGoods.getName() + "%").andDeletedEqualTo(false);
-        } else if (((steveGoods.getGoodsSn() == null ) || ("".equals(steveGoods.getGoodsSn().trim())))
+        } else if (((steveGoods.getGoodsSn() == null) || ("".equals(steveGoods.getGoodsSn().trim())))
                 && (steveGoods.getName() != null) && (!"".equals(steveGoods.getName().trim()))) {
             criteria.andNameLike("%" + steveGoods.getName() + "%").andDeletedEqualTo(false);
         } else if ((steveGoods.getGoodsSn() != null) && (!"".equals(steveGoods.getGoodsSn().trim()))
@@ -98,21 +85,25 @@ public class GoodsServicesImpl implements GoodsServices {
 
     @Override
     public List<ForCategory> queryCategory() {
-        //分两步查 用分次查询
         //首先查出来category 根据数据库中的pid等于0,查出所有的分类
         List<ForCategory> categoryLists = steveBrandMapper.queryCategory(0);
-
         return categoryLists;
     }
 
     @Transactional
     @Override
-    public void addGoods(NewGoodAddVO newGoodAddVO) {
+    public int addGoods(NewGoodAddVO newGoodAddVO) {
         int goodId = Integer.parseInt(newGoodAddVO.getGoods().getGoodsSn());
         goodsMapper.insertAttributes(newGoodAddVO.getAttributes(), goodId);
-        goodsMapper.insertGoods(newGoodAddVO.getGoods(),goodId);
-        goodsMapper.insertProduct(newGoodAddVO.getProducts(),goodId);
-        goodsMapper.insertSpec(newGoodAddVO.getSpecifications(),goodId);
+        try {
+            goodsMapper.insertGoods(newGoodAddVO.getGoods(), goodId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return 1;
+        }
+        goodsMapper.insertProduct(newGoodAddVO.getProducts(), goodId);
+        goodsMapper.insertSpec(newGoodAddVO.getSpecifications(), goodId);
+        return 0;
     }
 
     @Override

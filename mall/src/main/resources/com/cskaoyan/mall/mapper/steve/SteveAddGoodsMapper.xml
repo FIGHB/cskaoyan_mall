@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD
 <mapper namespace="com.cskaoyan.mall.mapper.steve.SteveAddGoodsMapper">
     <insert id="insertGoodsAttributes">
         insert into cskaoyan_mall_goods_attribute (attribute,`value`) values
@@ -30,13 +29,4 @@
             (#{specifications.picUrl},#{specifications.specification},#{specifications.value})
         </foreach>
     </insert>
-=======
-<mapper namespace="com.cskaoyan.mall.mapper.steve.SteveAddGoods">
-
-    <update id="deleteGoodsById">
-        update cskaoyan_mall_goods
-        set deleted = true
-        where id = #{id}
-    </update>
->>>>>>> b5f93062460e0471f4089b2d47b89ec78ba9d672
 </mapper>

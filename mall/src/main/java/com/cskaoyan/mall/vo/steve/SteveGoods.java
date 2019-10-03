@@ -9,7 +9,7 @@ public class SteveGoods {
     int limit;
     String goodsSn;
     String name;
-    String add_time;
+    String sort;
     String order;
 
     public int getPage() {
@@ -46,12 +46,12 @@ public class SteveGoods {
         this.name = name;
     }
 
-    public String getAdd_time() {
-        return add_time;
+    public String getSort() {
+        return sort;
     }
 
-    public void setAdd_time(String add_time) {
-        this.add_time = add_time;
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 
     public String getOrder() {

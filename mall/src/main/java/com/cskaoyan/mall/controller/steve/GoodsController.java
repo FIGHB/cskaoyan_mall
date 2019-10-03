@@ -1,6 +1,9 @@
 package com.cskaoyan.mall.controller.steve;
 
 import com.cskaoyan.mall.bean.Goods;
+import com.cskaoyan.mall.bean.GoodsAttribute;
+import com.cskaoyan.mall.bean.GoodsProduct;
+import com.cskaoyan.mall.bean.GoodsSpecification;
 import com.cskaoyan.mall.service.steve.GoodsServices;
 import com.cskaoyan.mall.utils.SteveListBean;
 import com.cskaoyan.mall.vo.BaseRespVo;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,8 +62,25 @@ public class GoodsController {
      */
     @RequestMapping("admin/goods/create")
     public BaseRespVo addGoods(@RequestBody NewGoodAddVO newGoodAddVO){
-        goodsServices.addGoods(newGoodAddVO);
-        return  BaseRespVo.ok(null);
+        Date date = new Date();
+        newGoodAddVO.getGoods().setAddTime(date);
+        for (GoodsAttribute attribute : newGoodAddVO.getAttributes()) {
+            attribute.setAddTime(date);
+        }
+        for (GoodsProduct product : newGoodAddVO.getProducts()) {
+            product.setAddTime(date);
+        }
+        for (GoodsSpecification specification : newGoodAddVO.getSpecifications()) {
+            specification.setAddTime(date);
+        }
+        System.out.println(newGoodAddVO);
+
+        int flag = goodsServices.addGoods(newGoodAddVO);
+        if (flag == 0){
+            return  BaseRespVo.ok(null);
+        }else {
+            return BaseRespVo.err(null);
+        }
     }
 
     @RequestMapping("/admin/goods/delete")
