@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * author:王小凤
- */
+
 @RestController
 public class AdController {
     @Autowired
@@ -21,13 +19,8 @@ public class AdController {
 
     @RequestMapping("/admin/ad/list")
     public BaseRespVo adList(int page, int limit,Ad ad){
-        BaseRespVo ads = null;
-        if(ad.getName()==null){
-            ads = adService.queryAllAd(page, limit);
-        }else {
-            ads = adService.queryByNameAndContent(page, limit,ad);
-        }
-        return ads;
+        BaseRespVo baseRespVo = adService.queryByNameAndContent(page, limit, ad);
+        return baseRespVo;
     }
 
     @RequestMapping("/admin/ad/update")
