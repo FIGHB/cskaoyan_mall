@@ -28,7 +28,6 @@ public class StorageContorller {
         String url="/wx/storage/fetch/";
         File path = new File(ResourceUtils.getURL("classpath:").getPath());
         String realPath=path.getAbsolutePath()+"/static"+url;
-        System.out.println(realPath);
         String key = UUID.randomUUID().toString()+".jpg";
         File file1 = new File(realPath+key);
         if(!file1.exists()){
