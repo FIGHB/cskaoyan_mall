@@ -110,4 +110,6 @@
     left join cskaoyan_mall_goods g on r.goods_id = g.id
     <include refid="queryGrouponVoConditions"/>
   </select>
+
+
 </mapper>
