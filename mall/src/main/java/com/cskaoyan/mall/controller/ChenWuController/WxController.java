@@ -34,5 +34,31 @@ public class WxController {
         return baseRespVo;
     }
 
+    @PostMapping("logout")
+    public BaseRespVo logOut() {
+        BaseRespVo baseRespVo = new BaseRespVo();
+        baseRespVo.setErrmsg("请登录");
+        baseRespVo.setErrno(501);
+        return baseRespVo;
+    }
+
+    @PostMapping("register")
+    public BaseRespVo register(String code,String mobile,String password,String username,String wxCode) {
+        BaseRespVo baseRespVo = new BaseRespVo();
+        baseRespVo.setErrmsg("验证码错误");
+        baseRespVo.setErrno(703);
+        return baseRespVo;
+    }
+
+    @PostMapping("reset")
+    public BaseRespVo reset(String code,String mobile,String password) {
+        BaseRespVo baseRespVo = new BaseRespVo();
+        baseRespVo.setErrmsg("验证码错误");
+        baseRespVo.setErrno(703);
+        return baseRespVo;
+    }
+
+
+
 
 }
