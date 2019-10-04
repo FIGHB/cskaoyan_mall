@@ -28,15 +28,15 @@ cskaoyan-mall
 
 ```java
   //周榆淮
-  IndexUrl: WxApiRoot + 'home/index', //首页数据接口						
-  CatalogList: WxApiRoot + 'catalog/index', //分类目录全部分类数据接口
+  IndexUrl: WxApiRoot + 'home/index', //首页数据接口(周榆淮 doing)						
+  CatalogList: WxApiRoot + 'catalog/index', //分类目录全部分类数据接口(李锐 done)
   CatalogCurrent: WxApiRoot + 'catalog/current', //分类目录当前分类数据接口
   
   BrandList: WxApiRoot + 'brand/list', //品牌列表			 							
   BrandDetail: WxApiRoot + 'brand/detail', //品牌详情
 
   //杨磊
-  GoodsCount: WxApiRoot + 'goods/count', //统计商品总数					
+  GoodsCount: WxApiRoot + 'goods/count', //统计商品总数(李锐 done)					
   GoodsList: WxApiRoot + 'goods/list', //获得商品列表
   GoodsCategory: WxApiRoot + 'goods/category', //获得分类数据						
   GoodsDetail: WxApiRoot + 'goods/detail', //获得商品的详情
@@ -51,13 +51,13 @@ cskaoyan-mall
   CommentPost: WxApiRoot + 'comment/post', //发表评论
 
   //国旭
-  TopicList: WxApiRoot + 'topic/list', //专题列表								
-  TopicDetail: WxApiRoot + 'topic/detail', //专题详情
-  TopicRelated: WxApiRoot + 'topic/related', //相关专题		
+  TopicList: WxApiRoot + 'topic/list', //专题列表   （国旭 done）								
+  TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 done）
+  TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 done）	
   
-  ExpressQuery: WxApiRoot + 'express/query', //物流查询
+  ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 doing）
 
-  RegionList: WxApiRoot + 'region/list', //获取区域列表
+  RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 done）
 
   //李锐
   SearchIndex: WxApiRoot + 'search/index', //搜索关键字				 
