@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author 李锐
+ */
 @Service
 public class LRWXMallServiceImpl implements LRWXMallService {
 
