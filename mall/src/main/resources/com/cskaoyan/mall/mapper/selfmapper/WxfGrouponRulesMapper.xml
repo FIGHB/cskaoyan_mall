@@ -23,14 +23,16 @@
     select <include refid="Base_Column_List"/> from cskaoyan_mall_groupon_rules
     where id = LAST_INSERT_ID()
   </select>
+
   <sql id="queryConditions">
-    where 1=1
+    where deleted = 'false'
     <trim>
       <if test="goodsId !=null">
         and goods_id = #{goodsId}
       </if>
     </trim>
   </sql>
+
   <select id="queryGrouponByCondition" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from cskaoyan_mall_groupon_rules
@@ -80,6 +82,16 @@
     <result column="share_url" jdbcType="VARCHAR" property="groupon.shareUrl" />
     <result column="payed" jdbcType="BIT" property="groupon.payed" />
   </resultMap>
+
+  <sql id="queryGrouponVoConditions">
+    where 1=1
+    <trim>
+      <if test="goodsId != null">
+        and r.goods_id = #{goodsId}
+      </if>
+    </trim>
+  </sql>
+
   <select id="queryGrouponVo" resultMap="GrouponVoResult">
     select
     gr.id as grouponId, gr.order_id, gr.groupon_id, gr.rules_id, gr.user_id, gr.creator_user_id, gr.add_time as gr_add_time, gr.update_time as gr_update_time,
@@ -89,12 +101,15 @@
     from cskaoyan_mall_groupon gr
     left join  cskaoyan_mall_groupon_rules r on r.id = gr.rules_id
     left join cskaoyan_mall_goods g on r.goods_id = g.id
-    where 1=1
-    <trim>
-      <if test="goodsId != null">
-        and r.goods_id = #{goodsId}
-      </if>
-    </trim>
-
+    <include refid="queryGrouponVoConditions"/>
   </select>
+
+  <select id="queryGrouponVoTotal" resultType="long">
+    select count(*) from cskaoyan_mall_groupon gr
+    left join  cskaoyan_mall_groupon_rules r on r.id = gr.rules_id
+    left join cskaoyan_mall_goods g on r.goods_id = g.id
+    <include refid="queryGrouponVoConditions"/>
+  </select>
+
+
 </mapper>

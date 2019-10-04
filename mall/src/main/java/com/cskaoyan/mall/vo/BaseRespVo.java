@@ -37,6 +37,14 @@ public class BaseRespVo<T> {
 
     }
 
+    public static BaseRespVo updateErr(Object data) {
+        BaseRespVo<Object> objectLoginVo = new BaseRespVo<>();
+        objectLoginVo.setData(data);
+        objectLoginVo.setErrmsg("失败,用户id不允许修改");
+        objectLoginVo.setErrno(1);
+        return objectLoginVo;
+    }
+
     public T getData() {
         return data;
     }

@@ -43,7 +43,11 @@ public class GrouponServiceImpl implements GrouponService {
 
     @Override
     public BaseRespVo delete(GrouponRules grouponRules) {
-        grouponRulesMapper.deleteByPrimaryKey(grouponRules.getId());
+        /*grouponRulesMapper.deleteByPrimaryKey(grouponRules.getId());*/
+        GrouponRules grouponRules1 = new GrouponRules();
+        grouponRules1.setId(grouponRules.getId());
+        grouponRules1.setDeleted(true);
+        grouponRulesMapper.updateByPrimaryKeySelective(grouponRules1);
         return BaseRespVo.ok(null);
     }
 
@@ -71,8 +75,7 @@ public class GrouponServiceImpl implements GrouponService {
     public BaseRespVo listRecord(int page, int limit, GrouponRules grouponRules) {
         PageHelper.startPage(page,limit);
         GrouponVo[] grouponVos = wxfGrouponRulesMapper.queryGrouponVo(grouponRules);
-        PageInfo<GrouponVo> tPageInfo = new PageInfo<GrouponVo>(Arrays.asList(grouponVos));
-        long total = tPageInfo.getTotal();
+        long total = wxfGrouponRulesMapper.queryGrouponVoTotal(grouponRules);
         return BaseRespVo.ok(new PageVo<>(grouponVos,total));
     }
 }

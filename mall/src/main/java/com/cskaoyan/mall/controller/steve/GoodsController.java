@@ -73,12 +73,20 @@ public class GoodsController {
         for (GoodsSpecification specification : newGoodAddVO.getSpecifications()) {
             specification.setAddTime(date);
         }
-        System.out.println(newGoodAddVO);
+
+        //数据校验
+        if (newGoodAddVO.getGoods().getGoodsSn() == null || "".equals(newGoodAddVO.getGoods().getGoodsSn())) {
+            return BaseRespVo.fail(1,"商品编号必须输入!");
+        }else if (newGoodAddVO.getGoods().getName() == null || "".equals(newGoodAddVO.getGoods().getName())){
+            return BaseRespVo.fail(2,"商品名称必须输入!");
+        }
 
         int flag = goodsServices.addGoods(newGoodAddVO);
-        if (flag == 0){
-            return  BaseRespVo.ok(null);
-        }else {
+        if (flag == 0) {
+            return BaseRespVo.ok(null);
+        }else if(flag == 3){
+            return BaseRespVo.fail(1,"您下面的输入的数据不完整!");
+        } else {
             return BaseRespVo.err(null);
         }
     }
@@ -87,5 +95,25 @@ public class GoodsController {
     public BaseRespVo deleteGoods(@RequestBody Goods goods){
         goodsServices.deleteGoodsById(goods.getId());
         return BaseRespVo.ok(null);
+    }
+
+    @RequestMapping("admin/goods/update")
+    public BaseRespVo updateGoods(@RequestBody NewGoodAddVO newGoodAddVO){
+        if (newGoodAddVO.getGoods().getGoodsSn() == null || "".equals(newGoodAddVO.getGoods().getGoodsSn())) {
+            return BaseRespVo.fail(1,"商品编号必须输入!");
+        }else if (newGoodAddVO.getGoods().getName() == null || "".equals(newGoodAddVO.getGoods().getName())){
+            return BaseRespVo.fail(2,"商品名称必须输入!");
+        }
+
+        int flag = goodsServices.updateGoods(newGoodAddVO);
+        if (flag == 0){
+            return  BaseRespVo.ok(null);
+        }else if (flag == 1){
+            return BaseRespVo.err(null);
+        } else if(flag == 3){
+            return BaseRespVo.fail(1,"您下面的输入的数据不完整!");
+        }else{
+            return BaseRespVo.updateErr(null);
+        }
     }
 }
