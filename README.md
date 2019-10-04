@@ -27,7 +27,7 @@ cskaoyan-mall
 ### 前台接口
 
 ```
-  IndexUrl: WxApiRoot + 'home/index', //首页数据接口									周榆淮
+  IndexUrl: WxApiRoot + 'home/index', //首页数据接口						周榆淮
   CatalogList: WxApiRoot + 'catalog/index', //分类目录全部分类数据接口
   CatalogCurrent: WxApiRoot + 'catalog/current', //分类目录当前分类数据接口
   
@@ -35,14 +35,14 @@ cskaoyan-mall
   BrandDetail: WxApiRoot + 'brand/detail', //品牌详情
 
 
-  GoodsCount: WxApiRoot + 'goods/count', //统计商品总数							杨磊
+  GoodsCount: WxApiRoot + 'goods/count', //统计商品总数					杨磊
   GoodsList: WxApiRoot + 'goods/list', //获得商品列表
   GoodsCategory: WxApiRoot + 'goods/category', //获得分类数据						
   GoodsDetail: WxApiRoot + 'goods/detail', //获得商品的详情
   GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）
 
 
-  CollectList: WxApiRoot + 'collect/list', //收藏列表										王小凤
+  CollectList: WxApiRoot + 'collect/list', //收藏列表					 王小凤
   CollectAddOrDelete: WxApiRoot + 'collect/addordelete', //添加或取消收藏
 
   CommentList: WxApiRoot + 'comment/list', //评论列表					
@@ -58,7 +58,7 @@ cskaoyan-mall
 
   RegionList: WxApiRoot + 'region/list', //获取区域列表
 
-  SearchIndex: WxApiRoot + 'search/index', //搜索关键字					李锐
+  SearchIndex: WxApiRoot + 'search/index', //搜索关键字				 李锐
   SearchResult: WxApiRoot + 'search/result', //搜索结果
   SearchHelper: WxApiRoot + 'search/helper', //搜索帮助
   SearchClearHistory: WxApiRoot + 'search/clearhistory', //搜索历史清楚
@@ -71,8 +71,8 @@ cskaoyan-mall
   AddressSave: WxApiRoot + 'address/save', //保存收货地址
   AddressDelete: WxApiRoot + 'address/delete', //保存收货地址
 
-
-  AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录			陈武
+  陈武
+  AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录			
   AuthLoginByAccount: WxApiRoot + 'auth/login', //账号登录
   AuthLogout: WxApiRoot + 'auth/logout', //账号登出
   AuthRegister: WxApiRoot + 'auth/register', //账号注册
