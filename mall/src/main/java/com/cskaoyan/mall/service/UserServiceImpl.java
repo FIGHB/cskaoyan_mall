@@ -23,9 +23,13 @@ public class UserServiceImpl implements UserService{
     @Autowired
     FootprintMapper footprintMapper;
     @Autowired
-    SearchHistoryMapperGuo searchHistoryMapper;
+    SearchHistoryMapper searchHistoryMapper;
     @Autowired
-    FeedbackMapperGuo feedbackMapper;
+    FeedbackMapper feedbackMapper;
+    @Autowired
+    RegionMapper regionMapper;
+    @Autowired
+    GuoRegionMapper guoRegionMapper;
 
     @Override
     public List<User> getUserList() {
@@ -63,20 +67,70 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<Address> getAddressList() {
+    public List<Address> getAddressList(AdressShow adressShow) {
         AddressExample addressExample = new AddressExample();
         AddressExample.Criteria criteria = addressExample.createCriteria();
-        criteria.andIdIsNotNull().andDeletedEqualTo(false);
+        if((adressShow.getUserId()!=null&&!"".equals(adressShow.getUserId()))&&(adressShow.getName()!=null&&!"".equals(adressShow.getName()))){
+            Integer userId=(Integer)adressShow.getUserId();
+            criteria.andUserIdEqualTo(userId).andNameLike("%"+adressShow.getName()+"%").andDeletedEqualTo(false);
+        }else if((adressShow.getUserId()==null||"".equals(adressShow.getUserId()))&&(adressShow.getName()!=null&&!"".equals(adressShow.getName()))){
+            criteria.andNameLike("%"+adressShow.getName()+"%").andDeletedEqualTo(false);
+        }else if((adressShow.getUserId()!=null&&!"".equals(adressShow.getUserId()))&&(adressShow.getName()==null||"".equals(adressShow.getName()))){
+            Integer userId=(Integer)adressShow.getUserId();
+            criteria.andUserIdEqualTo(userId).andDeletedEqualTo(false);
+        }else {
+            criteria.andIdIsNotNull().andDeletedEqualTo(false);
+        }
         List<Address> addresses = addressMapper.selectByExample(addressExample);
         return addresses;
     }
+    public List<GuoAddress> getGuoAddressList(List<Address> addresses){
+        List<GuoAddress> guoAddressList=new ArrayList<>();
+        for (Address address : addresses) {
+            GuoAddress guoAddress=new GuoAddress();
+
+            Region region1 = guoRegionMapper.getRegionById(address.getAreaId());
+            guoAddress.setArea(region1.getName());
+
+            Region region2 = guoRegionMapper.getRegionById(address.getCityId());
+            guoAddress.setCity(region2.getName());
+
+            Region region3 = guoRegionMapper.getRegionById(address.getProvinceId());
+            guoAddress.setProvince(region3.getName());
+
+            guoAddress.setDeleted(false);
+            guoAddress.setIsDefault(address.getIsDefault());
+            guoAddress.setAreaId(address.getAreaId());
+            guoAddress.setAddress(address.getAddress());
+            guoAddress.setName(address.getName());
+            guoAddress.setMobile(address.getMobile());
+            guoAddress.setId(address.getId());
+            guoAddress.setCityId(address.getCityId());
+            guoAddress.setProvinceId(address.getProvinceId());
+            guoAddress.setUserId(address.getUserId());
+
+            guoAddressList.add(guoAddress);
+        }
+        return guoAddressList;
+    }
 
     @Override
-    public List<Collect> getConlectList() {
-        CollectExample collectExample=new CollectExample();
+    public List<Collect> getConlectList(CollectShow collectShow) {
+        CollectExample collectExample = new CollectExample();
         CollectExample.Criteria criteria = collectExample.createCriteria();
-        criteria.andIdIsNotNull().andDeletedEqualTo(false);
-        List<Collect> collects=collectMapper.selectByExample(collectExample);
+        if( (collectShow.getValueId()!=null&&!"".equals(collectShow.getValueId()) )
+        &&( collectShow.getUserId()!=null&&!"".equals(collectShow.getUserId()) ) ){
+            criteria.andValueIdEqualTo((Integer) collectShow.getValueId()).andUserIdEqualTo((Integer) collectShow.getUserId()).andDeletedEqualTo(false);
+        }else if( collectShow.getValueId()!=null&&!"".equals(collectShow.getValueId())
+            &&(collectShow.getUserId()==null||"".equals(collectShow.getUserId())) ){
+            criteria.andValueIdEqualTo((Integer) collectShow.getValueId()).andDeletedEqualTo(false);
+        }else if( collectShow.getUserId()!=null&&!"".equals(collectShow.getUserId())
+            &&(collectShow.getValueId()==null||"".equals(collectShow.getValueId()))){
+            criteria.andUserIdEqualTo((Integer) collectShow.getUserId()).andDeletedEqualTo(false);
+        }else {
+            criteria.andIdIsNotNull().andDeletedEqualTo(false);
+        }
+        List<Collect> collects = collectMapper.selectByExample(collectExample);
         return collects;
     }
 
@@ -96,10 +150,27 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<Footprint> getFootPrintList() {
+    public List<Footprint> getFootPrintList(FootprintShow footprintShow) {
         FootprintExample footprintExample=new FootprintExample();
         FootprintExample.Criteria criteria = footprintExample.createCriteria();
-        criteria.andIdIsNotNull().andDeletedEqualTo(false);
+        if(
+           footprintShow.getUserId()!=null&&!"".equals(footprintShow.getUserId())
+           &&footprintShow.getGoodsId()!=null&&!"".equals(footprintShow.getGoodsId())
+        ){
+            criteria.andGoodsIdEqualTo((Integer) footprintShow.getGoodsId()).andUserIdEqualTo((Integer) footprintShow.getUserId()).andDeletedEqualTo(false);
+        }else if(
+            footprintShow.getUserId()!=null&&!"".equals(footprintShow.getUserId())
+            &&(footprintShow.getGoodsId()==null||"".equals(footprintShow.getGoodsId()))
+        ){
+            criteria.andUserIdEqualTo((Integer) footprintShow.getUserId()).andDeletedEqualTo(false);
+        }else if(
+            footprintShow.getGoodsId()!=null&&!"".equals(footprintShow.getGoodsId())
+            &&(footprintShow.getUserId()==null||"".equals(footprintShow.getUserId()))
+        ){
+            criteria.andGoodsIdEqualTo((Integer) footprintShow.getGoodsId()).andDeletedEqualTo(false);
+        }else {
+            criteria.andIdIsNotNull().andDeletedEqualTo(false);
+        }
         List<Footprint> footprints = footprintMapper.selectByExample(footprintExample);
         return footprints;
     }
@@ -119,19 +190,55 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<SearchHistoryGuo> getSearchHistory() {
-        List<SearchHistoryGuo> searchHistoryList = searchHistoryMapper.getSearchHistoryList();
-        for (SearchHistoryGuo searchHistory : searchHistoryList) {
-            searchHistory.setUserId(searchHistoryMapper.getUserIdById(searchHistory.getId()));
-            searchHistory.setAddTime(searchHistoryMapper.getAddTimeById(searchHistory.getId()));
+    public List<SearchHistory> getSearchHistoryList(SearchHistoryShow searchHistoryShow) {
+        SearchHistoryExample searchHistoryExample = new SearchHistoryExample();
+        SearchHistoryExample.Criteria criteria = searchHistoryExample.createCriteria();
+        if(
+            searchHistoryShow.getUserId()!=null&&!"".equals(searchHistoryShow.getUserId())
+            &&searchHistoryShow.getKeyword()!=null&&!"".equals(searchHistoryShow.getKeyword())
+        ){
+            criteria.andKeywordLike("%"+searchHistoryShow.getKeyword()+"%").andUserIdEqualTo((Integer) searchHistoryShow.getUserId()).andDeletedEqualTo(false);
+        }else if(
+                searchHistoryShow.getUserId()!=null&&!"".equals(searchHistoryShow.getUserId())
+                &&(searchHistoryShow.getKeyword()==null||"".equals(searchHistoryShow.getKeyword()))
+        ){
+            criteria.andDeletedEqualTo(false).andUserIdEqualTo((Integer) searchHistoryShow.getUserId());
+        }else if(
+                searchHistoryShow.getKeyword()!=null&&!"".equals(searchHistoryShow.getKeyword())
+                &&(searchHistoryShow.getUserId()==null||"".equals(searchHistoryShow.getUserId()))
+        ){
+            criteria.andDeletedEqualTo(false).andKeywordLike("%"+searchHistoryShow.getKeyword()+"%");
+        }else {
+            criteria.andIdIsNotNull().andDeletedEqualTo(false);
         }
+        List<SearchHistory> searchHistoryList = searchHistoryMapper.selectByExample(searchHistoryExample);
         return searchHistoryList;
     }
 
     @Override
-    public List<FeedbackGuo> getFeedbackList() {
-        List<FeedbackGuo> feedbackList = feedbackMapper.getFeedbackList();
-        return feedbackList;
+    public List<Feedback> getFeedbackList(FeedbackShow feedbackShow) {
+        FeedbackExample feedbackExample = new FeedbackExample();
+        FeedbackExample.Criteria criteria = feedbackExample.createCriteria();
+        if(
+            feedbackShow.getId()!=null&&!"".equals(feedbackShow.getId())
+            &&feedbackShow.getUsername()!=null&&!"".equals(feedbackShow.getUsername())
+        ){
+            criteria.andIdEqualTo((Integer) feedbackShow.getId()).andUsernameLike("%"+feedbackShow.getUsername()+"%").andDeletedEqualTo(false);
+        }else if(
+            feedbackShow.getId()!=null&&!"".equals(feedbackShow.getId())
+            &&(feedbackShow.getUsername()==null||"".equals(feedbackShow.getUsername()))
+        ){
+            criteria.andDeletedEqualTo(false).andIdEqualTo((Integer) feedbackShow.getId());
+        }else if(
+            feedbackShow.getUsername()!=null&&!"".equals(feedbackShow.getUsername())
+            &&(feedbackShow.getId()==null||"".equals(feedbackShow.getId()))
+        ){
+            criteria.andDeletedEqualTo(false).andUsernameLike("%"+feedbackShow.getUsername()+"%");
+        }else {
+            criteria.andIdIsNotNull().andDeletedEqualTo(false);
+        }
+        List<Feedback> feedbacks = feedbackMapper.selectByExample(feedbackExample);
+        return feedbacks;
     }
 
     @Override
@@ -149,28 +256,18 @@ public class UserServiceImpl implements UserService{
         return users;
     }
 
-    @Override
-    public List<Address> getAddressListByScreen(Integer userId, String name) {
-        AddressExample addressExample = new AddressExample();
-        AddressExample.Criteria criteria = addressExample.createCriteria();
-        if(userId==null){
-            criteria.andNameLike("%"+name+"%").andDeletedEqualTo(false);
-        }else if (name==null){
-            criteria.andUserIdEqualTo(userId).andDeletedEqualTo(false);
-        }else {
-            criteria.andNameLike("%"+name+"%").andUserIdEqualTo(userId).andDeletedEqualTo(false);
-        }
-        List<Address> addresses = addressMapper.selectByExample(addressExample);
-        return addresses;
-    }
 
-    @Override
+
+
+
+
+    /*@Override
     public List<Collect> getCollectListByScreen(Integer valueId, Integer userId) {
         CollectExample collectExample = new CollectExample();
         CollectExample.Criteria criteria = collectExample.createCriteria();
-        if(valueId!=null&&userId!=null){
+        if((valueId!=null&&!"".equals(valueId))&&(userId!=null&&!"".equals(userId))){
             criteria.andValueIdEqualTo(valueId).andUserIdEqualTo(userId).andDeletedEqualTo(false);
-        }else if(userId==null&&valueId!=null){
+        }else if((userId==null||"".equals(userId))&&(valueId!=null&&!"".equals(valueId))){
             criteria.andValueIdEqualTo(valueId).andDeletedEqualTo(false);
         }else{
             criteria.andValueIdEqualTo(userId).andDeletedEqualTo(false);
@@ -192,9 +289,9 @@ public class UserServiceImpl implements UserService{
         }
         List<Footprint> footprints = footprintMapper.selectByExample(footprintExample);
         return footprints;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public List<SearchHistoryGuo> getSearchHistoryByScreen(Integer userId, String keyword) {
         List<SearchHistoryGuo> searchHistoryListByScreen = searchHistoryMapper.getSearchHistoryListByScreen(userId, keyword);
         return searchHistoryListByScreen;
@@ -203,5 +300,5 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<FeedbackGuo> getFeedbackListByScreen(Integer id, String username) {
         return feedbackMapper.getFeedbackListBySreen(id,username);
-    }
+    }*/
 }

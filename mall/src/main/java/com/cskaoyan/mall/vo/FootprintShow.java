@@ -6,8 +6,8 @@ public class FootprintShow {
     private int limit;
     private String sort;
     private String order;
-    private Integer userId;
-    private Integer goodsId;
+    private Object userId;
+    private Object goodsId;
 
     public int getPage() {
         return page;
@@ -41,19 +41,19 @@ public class FootprintShow {
         this.order = order;
     }
 
-    public Integer getUserId() {
+    public Object getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Object userId) {
         this.userId = userId;
     }
 
-    public Integer getGoodsId() {
+    public Object getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(Integer goodsId) {
+    public void setGoodsId(Object goodsId) {
         this.goodsId = goodsId;
     }
 

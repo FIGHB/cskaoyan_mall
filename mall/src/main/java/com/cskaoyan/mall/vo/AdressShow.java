@@ -6,7 +6,7 @@ public class AdressShow {
     private int limit;
     private String sort;
     private String order;
-    private Integer userId;
+    private Object userId;
     private String name;
 
     public int getPage() {
@@ -41,11 +41,11 @@ public class AdressShow {
         this.order = order;
     }
 
-    public Integer getUserId() {
+    public Object getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Object userId) {
         this.userId = userId;
     }
 
