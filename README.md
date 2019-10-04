@@ -36,7 +36,7 @@ cskaoyan-mall
   BrandDetail: WxApiRoot + 'brand/detail', //品牌详情
 
   //杨磊
-  GoodsCount: WxApiRoot + 'goods/count', //统计商品总数(李锐 doing)					
+  GoodsCount: WxApiRoot + 'goods/count', //统计商品总数(李锐 done)					
   GoodsList: WxApiRoot + 'goods/list', //获得商品列表
   GoodsCategory: WxApiRoot + 'goods/category', //获得分类数据						
   GoodsDetail: WxApiRoot + 'goods/detail', //获得商品的详情
