@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("wx/auth/")
 public class WxController {
     @PostMapping("login")
-    public BaseRespVo<LoginVo> login( String password, String wx) {
+    public BaseRespVo<LoginVo> login( String password, String username) {
         BaseRespVo<LoginVo> baseRespVo = new BaseRespVo<>();
         LoginVo loginVo = new LoginVo();
-        UserInfo userInfo = loginVo.getUserInfo();
+        UserInfo userInfo = new UserInfo();
         userInfo.setAvatarUrl("");
         userInfo.setNickname("wx");
         loginVo.setTokenExpire("2019-10-05T08:21:09");
@@ -25,5 +25,14 @@ public class WxController {
         baseRespVo.setData(loginVo);
         return baseRespVo;
     }
+
+    @PostMapping("login_by_weixin")
+    public BaseRespVo login_By_Weixin(com.cskaoyan.mall.vo.UserInfo userInfo) {
+        BaseRespVo baseRespVo = new BaseRespVo();
+        baseRespVo.setErrmsg("错误");
+        baseRespVo.setErrno(-1);
+        return baseRespVo;
+    }
+
 
 }
