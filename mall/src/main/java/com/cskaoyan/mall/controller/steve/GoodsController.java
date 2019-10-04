@@ -9,6 +9,7 @@ import com.cskaoyan.mall.utils.SteveListBean;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.NewGoodAddVO;
 import com.cskaoyan.mall.vo.steve.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class GoodsController {
     GoodsServices goodsServices;
 
     @RequestMapping("admin/goods/list")
+    @RequiresPermissions("admin:goods:list")
     public BaseRespVo queryGoodsProduct(SteveGoods steveGoods){ //前端如果是json,需要写@RequestBody
         BaseRespVo<Object> objectBaseRespVo = new BaseRespVo<>();
 
@@ -40,7 +42,7 @@ public class GoodsController {
         return baseRespVo;
     }
 
-    /*杨磊*/
+    /*杨磊 这个和国旭写的重复啦*/
     /*@RequestMapping("admin/goods/catAndBrand")
     public BaseRespVo queryBrandListAndCategoryList(){
        BaseRespVo<Object> objectBaseRespVo = new BaseRespVo<>();
@@ -62,6 +64,7 @@ public class GoodsController {
      * @return
      */
     @RequestMapping("admin/goods/create")
+    @RequiresPermissions("admin:goods:create")
     public BaseRespVo addGoods(@RequestBody NewGoodAddVO newGoodAddVO){
         Date date = new Date();
         newGoodAddVO.getGoods().setAddTime(date);
@@ -93,12 +96,14 @@ public class GoodsController {
     }
 
     @RequestMapping("/admin/goods/delete")
+    @RequiresPermissions("admin:goods:delete")
     public BaseRespVo deleteGoods(@RequestBody Goods goods){
         goodsServices.deleteGoodsById(goods.getId());
         return BaseRespVo.ok(null);
     }
 
     @RequestMapping("admin/goods/update")
+    @RequiresPermissions("admin:goods:update")
     public BaseRespVo updateGoods(@RequestBody NewGoodAddVO newGoodAddVO){
         if (newGoodAddVO.getGoods().getGoodsSn() == null || "".equals(newGoodAddVO.getGoods().getGoodsSn())) {
             return BaseRespVo.fail(1,"商品编号必须输入!");
