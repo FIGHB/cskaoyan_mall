@@ -33,7 +33,7 @@ public class MallServiceImpl implements MallService {
 
     @Override
     public List queryRegionList() {
-        List<RegionBean> regions = regionMapper.queryRegionListByType(1);
+         List<RegionBean> regions = regionMapper.queryRegionListByType(1);
         for (RegionBean region:regions) {
             List<RegionBean> cityList = regionMapper.queryRegionListByPid(region.getId());
             for (RegionBean city:cityList){
