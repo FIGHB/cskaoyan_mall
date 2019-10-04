@@ -51,13 +51,13 @@ cskaoyan-mall
   CommentPost: WxApiRoot + 'comment/post', //发表评论
 
   //国旭
-  TopicList: WxApiRoot + 'topic/list', //专题列表								
-  TopicDetail: WxApiRoot + 'topic/detail', //专题详情
-  TopicRelated: WxApiRoot + 'topic/related', //相关专题		
+  TopicList: WxApiRoot + 'topic/list', //专题列表   （国旭 done）								
+  TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 done）
+  TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 doing）	
   
-  ExpressQuery: WxApiRoot + 'express/query', //物流查询
+  ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 doing）
 
-  RegionList: WxApiRoot + 'region/list', //获取区域列表
+  RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 doing）
 
   //李锐
   SearchIndex: WxApiRoot + 'search/index', //搜索关键字				 
