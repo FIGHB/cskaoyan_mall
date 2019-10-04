@@ -18,13 +18,20 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, name, link, url, position, content, start_time, end_time, enabled, add_time,
-    update_time, deleted
+    id, name, link, url, position, content, start_time as startTime, end_time as endTime, enabled, add_time as addTime,
+    update_time as updateTime, deleted
   </sql>
-
-  <select id="selectAllAd" resultType="com.cskaoyan.mall.bean.Ad">
-    select <include refid="Base_Column_List"/> from cskaoyan_mall_ad
-  </select>
+  <sql id="queryConditions">
+    where 1=1
+    <trim>
+      <if test="name !=null or name !=''">
+        and name like '%${name}%'
+      </if>
+      <if test="content !=null or content !=''">
+        and content like '%${content}%'
+      </if>
+    </trim>
+  </sql>
 
   <select id="selectByAddTime" resultType="com.cskaoyan.mall.bean.Ad">
     select <include refid="Base_Column_List"/> from cskaoyan_mall_ad
@@ -38,11 +45,12 @@
 
   <select id="queryByNameAndContent" resultType="com.cskaoyan.mall.bean.Ad">
     select <include refid="Base_Column_List"/> from cskaoyan_mall_ad
-    where name like #{name} and content like #{content}
+    <include refid="queryConditions"/>
   </select>
 
   <select id="queryTotal" resultType="long">
-    select count(id) from cskaoyan_mall_coupon
+    select count(id) from cskaoyan_mall_ad
+    <include refid="queryConditions"/>
   </select>
 
 

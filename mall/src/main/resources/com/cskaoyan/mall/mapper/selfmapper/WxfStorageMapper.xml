@@ -16,7 +16,7 @@
   <sql id="Base_Column_List">
     id, key, name, type, size, url, add_time, update_time, deleted
   </sql>
-  <select id="selectByKey" resultType="com.cskaoyan.mall.bean.Storage">
+  <select id="selectByKey" resultMap="BaseResultMap">
     select id, `key`, name, type, size, url, add_time, update_time from cskaoyan_mall_storage
     where `key` = #{key}
   </select>

@@ -5,7 +5,7 @@ public class SearchHistoryShow {
     private int limit;
     private String sort;
     private String order;
-    private Integer userId;
+    private Object userId;
     private String keyword;
 
     public int getPage() {
@@ -40,11 +40,11 @@ public class SearchHistoryShow {
         this.order = order;
     }
 
-    public Integer getUserId() {
+    public Object getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Object userId) {
         this.userId = userId;
     }
 

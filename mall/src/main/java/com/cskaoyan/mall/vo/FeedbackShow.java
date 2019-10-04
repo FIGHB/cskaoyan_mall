@@ -5,7 +5,7 @@ public class FeedbackShow {
     private int limit;
     private String sort;
     private String order;
-    private Integer id;
+    private Object id;
     private String username;
 
     public int getPage() {
@@ -40,11 +40,11 @@ public class FeedbackShow {
         this.order = order;
     }
 
-    public Integer getId() {
+    public Object getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Object id) {
         this.id = id;
     }
 

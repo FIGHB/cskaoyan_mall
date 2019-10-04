@@ -6,8 +6,8 @@ public class CollectShow {
     private int limit;
     private String sort;
     private String order;
-    private Integer userId;
-    private Integer valueId;
+    private Object userId;
+    private Object valueId;
 
     public int getPage() {
         return page;
@@ -41,19 +41,19 @@ public class CollectShow {
         this.order = order;
     }
 
-    public Integer getUserId() {
+    public Object getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Object userId) {
         this.userId = userId;
     }
 
-    public Integer getValueId() {
+    public Object getValueId() {
         return valueId;
     }
 
-    public void setValueId(Integer valueId) {
+    public void setValueId(Object valueId) {
         this.valueId = valueId;
     }
 

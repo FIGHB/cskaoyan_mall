@@ -2,6 +2,7 @@ package com.cskaoyan.mall.service.steve;
 
 import com.cskaoyan.mall.bean.Brand;
 import com.cskaoyan.mall.bean.Goods;
+import com.cskaoyan.mall.vo.NewGoodAddVO;
 import com.cskaoyan.mall.vo.steve.AddGoods;
 import com.cskaoyan.mall.vo.steve.ForCategory;
 import com.cskaoyan.mall.vo.steve.SteveBrand;
@@ -21,5 +22,9 @@ public interface GoodsServices {
 
     List<ForCategory> queryCategory();
 
-    boolean addGoods(AddGoods addGoods);
+    int addGoods(NewGoodAddVO newGoodAddVO);
+
+    void deleteGoodsById(Integer id);
+
+    int updateGoods(NewGoodAddVO newGoodAddVO);
 }

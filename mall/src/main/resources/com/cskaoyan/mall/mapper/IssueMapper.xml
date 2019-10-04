@@ -252,8 +252,8 @@
     <selectKey resultType="int" keyProperty="issue.id" keyColumn="id" order="AFTER">
       SELECT last_insert_id()
     </selectKey>
-    insert into cskaoyan_mall_issue(answer, question)
-    values (#{issue.answer},#{issue.question})
+    insert into cskaoyan_mall_issue(answer, question, add_time)
+    values (#{issue.answer},#{issue.question},#{issue.addTime})
   </insert>
 
   <select id="queryIssueById" resultType="com.cskaoyan.mall.bean.Issue">
@@ -264,7 +264,7 @@
 
   <update id="updateIssue">
     update cskaoyan_mall_issue
-    set question = #{issue.question} ,answer = #{issue.answer}
+    set question = #{issue.question} ,answer = #{issue.answer}, update_time = #{issue.updateTime}
     where id = #{issue.id}
   </update>
 

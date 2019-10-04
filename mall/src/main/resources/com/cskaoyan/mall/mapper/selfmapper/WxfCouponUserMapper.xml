@@ -19,14 +19,13 @@
     id, user_id, coupon_id, status, used_time, start_time, end_time, order_id, add_time,
     update_time, deleted
   </sql>
-  <select id="selectByCouponId" resultType="com.cskaoyan.mall.bean.CouponUser">
+  <select id="selectByCouponId" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from cskaoyan_mall_coupon_user
     where coupon_id = #{coupon_id}
   </select>
-  <select id="queryCouponUserByCondition" resultType="com.cskaoyan.mall.bean.CouponUser">
-    select <include refid="Base_Column_List"/>
-    from cskaoyan_mall_coupon_user
+
+  <sql id="queryConditions">
     where coupon_id = #{couponId}
     <trim>
       <if test="userId !=null or userId != ''">
@@ -36,5 +35,16 @@
         and status = #{status}
       </if>
     </trim>
+  </sql>
+
+  <select id="queryTotal" resultType="long">
+    select count(id) from cskaoyan_mall_coupon_user
+    <include refid="queryConditions"/>
+  </select>
+
+  <select id="queryCouponUserByCondition" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from cskaoyan_mall_coupon_user
+    <include refid="queryConditions"/>
   </select>
 </mapper>

@@ -6,60 +6,57 @@ import com.cskaoyan.mall.bean.GoodsProduct;
 import com.cskaoyan.mall.bean.GoodsSpecification;
 
 import java.util.List;
-import java.util.jar.Attributes;
 
 /**
  * @author Steve
  * @date 2019/10/2-14:07
  */
 public class AddGoods {
-    GoodsAttributeForAddGoods attributes;
-    GoodsForAddGoods goods;
-    GoodsProductForAddGoods products;
-    GoodsSpecificationForAddGoods specifications;
+    List<GoodsAttribute> attributes;
+    Goods goods;
+    List<GoodsProduct> products;
+    List<GoodsSpecification> specifications;
 
     public AddGoods() {
     }
 
-    public AddGoods(GoodsAttributeForAddGoods attributes,
-                    GoodsForAddGoods goods,
-                    GoodsProductForAddGoods products,
-                    GoodsSpecificationForAddGoods specifications) {
+    public AddGoods(List<GoodsAttribute> attributes, Goods goods,
+                    List<GoodsProduct> products, List<GoodsSpecification> specifications) {
         this.attributes = attributes;
         this.goods = goods;
         this.products = products;
         this.specifications = specifications;
     }
 
-    public GoodsAttributeForAddGoods getAttributes() {
+    public List<GoodsAttribute> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(GoodsAttributeForAddGoods attributes) {
+    public void setAttributes(List<GoodsAttribute> attributes) {
         this.attributes = attributes;
     }
 
-    public GoodsForAddGoods getGoods() {
+    public Goods getGoods() {
         return goods;
     }
 
-    public void setGoods(GoodsForAddGoods goods) {
+    public void setGoods(Goods goods) {
         this.goods = goods;
     }
 
-    public GoodsProductForAddGoods getProducts() {
+    public List<GoodsProduct> getProducts() {
         return products;
     }
 
-    public void setProducts(GoodsProductForAddGoods products) {
+    public void setProducts(List<GoodsProduct> products) {
         this.products = products;
     }
 
-    public GoodsSpecificationForAddGoods getSpecifications() {
+    public List<GoodsSpecification> getSpecifications() {
         return specifications;
     }
 
-    public void setSpecifications(GoodsSpecificationForAddGoods specifications) {
+    public void setSpecifications(List<GoodsSpecification> specifications) {
         this.specifications = specifications;
     }
 }

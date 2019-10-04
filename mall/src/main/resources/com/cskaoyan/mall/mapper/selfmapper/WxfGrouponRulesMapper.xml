@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.selfmapper.WxfGrouponRulesMapper">
+  <resultMap id="BaseResultMap" type="com.cskaoyan.mall.bean.GrouponRules">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="discount" jdbcType="DECIMAL" property="discount" />
+    <result column="discount_member" jdbcType="INTEGER" property="discountMember" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, goods_id, goods_name, pic_url, discount, discount_member, add_time, update_time,
+    expire_time, deleted
+  </sql>
+
+  <select id="selectLastInsert" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from cskaoyan_mall_groupon_rules
+    where id = LAST_INSERT_ID()
+  </select>
+
+  <sql id="queryConditions">
+    where deleted = 'false'
+    <trim>
+      <if test="goodsId !=null">
+        and goods_id = #{goodsId}
+      </if>
+    </trim>
+  </sql>
+
+  <select id="queryGrouponByCondition" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from cskaoyan_mall_groupon_rules
+    <include refid="queryConditions"/>
+  </select>
+  <select id="queryTotal" resultType="long">
+    select count(id) from cskaoyan_mall_groupon_rules
+    <include refid="queryConditions"/>
+  </select>
+  <resultMap id="GrouponVoResult" type="com.cskaoyan.mall.vo.GrouponVo">
+    <result column="rulesId" jdbcType="INTEGER" property="rules.id" />
+    <result column="goods_id" jdbcType="INTEGER" property="rules.goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="rules.goodsName" />
+    <result column="pic_url" jdbcType="VARCHAR" property="rules.picUrl" />
+    <result column="discount" jdbcType="DECIMAL" property="rules.discount" />
+    <result column="discount_member" jdbcType="INTEGER" property="rules.discountMember" />
+    <result column="r_add_time" jdbcType="TIMESTAMP" property="rules.addTime" />
+    <result column="r_update_time" jdbcType="TIMESTAMP" property="rules.updateTime" />
+    <result column="r_expire_time" jdbcType="TIMESTAMP" property="rules.expireTime" />
+    <result column="goodsId" jdbcType="INTEGER" property="goods.id" />
+    <result column="goods_sn" jdbcType="VARCHAR" property="goods.goodsSn" />
+    <result column="name" jdbcType="VARCHAR" property="goods.name" />
+    <result column="category_id" jdbcType="INTEGER" property="goods.categoryId" />
+    <result column="brand_id" jdbcType="INTEGER" property="goods.brandId" />
+    <result column="gallery" jdbcType="VARCHAR" property="goods.gallery" />
+    <result column="keywords" jdbcType="VARCHAR" property="goods.keywords" />
+    <result column="brief" jdbcType="VARCHAR" property="goods.brief" />
+    <result column="is_on_sale" jdbcType="BIT" property="goods.isOnSale" />
+    <result column="sort_order" jdbcType="SMALLINT" property="goods.sortOrder" />
+    <result column="pic_url" jdbcType="VARCHAR" property="goods.picUrl" />
+    <result column="share_url" jdbcType="VARCHAR" property="goods.shareUrl" />
+    <result column="is_new" jdbcType="BIT" property="goods.isNew" />
+    <result column="is_hot" jdbcType="BIT" property="goods.isHot" />
+    <result column="unit" jdbcType="VARCHAR" property="goods.unit" />
+    <result column="counter_price" jdbcType="DECIMAL" property="goods.counterPrice" />
+    <result column="retail_price" jdbcType="DECIMAL" property="goods.retailPrice" />
+    <result column="g_add_time" jdbcType="TIMESTAMP" property="goods.addTime" />
+    <result column="g_update_time" jdbcType="TIMESTAMP" property="goods.updateTime" />
+    <result column="grouponId" jdbcType="INTEGER" property="groupon.id" />
+    <result column="order_id" jdbcType="INTEGER" property="groupon.orderId" />
+    <result column="groupon_id" jdbcType="INTEGER" property="groupon.grouponId" />
+    <result column="rules_id" jdbcType="INTEGER" property="groupon.rulesId" />
+    <result column="user_id" jdbcType="INTEGER" property="groupon.userId" />
+    <result column="creator_user_id" jdbcType="INTEGER" property="groupon.creatorUserId" />
+    <result column="gr_add_time" jdbcType="TIMESTAMP" property="groupon.addTime" />
+    <result column="gr_update_time" jdbcType="TIMESTAMP" property="groupon.updateTime" />
+    <result column="share_url" jdbcType="VARCHAR" property="groupon.shareUrl" />
+    <result column="payed" jdbcType="BIT" property="groupon.payed" />
+  </resultMap>
+
+  <sql id="queryGrouponVoConditions">
+    where 1=1
+    <trim>
+      <if test="goodsId != null">
+        and r.goods_id = #{goodsId}
+      </if>
+    </trim>
+  </sql>
+
+  <select id="queryGrouponVo" resultMap="GrouponVoResult">
+    select
+    gr.id as grouponId, gr.order_id, gr.groupon_id, gr.rules_id, gr.user_id, gr.creator_user_id, gr.add_time as gr_add_time, gr.update_time as gr_update_time,
+    gr.share_url, gr.payed, r.id as rulesId, r.goods_id, r.goods_name, r.pic_url, r.discount, r.discount_member, r.add_time as r_add_time, r.update_time as r_update_time,
+    r.expire_time as r_expire_time, g.id as goodsId, g.goods_sn, g.name, g.category_id, g.brand_id, g.gallery, g.keywords, g.brief, g.is_on_sale,
+    g.sort_order, g.pic_url, g.share_url, g.is_new, g.is_hot, g.unit, g.counter_price, g.retail_price, g.add_time as g_add_time, g.update_time as g_update_time
+    from cskaoyan_mall_groupon gr
+    left join  cskaoyan_mall_groupon_rules r on r.id = gr.rules_id
+    left join cskaoyan_mall_goods g on r.goods_id = g.id
+    <include refid="queryGrouponVoConditions"/>
+  </select>
+
+  <select id="queryGrouponVoTotal" resultType="long">
+    select count(*) from cskaoyan_mall_groupon gr
+    left join  cskaoyan_mall_groupon_rules r on r.id = gr.rules_id
+    left join cskaoyan_mall_goods g on r.goods_id = g.id
+    <include refid="queryGrouponVoConditions"/>
+  </select>
+
+
+</mapper>

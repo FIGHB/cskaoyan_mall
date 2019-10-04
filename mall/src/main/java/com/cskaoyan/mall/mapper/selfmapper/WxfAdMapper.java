@@ -7,13 +7,11 @@ import java.util.Date;
 
 public interface WxfAdMapper {
 
-    Ad[] selectAllAd();
-
     Ad selectByAddTime(@Param("add_time") Date add_time);
 
     Ad selectLastInsert();
 
-    Ad[] queryByNameAndContent(@Param("name") String name,@Param("content") String content);
+    Ad[] queryByNameAndContent(Ad ad);
 
-    long queryTotal();
+    long queryTotal(Ad ad);
 }
