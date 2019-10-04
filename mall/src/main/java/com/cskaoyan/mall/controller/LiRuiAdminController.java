@@ -46,6 +46,7 @@ public class LiRuiAdminController {
     }
 
     @RequestMapping("admin/role/list")
+    @RequiresPermissions("admin:role:list")
     public BaseRespVo getRoleList(@RequestParam("page")int page, @RequestParam("limit")int limit,
                                   @RequestParam("sort")String sort,@RequestParam("order")String order, String name) {
         Map<String, Object> data =  adminService.getRoleList(page, limit, sort, order, name);
@@ -55,6 +56,7 @@ public class LiRuiAdminController {
 
 
     @RequestMapping("admin/log/list")
+    @RequiresPermissions("admin:log:list")
     public BaseRespVo logList(@RequestParam("page")int page, @RequestParam("limit")int limit,
                               @RequestParam("sort")String sort,@RequestParam("order")String order, String name) {
         Map<String, Object> data = adminService.getAllLogList(page, limit, sort, order, name);
@@ -93,6 +95,7 @@ public class LiRuiAdminController {
     }
 
     @RequestMapping("admin/admin/create")
+    @RequiresPermissions("admin:admin:create")
     public BaseRespVo addAdmin(@RequestBody List_AdminVo adminVo) {
         adminVo.setStrRoleIds(Arrays.toString(adminVo.getRoleIds()));
         if(adminService.addAdmin(adminVo)) {
@@ -103,6 +106,7 @@ public class LiRuiAdminController {
     }
 
     @RequestMapping("admin/role/create")
+    @RequiresPermissions("admin:role:create")
     public BaseRespVo addRole(@RequestBody Role role) {
         if(adminService.addRole(role)) {
             return BaseRespVo.ok(role);
@@ -111,7 +115,11 @@ public class LiRuiAdminController {
         }
     }
     @RequestMapping("admin/admin/update")
+    @RequiresPermissions("admin:admin:update")
     public BaseRespVo updateAdmin(@RequestBody List_AdminVo adminVo) {
+        if(adminVo.getId() == 1) {
+            return BaseRespVo.getBaseResVo(5000, null, "SuperVIP管理员不可修改！！！");
+        }
         adminVo.setStrRoleIds(Arrays.toString(adminVo.getRoleIds()));
         if(adminService.updateAdmin(adminVo)) {
             return BaseRespVo.ok(adminVo);
@@ -121,7 +129,11 @@ public class LiRuiAdminController {
     }
 
     @RequestMapping("admin/role/update")
+    @RequiresPermissions("admin:role:update")
     public BaseRespVo updateRole(@RequestBody Role role) {
+        if(role.getId() == 1 && !role.getName().equals("超级管理员")) {
+            return BaseRespVo.getBaseResVo(5000, null, "超级管理员名称不可更改！！！");
+        }
         if(adminService.updateRole(role)) {
             return BaseRespVo.ok(role);
         } else {
@@ -135,8 +147,9 @@ public class LiRuiAdminController {
      * @return
      */
     @RequestMapping("admin/admin/delete")
+    @RequiresPermissions("admin:admin:delete")
     public BaseRespVo deleteAdmin(@RequestBody List_AdminVo adminVo) {
-        if(adminVo.getUsername().equals("admin")) {
+        if(adminVo.getUsername().equals("admin123")) {
             return BaseRespVo.getBaseResVo(5000, null, "抱歉该用户为超级管理员不可删除");
         }
         Integer[] roleIds = adminVo.getRoleIds();
@@ -154,8 +167,11 @@ public class LiRuiAdminController {
     }
 
     @RequestMapping("admin/role/delete")
+    @RequiresPermissions("admin:role:delete")
     public BaseRespVo deleteRole(@RequestBody Role role) {
         if(role.getName().equals("超级管理员"))
+            return BaseRespVo.getBaseResVo(5000, null, "抱歉超级管理员一角不可删除！！！");
+        if(role.getId() == 1)
             return BaseRespVo.getBaseResVo(5000, null, "抱歉超级管理员一角不可删除！！！");
         if(adminService.deleteRoleById(role.getId())) {
             return BaseRespVo.ok(null);
@@ -167,12 +183,14 @@ public class LiRuiAdminController {
     //关于 permissions 查询的还没有添加 systemPermissions 部分的数据，
     //需要在 SystemPermissionUtils 中实现
     @RequestMapping(value = "admin/role/permissions", method = RequestMethod.GET)
+    @RequiresPermissions("admin:role:permission:get")
     public BaseRespVo rolePermissions(@RequestParam String roleId) {
         Map<String, Object> data = adminService.getPermissionList(roleId);
         return BaseRespVo.ok(data);
     }
 
     @RequestMapping(value = "admin/role/permissions", method = RequestMethod.POST)
+    @RequiresPermissions("admin:role:permission:update")
     public BaseRespVo addPermissions(@RequestBody PermissionsVo  permissionsVo) {
         int roleId = permissionsVo.getRoleId();
         if(roleId == 1) {
@@ -187,6 +205,7 @@ public class LiRuiAdminController {
 
     //对象存储部分
     @RequestMapping("admin/storage/list")
+    @RequiresPermissions("admin:storage:list")
     public BaseRespVo getStorageList(@RequestParam("page") int page, @RequestParam("limit") int limit,
                                      @RequestParam("sort") String sort, @RequestParam("order") String order,
                                      String key, String name) {
@@ -196,6 +215,7 @@ public class LiRuiAdminController {
     }
 
     @RequestMapping("admin/storage/update")
+    @RequiresPermissions("admin:storage:update")
     public BaseRespVo updateStorage(@RequestBody Storage storage) {
         if(adminService.updateStorage(storage)) {
             return BaseRespVo.ok(storage);
@@ -205,6 +225,7 @@ public class LiRuiAdminController {
     }
 
     @RequestMapping("admin/storage/delete")
+    @RequiresPermissions("admin:storage:delete")
     public BaseRespVo deleteStorage(@RequestBody Storage storage) {
         if(adminService.deleteStorageById(storage.getId())) {
             return BaseRespVo.ok(null);

@@ -30,7 +30,7 @@ public interface LiRuiAdminMapper {
 
     List<Log> getAllLogList(int offset, int limit, String sort, String order, String name);
 
-    @Select("select count(*) from cskaoyan_mall_log")
+    @Select("select count(*) from cskaoyan_mall_log where deleted = false")
     int selectCountLog();
 
     int insertStorge(Storage storage);
@@ -55,12 +55,12 @@ public interface LiRuiAdminMapper {
 
     List<Role> selectRoleList(int offset, int limit, String sort, String order, String name);
 
-    @Select("select count(*) from cskaoyan_mall_role")
+    @Select("select count(*) from cskaoyan_mall_role where deleted = false")
     int selectCountRole();
 
     List<Storage> getStorageList(int offset, int limit, String sort, String order, String key, String name);
 
-    @Select("select count(*) from cskaoyan_mall_storage")
+    @Select("select count(*) from cskaoyan_mall_storage where deleted = false")
     int selectCountStorage();
 
     //查询是否有这个 permission 存在，不需要看 deleted

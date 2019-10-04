@@ -5,14 +5,17 @@ import com.cskaoyan.mall.bean.Category;
 import com.cskaoyan.mall.bean.Issue;
 import com.cskaoyan.mall.bean.Keyword;
 import com.cskaoyan.mall.service.MallService;
+import com.cskaoyan.mall.utils.ListBean;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.MallBean.CategoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +40,7 @@ public class MallController {
      */
     @RequestMapping("/brand/list")
     public BaseRespVo queryBrandList(int page,int limit,String sort,String order,Integer id,String name){
-        return BaseRespVo.ok(mallService.queryBrandList(page, limit, sort, order,id,name));
+        return BaseRespVo.ok(mallService.queryBrandList(page, limit, sort, order, id, name));
     }
 
     /**

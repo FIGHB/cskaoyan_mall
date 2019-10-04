@@ -23,7 +23,9 @@
     </select>
 
     <select id="getAllLogList" resultType="com.cskaoyan.mall.bean.Log">
-        SELECT * from cskaoyan_mall_log
+        SELECT id, admin, ip, type, action, status, result, comment, add_time addTime,
+        update_time updateTime, deleted
+         from cskaoyan_mall_log
         <where>
             <if test="name != null and name != ''">
                 admin like &quot;%${name}%&quot;

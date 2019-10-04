@@ -5,6 +5,7 @@ import com.cskaoyan.mall.service.UserServiceImpl;
 import com.cskaoyan.mall.vo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,7 @@ public class UserController {
     }
     @RequestMapping("/address/list")
     @ResponseBody
+    @RequiresPermissions("admin:address:list")
     public BaseRespVo getAddress(AdressShow adressShow){
         String userId = (String)adressShow.getUserId();
         if(userId!=null&&!"".equals(userId)&&!userId.matches("[0-9]+")){
@@ -89,6 +91,7 @@ public class UserController {
     }
     @RequestMapping("/footprint/list")
     @ResponseBody
+    @RequiresPermissions("admin:footprint:list")
     public BaseRespVo getFootPrintList(FootprintShow footprintShow){
         String userId = (String)footprintShow.getUserId();
         String goodsId = (String)footprintShow.getGoodsId();
@@ -126,6 +129,7 @@ public class UserController {
     }
     @RequestMapping("/feedback/list")
     @ResponseBody
+    @RequiresPermissions("admin:feedback:list")
     public BaseRespVo getFeedbackList(FeedbackShow feedbackShow){
         String id  = (String)feedbackShow.getId();
         if(id!=null&&!"".equals(id)&&!id.matches("[0-9]+")){
