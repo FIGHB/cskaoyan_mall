@@ -53,7 +53,7 @@ cskaoyan-mall
   //国旭
   TopicList: WxApiRoot + 'topic/list', //专题列表   （国旭 done）								
   TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 done）
-  TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 doing）	
+  TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 done）	
   
   ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 doing）
 
