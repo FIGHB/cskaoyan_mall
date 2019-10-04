@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.wechat.LRWXMallMapper">
+    <!--author 李锐-->
+
+    <select id="queryCategoryList" resultType="com.cskaoyan.mall.bean.Category">
+        select add_time addTime, deleted, `desc`, icon_url iconUrl, id,
+        keywords, `level`, `name`, pic_url picUrl, pid, sort_order sortOrder
+        from cskaoyan_mall_category where pid = 0 and deleted = false
+    </select>
+
+    <select id="queryFirstLevel1Category" resultType="com.cskaoyan.mall.bean.Category">
+        select add_time addTime, deleted, `desc`, icon_url iconUrl, id,
+        keywords, `level`, `name`, pic_url picUrl, pid, sort_order sortOrder
+        from cskaoyan_mall_category where pid = 0 and deleted = false limit 0, 1
+    </select>
+
+    <select id="queryCurrentSubCategory"  resultType="com.cskaoyan.mall.bean.Category">
+        select add_time addTime, deleted, `desc`, icon_url iconUrl, id,
+        keywords, `level`, `name`, pic_url picUrl, pid, sort_order sortOrder
+        from cskaoyan_mall_category where pid = #{pid} and deleted = false
+    </select>
+</mapper>
