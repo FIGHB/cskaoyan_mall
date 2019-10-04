@@ -6,19 +6,20 @@
 
     <select id="selectByExample" resultType="com.cskaoyan.mall.bean.Admin">
         SELECT id, username, avatar, role_ids roleIds FROM cskaoyan_mall_admin
+        WHERE  deleted = false
         ORDER BY #{sort} #{order}
         LIMIT #{offset}, #{limit}
     </select>
 
     <select id="selectByUsername" resultType="com.cskaoyan.mall.bean.Admin">
         SELECT id, username, avatar, role_ids roleIds FROM cskaoyan_mall_admin
-        WHERE username LIKE &quot;%${username}%&quot;
+        WHERE username LIKE &quot;%${username}%&quot; and deleted = false
         ORDER BY #{sort} #{order}
         LIMIT #{offset}, #{limit}
     </select>
 
     <select id="selectAllRole" resultType="map">
-        SELECT id value, name label FROM cskaoyan_mall_role
+        SELECT id value, name label FROM cskaoyan_mall_role where deleted = false
     </select>
 
     <select id="getAllLogList" resultType="com.cskaoyan.mall.bean.Log">
@@ -45,7 +46,7 @@
 
     <select id="selectStorgeId" resultType="int">
         select max(id) from cskaoyan_mall_storage where
-        url = #{url}
+        url = #{url} and deleted = false
     </select>
 
     <insert id="addAdmin">
@@ -61,7 +62,7 @@
 
     <select id="selectAdminId" resultType="int">
         select max(id) from cskaoyan_mall_admin where
-        username = #{username}
+        username = #{username} and deleted = false
     </select>
 
     <insert id="addRole">
@@ -71,7 +72,7 @@
 
     <select id="selectRoleId" resultType="int">
         select max(id) from cskaoyan_mall_role where
-        name = #{name}
+        name = #{name} and deleted = false
     </select>
 
     <update id="updateAdminByPrimaryKey">
@@ -81,22 +82,22 @@
       avatar = #{avatar,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       role_ids = #{strRoleIds}
-      where id = #{id,jdbcType=INTEGER}
+      where id = #{id,jdbcType=INTEGER} and deleted = false
     </update>
 
     <select id="selectAdminVoById" resultType="com.cskaoyan.mall.bean.Admin">
-        select * from cskaoyan_mall_admin where id = #{id}
+        select * from cskaoyan_mall_admin where id = #{id} and deleted = false
     </select>
 
     <update id="updateRoleByPrimaryKey">
         update cskaoyan_mall_role
         set name = #{name},
         `desc` = #{desc}
-        where id = #{id}
+        where id = #{id} and deleted = false
     </update>
 
     <select id="selectRoleById" resultType="com.cskaoyan.mall.bean.Role">
-        select * from cskaoyan_mall_role where id = #{id}
+        select * from cskaoyan_mall_role where id = #{id} and deleted = false
     </select>
 
     <select id="selectRoleList" resultType="com.cskaoyan.mall.bean.Role">
@@ -121,6 +122,7 @@
                 <if test="key != null and key != ''">
                     and `key` like &quot;%${key}%&quot;
                 </if>
+                and deleted = false
             </trim>
         </where>
         ORDER BY #{sort} #{order}

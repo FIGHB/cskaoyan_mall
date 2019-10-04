@@ -6,6 +6,7 @@ import com.cskaoyan.mall.service.LiRuiAdminService;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.List_AdminVo;
 import com.cskaoyan.mall.vo.PermissionsVo;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class LiRuiAdminController {
     LiRuiAdminService adminService;
 
     @RequestMapping("admin/admin/list")
+    @RequiresPermissions("admin:admin:list")
     public BaseRespVo list(@RequestParam("page")int page, @RequestParam("limit")int limit,
                            @RequestParam("sort")String sort,@RequestParam("order")String order, String username) throws IOException {
         Map<String, Object> data =  adminService.getPageList(page, limit, sort, order, username);
@@ -172,6 +174,10 @@ public class LiRuiAdminController {
 
     @RequestMapping(value = "admin/role/permissions", method = RequestMethod.POST)
     public BaseRespVo addPermissions(@RequestBody PermissionsVo  permissionsVo) {
+        int roleId = permissionsVo.getRoleId();
+        if(roleId == 1) {
+            return BaseRespVo.getBaseResVo(500,null,"不可更改超级管理员的权限！！！");
+        }
         if(permissionsVo != null && adminService.addPermissions(permissionsVo.getRoleId(),permissionsVo.getPermissions())) {
             return BaseRespVo.ok("");
         } else {
