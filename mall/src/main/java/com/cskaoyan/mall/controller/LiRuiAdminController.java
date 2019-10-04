@@ -122,6 +122,9 @@ public class LiRuiAdminController {
 
     @RequestMapping("admin/role/update")
     public BaseRespVo updateRole(@RequestBody Role role) {
+        if(role.getId() == 1 && !role.getName().equals("超级管理员")) {
+            return BaseRespVo.getBaseResVo(5000, null, "超级管理员名称不可更改！！！");
+        }
         if(adminService.updateRole(role)) {
             return BaseRespVo.ok(role);
         } else {
@@ -136,7 +139,7 @@ public class LiRuiAdminController {
      */
     @RequestMapping("admin/admin/delete")
     public BaseRespVo deleteAdmin(@RequestBody List_AdminVo adminVo) {
-        if(adminVo.getUsername().equals("admin")) {
+        if(adminVo.getUsername().equals("admin123")) {
             return BaseRespVo.getBaseResVo(5000, null, "抱歉该用户为超级管理员不可删除");
         }
         Integer[] roleIds = adminVo.getRoleIds();
@@ -156,6 +159,8 @@ public class LiRuiAdminController {
     @RequestMapping("admin/role/delete")
     public BaseRespVo deleteRole(@RequestBody Role role) {
         if(role.getName().equals("超级管理员"))
+            return BaseRespVo.getBaseResVo(5000, null, "抱歉超级管理员一角不可删除！！！");
+        if(role.getId() == 1)
             return BaseRespVo.getBaseResVo(5000, null, "抱歉超级管理员一角不可删除！！！");
         if(adminService.deleteRoleById(role.getId())) {
             return BaseRespVo.ok(null);

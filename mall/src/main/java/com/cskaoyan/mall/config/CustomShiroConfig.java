@@ -32,7 +32,7 @@ public class CustomShiroConfig {
         HashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //允许通过的 url
         filterChainDefinitionMap.put("/admin/auth/login","anon");
-        filterChainDefinitionMap.put("/admin/auth/info","anon");
+//        filterChainDefinitionMap.put("/admin/auth/info","anon");
         //图片路径
         filterChainDefinitionMap.put("/wx/storage/fetch/**","anon");
         filterChainDefinitionMap.put("/images/upload/**","anon");
