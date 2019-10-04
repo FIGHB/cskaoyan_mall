@@ -1,6 +1,8 @@
 package com.cskaoyan.mall.controller;
 
+import com.cskaoyan.mall.bean.Log;
 import com.cskaoyan.mall.service.LiAuthService;
+import com.cskaoyan.mall.utils.IpUtils;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.LoginVo;
 import com.cskaoyan.mall.vo.UserInfo;
@@ -44,6 +46,15 @@ public class AuthController {
             return BaseRespVo.getBaseResVo(500, null, "登陆失败");
         }
         Serializable id = subject.getSession().getId();
+        //向日志中添加登录信息
+        String ip = IpUtils.getIpAddr(request);
+        Log logMessage = new Log();
+        logMessage.setIp(ip);
+        logMessage.setAdmin(username);
+        logMessage.setType(1);
+        logMessage.setStatus(true);
+        logMessage.setAction("登录");
+        authService.addLog(logMessage);
         return BaseRespVo.ok(id);
 
 

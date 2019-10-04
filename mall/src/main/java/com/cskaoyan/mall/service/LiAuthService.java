@@ -1,6 +1,7 @@
 package com.cskaoyan.mall.service;
 
 
+import com.cskaoyan.mall.bean.Log;
 import com.cskaoyan.mall.vo.LoginVo;
 import com.cskaoyan.mall.vo.UserInfo;
 
@@ -13,4 +14,6 @@ public interface LiAuthService {
     String login(LoginVo loginVo);
 
     UserInfo getUserInfoByUserName(String username);
+
+    void addLog(Log logMessage);
 }

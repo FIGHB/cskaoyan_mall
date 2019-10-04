@@ -1,5 +1,7 @@
 package com.cskaoyan.mall.service;
 
+import com.cskaoyan.mall.bean.Log;
+import com.cskaoyan.mall.mapper.LogMapper;
 import com.cskaoyan.mall.mapper.selfmapper.LiAuthMapper;
 import com.cskaoyan.mall.mapper.selfmapper.MyUserMapper;
 import com.cskaoyan.mall.vo.LoginVo;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author 李锐
@@ -21,6 +24,9 @@ public class LiAuthServiceImpl implements LiAuthService {
 
     @Autowired
     MyUserMapper userMapper;
+
+    @Autowired
+    LogMapper logMapper;
 
     /**
      * 如果用户名和密码正确则返回null，否则返回错误信息
@@ -90,5 +96,14 @@ public class LiAuthServiceImpl implements LiAuthService {
             System.out.println(perm);
         }
         return lists;
+    }
+
+    @Override
+    public void addLog(Log logMessage) {
+        Date date = new Date();
+        logMessage.setAddTime(date);
+        logMessage.setUpdateTime(date);
+        logMessage.setDeleted(false);
+        int update = logMapper.insert(logMessage);
     }
 }

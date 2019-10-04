@@ -112,6 +112,9 @@ public class LiRuiAdminController {
     }
     @RequestMapping("admin/admin/update")
     public BaseRespVo updateAdmin(@RequestBody List_AdminVo adminVo) {
+        if(adminVo.getId() == 1) {
+            return BaseRespVo.getBaseResVo(5000, null, "SuperVIP管理员不可修改！！！");
+        }
         adminVo.setStrRoleIds(Arrays.toString(adminVo.getRoleIds()));
         if(adminService.updateAdmin(adminVo)) {
             return BaseRespVo.ok(adminVo);
