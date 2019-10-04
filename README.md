@@ -57,7 +57,7 @@ cskaoyan-mall
   
   ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 doing）
 
-  RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 doing）
+  RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 done）
 
   //李锐
   SearchIndex: WxApiRoot + 'search/index', //搜索关键字				 
