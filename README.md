@@ -26,31 +26,32 @@ cskaoyan-mall
 
 ### 前台接口
 
-```
-  IndexUrl: WxApiRoot + 'home/index', //首页数据接口						周榆淮
+```java
+  //周榆淮
+  IndexUrl: WxApiRoot + 'home/index', //首页数据接口						
   CatalogList: WxApiRoot + 'catalog/index', //分类目录全部分类数据接口
   CatalogCurrent: WxApiRoot + 'catalog/current', //分类目录当前分类数据接口
   
   BrandList: WxApiRoot + 'brand/list', //品牌列表			 							
   BrandDetail: WxApiRoot + 'brand/detail', //品牌详情
 
-
-  GoodsCount: WxApiRoot + 'goods/count', //统计商品总数					杨磊
+  //杨磊
+  GoodsCount: WxApiRoot + 'goods/count', //统计商品总数					
   GoodsList: WxApiRoot + 'goods/list', //获得商品列表
   GoodsCategory: WxApiRoot + 'goods/category', //获得分类数据						
   GoodsDetail: WxApiRoot + 'goods/detail', //获得商品的详情
   GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）
 
-
-  CollectList: WxApiRoot + 'collect/list', //收藏列表					 王小凤
+  //王小凤
+  CollectList: WxApiRoot + 'collect/list', //收藏列表					 
   CollectAddOrDelete: WxApiRoot + 'collect/addordelete', //添加或取消收藏
 
   CommentList: WxApiRoot + 'comment/list', //评论列表					
   CommentCount: WxApiRoot + 'comment/count', //评论总数
   CommentPost: WxApiRoot + 'comment/post', //发表评论
 
-
-  TopicList: WxApiRoot + 'topic/list', //专题列表								国旭
+  //国旭
+  TopicList: WxApiRoot + 'topic/list', //专题列表								
   TopicDetail: WxApiRoot + 'topic/detail', //专题详情
   TopicRelated: WxApiRoot + 'topic/related', //相关专题		
   
@@ -58,20 +59,21 @@ cskaoyan-mall
 
   RegionList: WxApiRoot + 'region/list', //获取区域列表
 
-  SearchIndex: WxApiRoot + 'search/index', //搜索关键字				 李锐
+  //李锐
+  SearchIndex: WxApiRoot + 'search/index', //搜索关键字				 
   SearchResult: WxApiRoot + 'search/result', //搜索结果
   SearchHelper: WxApiRoot + 'search/helper', //搜索帮助
   SearchClearHistory: WxApiRoot + 'search/clearhistory', //搜索历史清楚
 
   UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息
 
-
-  AddressList: WxApiRoot + 'address/list', //收货地址列表				赵亚云
+  //赵亚云
+  AddressList: WxApiRoot + 'address/list', //收货地址列表				
   AddressDetail: WxApiRoot + 'address/detail', //收货地址详情			
   AddressSave: WxApiRoot + 'address/save', //保存收货地址
   AddressDelete: WxApiRoot + 'address/delete', //保存收货地址
 
-  陈武
+  //陈武
   AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录			
   AuthLoginByAccount: WxApiRoot + 'auth/login', //账号登录
   AuthLogout: WxApiRoot + 'auth/logout', //账号登出
