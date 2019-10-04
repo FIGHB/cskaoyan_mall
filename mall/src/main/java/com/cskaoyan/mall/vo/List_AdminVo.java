@@ -1,6 +1,8 @@
 package com.cskaoyan.mall.vo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -19,8 +21,10 @@ public class List_AdminVo {
 
     private String avatar;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date addTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private Date updateTime;
 
     private Boolean deleted;
