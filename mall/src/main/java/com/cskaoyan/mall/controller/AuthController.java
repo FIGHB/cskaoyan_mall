@@ -1,8 +1,7 @@
 package com.cskaoyan.mall.controller;
 
-import com.cskaoyan.mall.bean.Log;
 import com.cskaoyan.mall.service.LiAuthService;
-import com.cskaoyan.mall.utils.IpUtils;
+import com.cskaoyan.mall.service.LiLogService;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.LoginVo;
 import com.cskaoyan.mall.vo.UserInfo;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * 和登录相关的 servlet
@@ -28,6 +26,9 @@ public class AuthController {
 
     @Autowired
     LiAuthService authService;
+
+    @Autowired
+    LiLogService logService;
 
     @RequestMapping("admin/auth/login")
     public BaseRespVo login(@RequestBody LoginVo loginVo, HttpServletRequest request) {
@@ -47,14 +48,16 @@ public class AuthController {
         }
         Serializable id = subject.getSession().getId();
         //向日志中添加登录信息
-        String ip = IpUtils.getIpAddr(request);
-        Log logMessage = new Log();
-        logMessage.setIp(ip);
-        logMessage.setAdmin(username);
-        logMessage.setType(1);
-        logMessage.setStatus(true);
-        logMessage.setAction("登录");
-        authService.addLog(logMessage);
+        logService.addSucceedLog(request,username,1,"登录");
+//        String ip = IpUtils.getIpAddr(request);
+//        Log logMessage = new Log();
+//        logMessage.setIp(ip);
+//        logMessage.setAdmin(username);
+//        logMessage.setType(1);
+//        logMessage.setStatus(true);
+//        logMessage.setAction("登录");
+//        authService.addLog(logMessage);
+
         return BaseRespVo.ok(id);
 
 
@@ -82,9 +85,10 @@ public class AuthController {
     }
 
     @RequestMapping("admin/auth/logout")
-    public BaseRespVo logout() {
+    public BaseRespVo logout(HttpServletRequest request) {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
+        logService.addSucceedLog(request,subject.getPrincipal().toString(),1,"登出");
         return BaseRespVo.ok("登出成功");
     }
 }

@@ -100,10 +100,10 @@ public class LiAuthServiceImpl implements LiAuthService {
 
     @Override
     public void addLog(Log logMessage) {
-        Date date = new Date();
-        logMessage.setAddTime(date);
-        logMessage.setUpdateTime(date);
-        logMessage.setDeleted(false);
-        int update = logMapper.insert(logMessage);
+//        Date date = new Date();
+//        logMessage.setAddTime(date);
+//        logMessage.setUpdateTime(date);
+//        logMessage.setDeleted(false);
+//        int update = logMapper.insert(logMessage);
     }
 }
