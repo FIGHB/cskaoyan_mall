@@ -71,6 +71,7 @@ public class CustomShiroConfig {
         simpleMappingExceptionResolver.setExceptionMappings(mappings);
         return simpleMappingExceptionResolver;
     }
+
     /*自定义的sessionManager*/
     @Bean
     public DefaultWebSessionManager webSessionManager(){

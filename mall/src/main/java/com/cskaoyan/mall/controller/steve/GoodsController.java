@@ -40,6 +40,7 @@ public class GoodsController {
         return baseRespVo;
     }
 
+    /*杨磊*/
     /*@RequestMapping("admin/goods/catAndBrand")
     public BaseRespVo queryBrandListAndCategoryList(){
        BaseRespVo<Object> objectBaseRespVo = new BaseRespVo<>();
