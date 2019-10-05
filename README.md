@@ -32,8 +32,8 @@ cskaoyan-mall
   CatalogList: WxApiRoot + 'catalog/index', //分类目录全部分类数据接口(李锐 done)
   CatalogCurrent: WxApiRoot + 'catalog/current', //分类目录当前分类数据接口 (周榆淮 done)
   
-  BrandList: WxApiRoot + 'brand/list', //品牌列表			 							
-  BrandDetail: WxApiRoot + 'brand/detail', //品牌详情
+  BrandList: WxApiRoot + 'brand/list', //品牌列表（周榆淮 done）			 							
+  BrandDetail: WxApiRoot + 'brand/detail', //品牌详情 （周榆淮 done）
 
   //杨磊
   GoodsCount: WxApiRoot + 'goods/count', //统计商品总数(李锐 done)					
