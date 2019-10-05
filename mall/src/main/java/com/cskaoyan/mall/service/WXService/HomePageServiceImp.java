@@ -1,7 +1,7 @@
 package com.cskaoyan.mall.service.WXService;
-import com.cskaoyan.mall.bean.wxfbean.FloorGoodList;
-import com.cskaoyan.mall.bean.wxfbean.GroupOn;
-import com.cskaoyan.mall.bean.wxfbean.HomePageVO;
+import com.cskaoyan.mall.bean.wxbean.FloorGoodList;
+import com.cskaoyan.mall.bean.wxbean.GroupOn;
+import com.cskaoyan.mall.bean.wxbean.HomePageVO;
 import com.cskaoyan.mall.mapper.WXMapper.HomePageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

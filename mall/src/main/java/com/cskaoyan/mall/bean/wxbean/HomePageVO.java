@@ -1,8 +1,7 @@
-package com.cskaoyan.mall.bean.wxfbean;
+package com.cskaoyan.mall.bean.wxbean;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.Coupon;
-import com.cskaoyan.mall.controller.WXController.GrouponGood;
 
 import java.util.List;
 

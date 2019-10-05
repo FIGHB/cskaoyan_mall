@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.bean.wxfbean;
+package com.cskaoyan.mall.bean.wxbean;
 
 import java.math.BigDecimal;
 import java.util.Date;

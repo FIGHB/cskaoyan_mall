@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.bean.wxfbean;
+package com.cskaoyan.mall.bean.wxbean;
 
 import com.cskaoyan.mall.bean.Goods;
 

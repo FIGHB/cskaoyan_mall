@@ -30,7 +30,7 @@
     from cskaoyan_mall_coupon
   </select>
 
-<select id="queryFloorGoodList" resultType="com.cskaoyan.mall.bean.wxfbean.FloorGoodList">
+<select id="queryFloorGoodList" resultType="com.cskaoyan.mall.bean.wxbean.FloorGoodList">
   select id,name
   from cskaoyan_mall_category
   where pid = 0
@@ -51,7 +51,7 @@
     limit #{limit}
   </select>
 
-  <select id="queryGroupOnList" resultType="com.cskaoyan.mall.bean.wxfbean.GroupOn">
+  <select id="queryGroupOnList" resultType="com.cskaoyan.mall.bean.wxbean.GroupOn">
     select discount, discount_member as groupon_member,goods_id
     from cskaoyan_mall_groupon_rules
   </select>
