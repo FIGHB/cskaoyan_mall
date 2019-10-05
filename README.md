@@ -43,12 +43,12 @@ cskaoyan-mall
   GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）
 
   //王小凤
-  CollectList: WxApiRoot + 'collect/list', //收藏列表					 
-  CollectAddOrDelete: WxApiRoot + 'collect/addordelete', //添加或取消收藏
+  CollectList: WxApiRoot + 'collect/list', //收藏列表(doing)			 
+  CollectAddOrDelete: WxApiRoot + 'collect/addordelete', //添加或取消收藏(doing)
 
-  CommentList: WxApiRoot + 'comment/list', //评论列表					
-  CommentCount: WxApiRoot + 'comment/count', //评论总数
-  CommentPost: WxApiRoot + 'comment/post', //发表评论
+  CommentList: WxApiRoot + 'comment/list', //评论列表			(doing)		
+  CommentCount: WxApiRoot + 'comment/count', //评论总数(doing)
+  CommentPost: WxApiRoot + 'comment/post', //发表评论(doing)
 
   //国旭
   TopicList: WxApiRoot + 'topic/list', //专题列表   （国旭 done）								
