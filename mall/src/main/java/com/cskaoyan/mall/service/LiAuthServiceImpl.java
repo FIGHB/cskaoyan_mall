@@ -2,8 +2,10 @@ package com.cskaoyan.mall.service;
 
 import com.cskaoyan.mall.bean.Log;
 import com.cskaoyan.mall.mapper.LogMapper;
+import com.cskaoyan.mall.mapper.UserMapper;
 import com.cskaoyan.mall.mapper.selfmapper.LiAuthMapper;
 import com.cskaoyan.mall.mapper.selfmapper.MyUserMapper;
+import com.cskaoyan.mall.vo.ChenWuWx.WxLoginVo;
 import com.cskaoyan.mall.vo.LoginVo;
 import com.cskaoyan.mall.vo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 李锐
@@ -50,7 +54,7 @@ public class LiAuthServiceImpl implements LiAuthService {
     }
 
     @Override
-    public UserInfo getUserInfoByUserName(String username) {
+    public UserInfo getAdminInfoByUserName(String username) {
 //        Integer[] roleIds = userMapper.queryRoleIdsByUsername(username);
         Integer[] roleIds = userMapper.queryRoleIdVoByUsername(username).getRoleIds();
         UserInfo userInfo = userMapper.queryAdminInfoByUserName(username);
@@ -105,5 +109,17 @@ public class LiAuthServiceImpl implements LiAuthService {
 //        logMessage.setUpdateTime(date);
 //        logMessage.setDeleted(false);
 //        int update = logMapper.insert(logMessage);
+    }
+
+    //前台相关的登录登出
+
+
+
+    @Override
+    public Map userLogin(String username) {
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("tokenExpire", new Date().toString());
+        map.put("userInfo", userMapper.getWxUserInfo(username));
+        return map;
     }
 }
