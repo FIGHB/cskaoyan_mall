@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.WXMapper.WxfCollectMapper">
+
+  <select id="queryAllCollect" resultType="com.cskaoyan.mall.bean.wxfbean.CollectList">
+    select c.id,c.type,c.value_id as valueId,
+    g.brief,g.pic_url as picUrl,g.name,g.retail_price as retailPrice
+    from cskaoyan_mall_collect c
+    left join cskaoyan_mall_goods g on c.value_id = g.id
+    where c.user_id = #{userId} and c.type = #{type} and c.deleted = 0
+  </select>
+
+  <select id="isCollect" resultType="int">
+    select count(id) from cskaoyan_mall_collect
+    where user_id = #{userId} and value_id = #{valueId}
+  </select>
+
+  <delete id="delete">
+    delete from cskaoyan_mall_collect
+    where user_id = #{userId} and value_id = #{valueId}
+  </delete>
+
+</mapper>

@@ -1,7 +1,11 @@
 package com.cskaoyan.mall.service.WXService;
+
+import com.cskaoyan.mall.bean.wxfbean.FloorGoodList;
+import com.cskaoyan.mall.bean.wxfbean.GroupOn;
+import com.cskaoyan.mall.bean.wxfbean.HomePageVO;
+
 import com.cskaoyan.mall.bean.Brand;
 import com.cskaoyan.mall.bean.Category;
-import com.cskaoyan.mall.bean.wxfbean.*;
 import com.cskaoyan.mall.mapper.WXMapper.HomePageMapper;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +46,8 @@ public class HomePageServiceImp implements HomePageService {
     }
 
     @Override
-    public CurrentCategoryBean queryCurrentCategory(int id) {
-        CurrentCategoryBean currentCategoryBean = new CurrentCategoryBean();
+    public com.cskaoyan.mall.bean.wxfbean.CurrentCategoryBean queryCurrentCategory(int id) {
+        com.cskaoyan.mall.bean.wxfbean.CurrentCategoryBean currentCategoryBean = new com.cskaoyan.mall.bean.wxfbean.CurrentCategoryBean();
         Category parentCategory = homePageMapper.queryCategoryById(id);
         currentCategoryBean.setCurrentCategory(parentCategory);
         currentCategoryBean.setCurrentSubCategory(homePageMapper.queryCategoryByPid(parentCategory.getId()));
@@ -51,8 +55,8 @@ public class HomePageServiceImp implements HomePageService {
     }
 
     @Override
-    public BrandListBean queryBrandList(int page, int size) {
-        BrandListBean brandListBean = new BrandListBean();
+    public com.cskaoyan.mall.bean.wxfbean.BrandListBean queryBrandList(int page, int size) {
+        com.cskaoyan.mall.bean.wxfbean.BrandListBean brandListBean = new com.cskaoyan.mall.bean.wxfbean.BrandListBean();
         PageHelper.startPage(page,size);
         List<Brand> brandList = homePageMapper.queryBrands();
         int total = homePageMapper.queryTotolOfBrand();
@@ -62,8 +66,8 @@ public class HomePageServiceImp implements HomePageService {
     }
 
     @Override
-    public BrandDetailBean queryBrandDetail(int id) {
-        BrandDetailBean brandDetailBean = new BrandDetailBean();
+    public com.cskaoyan.mall.bean.wxfbean.BrandDetailBean queryBrandDetail(int id) {
+        com.cskaoyan.mall.bean.wxfbean.BrandDetailBean brandDetailBean = new com.cskaoyan.mall.bean.wxfbean.BrandDetailBean();
         brandDetailBean.setBrand(homePageMapper.queryBrandById(id));
         return brandDetailBean;
     }

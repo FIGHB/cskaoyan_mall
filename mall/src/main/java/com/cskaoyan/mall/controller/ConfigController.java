@@ -81,7 +81,7 @@ public class ConfigController {
     }
 
     @PostMapping("wx")
-    public  BaseRespVo<ConfigWxVo>mallPost(@RequestBody ConfigWxVo configWxVo) {
+    public  BaseRespVo<ConfigWxVo> mallPost(@RequestBody ConfigWxVo configWxVo) {
         configService.addWx(configWxVo);
         BaseRespVo baseRespVo = BaseRespVo.ok(configWxVo);
         return baseRespVo;

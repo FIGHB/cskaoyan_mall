@@ -85,4 +85,6 @@ public interface LiRuiAdminMapper {
     @Update("update cskaoyan_mall_permission set deleted = true where role_id = #{roleId}")
     void setAllPermissionDeletedByRoleId(int roleId);
 
+    @Select("select password from cskaoyan_mall_admin where username = #{username} limit 0, 1")
+    String queryPasswordByUsername(@Param("username")String username);
 }

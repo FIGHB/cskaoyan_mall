@@ -9,6 +9,7 @@ import com.cskaoyan.mall.utils.ListBean;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.MallBean.CategoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -48,9 +50,13 @@ public class MallController {
      * 品牌制造商添加
      */
     @RequestMapping("/brand/create")
-    public BaseRespVo insertBrandList(@RequestBody Brand brand){
+    public BaseRespVo insertBrandList(@RequestBody @Valid Brand brand, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            String defaultMessage = bindingResult.getFieldError().getDefaultMessage();
+            return BaseRespVo.fail(500,defaultMessage);
+        }
         Brand result = mallService.insertBrandList(brand);
-      return BaseRespVo.ok(result);
+        return BaseRespVo.ok(result);
     }
 
     /**

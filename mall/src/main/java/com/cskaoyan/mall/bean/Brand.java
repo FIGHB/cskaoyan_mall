@@ -1,5 +1,6 @@
 package com.cskaoyan.mall.bean;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ public class Brand {
 
     private Byte sortOrder;
 
+   @NotNull(message = "底价不能为空")
     private BigDecimal floorPrice;
 
     private Date addTime;
