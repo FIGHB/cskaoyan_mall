@@ -60,7 +60,7 @@ cskaoyan-mall
   RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 doing）
 
   //李锐
-  SearchIndex: WxApiRoot + 'search/index', //搜索关键字 (李锐 doing)	
+  SearchIndex: WxApiRoot + 'search/index', //搜索关键字 (李锐 done)	
   SearchResult: WxApiRoot + 'search/result', //搜索结果 (李锐 doing)
   SearchHelper: WxApiRoot + 'search/helper', //搜索帮助 (李锐 doing)
   SearchClearHistory: WxApiRoot + 'search/clearhistory', //搜索历史清楚 (李锐 doing)
