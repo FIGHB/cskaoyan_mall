@@ -87,8 +87,8 @@ public class AuthController {
     @RequestMapping("admin/auth/logout")
     public BaseRespVo logout(HttpServletRequest request) {
         Subject subject = SecurityUtils.getSubject();
-        subject.logout();
         logService.addSucceedLog(request,subject.getPrincipal().toString(),1,"登出");
+        subject.logout();
         return BaseRespVo.ok("登出成功");
     }
 }

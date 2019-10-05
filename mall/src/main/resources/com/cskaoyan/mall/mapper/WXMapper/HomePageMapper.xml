@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.WXMapper.HomePageMapper">
+  <select id="querySystemByKeyName" resultType="int">
+      select key_value
+      from cskaoyan_mall_system
+      where key_name = #{keyName}
+   </select>
+
+  <select id="queryAD" resultType="com.cskaoyan.mall.bean.Ad">
+    select id, name, link, url, position, content, start_time as startTime, end_time as endTime, enabled, add_time as addTime,
+    update_time as updateTime, deleted
+    from cskaoyan_mall_ad
+  </select>
+
+  <select id="queryBrandList" resultType="com.cskaoyan.mall.bean.Brand">
+    select id,name,`desc`,pic_url as picUrl,sort_order as sortOrder,floor_price as floorPrice,add_time as addTime,update_time as updateTime,deleted
+    from cskaoyan_mall_brand
+    limit #{limit}
+  </select>
+
+  <select id="queryChannel" resultType="com.cskaoyan.mall.bean.Category">
+    select icon_url as iconUrl, id, name
+    from cskaoyan_mall_category
+    where pid = 0
+  </select>
+
+  <select id="queryCouponList" resultType="com.cskaoyan.mall.bean.Coupon">
+    select days,`desc`,discount,id,min,name,tag
+    from cskaoyan_mall_coupon
+  </select>
+
+<select id="queryFloorGoodList" resultType="com.cskaoyan.mall.bean.wxfbean.FloorGoodList">
+  select id,name
+  from cskaoyan_mall_category
+  where pid = 0
+  limit #{floorGoodListNum}
+</select>
+
+  <select id="queryL2IdByPid" resultType="int">
+    select id
+    from cskaoyan_mall_category
+    where pid = #{pid}
+    limit 1
+  </select>
+
+  <select id="queryGoodsListByL2Id" resultType="com.cskaoyan.mall.bean.Goods">
+    select brief,counter_price as counterPrice,id,is_hot as isHot,is_new as isNew,name,pic_url as picUrl,retail_price as retailPrice
+    from cskaoyan_mall_goods
+    where category_id = #{l2Id}
+    limit #{limit}
+  </select>
+
+  <select id="queryGroupOnList" resultType="com.cskaoyan.mall.bean.wxfbean.GroupOn">
+    select discount, discount_member as groupon_member,goods_id
+    from cskaoyan_mall_groupon_rules
+  </select>
+
+  <select id="queryGoodById" resultType="com.cskaoyan.mall.bean.Goods">
+    select brief,counter_price as counterPrice,id,name,pic_url as picUrl,retail_price as retailPrice
+    from cskaoyan_mall_goods
+    where id = #{goodId}
+  </select>
+
+  <select id="queryHotGoodsList" resultType="com.cskaoyan.mall.bean.Goods">
+    select brief,counter_price as counterPrice,id,is_hot as isHot,is_new as isNew,name,pic_url as picUrl,retail_price as retailPrice
+    from cskaoyan_mall_goods
+    where is_hot = true
+    limit #{limit}
+  </select>
+
+  <select id="queryNewGoodsList" resultType="com.cskaoyan.mall.bean.Goods">
+    select brief,counter_price as counterPrice,id,is_hot as isHot,is_new as isNew,name,pic_url as picUrl,retail_price as retailPrice
+    from cskaoyan_mall_goods
+    where is_new = true
+    limit #{limit}
+  </select>
+
+  <select id="queryTopicList" resultType="com.cskaoyan.mall.bean.Topic">
+    select id,pic_url as picUrl,price,read_count as readCount,subtitle,title
+    from cskaoyan_mall_topic
+    limit #{limit}
+  </select>
+</mapper>
