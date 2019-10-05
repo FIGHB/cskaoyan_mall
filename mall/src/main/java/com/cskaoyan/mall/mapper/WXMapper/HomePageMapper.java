@@ -37,4 +37,14 @@ public interface HomePageMapper {
     List<Goods> queryNewGoodsList(int limit);
 
     List<Topic> queryTopicList(int limit);
+
+    Category queryCategoryById(int id);
+
+    List<Category> queryCategoryByPid(Integer pid);
+
+    List<Brand> queryBrands();
+
+    int queryTotolOfBrand();
+
+    Brand queryBrandById(int id);
 }

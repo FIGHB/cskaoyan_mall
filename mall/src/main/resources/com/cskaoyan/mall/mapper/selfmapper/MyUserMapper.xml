@@ -10,4 +10,10 @@
     <select id="queryRoleIdVoByUsername" resultType="com.cskaoyan.mall.vo.RoleIdVo">
         select role_ids roleIds from cskaoyan_mall_admin where username = #{username} limit 0, 1
     </select>
+
+    <select id="getWxUserInfo" resultType="map">
+        select avatar avatarUrl, nickname nickName from cskaoyan_mall_user
+        where username = #{username} and deleted = false
+        limit 0, 1
+    </select>
 </mapper>
