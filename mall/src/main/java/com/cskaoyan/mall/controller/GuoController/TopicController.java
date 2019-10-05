@@ -2,12 +2,10 @@ package com.cskaoyan.mall.controller.GuoController;
 
 import com.cskaoyan.mall.bean.Region;
 import com.cskaoyan.mall.bean.Topic;
-import com.cskaoyan.mall.controller.UserController;
 import com.cskaoyan.mall.service.GuoService.GuoTopicService;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.GuoVo.GuoTopicShow;
 import com.cskaoyan.mall.vo.GuoVo.TopicDetail;
-import com.cskaoyan.mall.vo.ItemsList;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +44,7 @@ public class TopicController {
         int page=(int)(Math.random()*4)+1;
         PageHelper.startPage(page,4);
         List<Topic> topicList = topicService.getTopicList();
-        ItemsList<Topic> topicItemsList = UserController.itemsList(topicList);
-        BaseRespVo ok = BaseRespVo.ok(topicItemsList);
+        BaseRespVo ok = BaseRespVo.ok(topicList);
         return ok;
     }
     @RequestMapping("/region/list")
