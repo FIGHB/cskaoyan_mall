@@ -6,7 +6,7 @@ import com.cskaoyan.mall.vo.GuoVo.TopicDetail;
 
 import java.util.List;
 
-public interface TopicService {
+public interface GuoTopicService {
     List<Topic> getTopicList();
 
     TopicDetail getTopicDetailById(Integer id);

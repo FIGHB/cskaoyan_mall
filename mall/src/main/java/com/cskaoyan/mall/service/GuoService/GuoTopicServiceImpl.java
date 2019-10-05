@@ -10,13 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TopicServiceImpl implements TopicService {
+public class GuoTopicServiceImpl implements GuoTopicService {
 
     TopicExample topicExample = new TopicExample();
-    TopicExample.Criteria criteria = topicExample.createCriteria();
-
-    RegionExample regionExample = new RegionExample();
-    RegionExample.Criteria criteriaRegion = regionExample.createCriteria();
 
     @Autowired
     TopicMapper topicMapper;
@@ -25,6 +21,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public List<Topic> getTopicList() {
+        TopicExample.Criteria criteria = topicExample.createCriteria();
         criteria.andIdIsNotNull();
         List<Topic> topics = topicMapper.selectByExample(topicExample);
         return topics;
@@ -32,6 +29,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public TopicDetail getTopicDetailById(Integer id) {
+        TopicExample.Criteria criteria = topicExample.createCriteria();
         criteria.andIdEqualTo(id);
         List<Topic> topics = topicMapper.selectByExample(topicExample);
 
@@ -45,6 +43,8 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public List<Region> getRegionList(Integer pid) {
+        RegionExample regionExample = new RegionExample();
+        RegionExample.Criteria criteriaRegion = regionExample.createCriteria();
         criteriaRegion.andPidEqualTo(pid);
         List<Region> regionList = regionMapper.selectByExample(regionExample);
         return regionList;
