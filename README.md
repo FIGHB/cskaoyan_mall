@@ -28,12 +28,12 @@ cskaoyan-mall
 
 ```java
   //周榆淮
-  IndexUrl: WxApiRoot + 'home/index', //首页数据接口(周榆淮 doing)						
+  IndexUrl: WxApiRoot + 'home/index', //首页数据接口(周榆淮 done)						
   CatalogList: WxApiRoot + 'catalog/index', //分类目录全部分类数据接口(李锐 done)
-  CatalogCurrent: WxApiRoot + 'catalog/current', //分类目录当前分类数据接口
+  CatalogCurrent: WxApiRoot + 'catalog/current', //分类目录当前分类数据接口 (周榆淮 done)
   
-  BrandList: WxApiRoot + 'brand/list', //品牌列表			 							
-  BrandDetail: WxApiRoot + 'brand/detail', //品牌详情
+  BrandList: WxApiRoot + 'brand/list', //品牌列表（周榆淮 done）			 							
+  BrandDetail: WxApiRoot + 'brand/detail', //品牌详情 （周榆淮 done）
 
   //杨磊
   GoodsCount: WxApiRoot + 'goods/count', //统计商品总数(李锐 done)					
@@ -43,29 +43,29 @@ cskaoyan-mall
   GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）
 
   //王小凤
-  CollectList: WxApiRoot + 'collect/list', //收藏列表					 
-  CollectAddOrDelete: WxApiRoot + 'collect/addordelete', //添加或取消收藏
+  CollectList: WxApiRoot + 'collect/list', //收藏列表(doing)			 
+  CollectAddOrDelete: WxApiRoot + 'collect/addordelete', //添加或取消收藏(doing)
 
-  CommentList: WxApiRoot + 'comment/list', //评论列表					
-  CommentCount: WxApiRoot + 'comment/count', //评论总数
-  CommentPost: WxApiRoot + 'comment/post', //发表评论
+  CommentList: WxApiRoot + 'comment/list', //评论列表			(doing)		
+  CommentCount: WxApiRoot + 'comment/count', //评论总数(doing)
+  CommentPost: WxApiRoot + 'comment/post', //发表评论(doing)
 
   //国旭
   TopicList: WxApiRoot + 'topic/list', //专题列表   （国旭 done）								
-  TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 done）
-  TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 done）	
+  TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 doing）
+  TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 doing）	
   
   ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 doing）
 
-  RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 done）
+  RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 doing）
 
   //李锐
-  SearchIndex: WxApiRoot + 'search/index', //搜索关键字				 
-  SearchResult: WxApiRoot + 'search/result', //搜索结果
-  SearchHelper: WxApiRoot + 'search/helper', //搜索帮助
-  SearchClearHistory: WxApiRoot + 'search/clearhistory', //搜索历史清楚
+  SearchIndex: WxApiRoot + 'search/index', //搜索关键字 (李锐 done)	
+  SearchResult: WxApiRoot + 'search/result', //搜索结果 (李锐 doing)
+  SearchHelper: WxApiRoot + 'search/helper', //搜索帮助 (李锐 done)
+  SearchClearHistory: WxApiRoot + 'search/clearhistory', //搜索历史清楚 (李锐 doing)
 
-  UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息
+  UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息 (李锐 doing)
 
   //赵亚云
   AddressList: WxApiRoot + 'address/list', //收货地址列表				
@@ -74,11 +74,11 @@ cskaoyan-mall
   AddressDelete: WxApiRoot + 'address/delete', //保存收货地址
 
   //陈武
-  AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录			
-  AuthLoginByAccount: WxApiRoot + 'auth/login', //账号登录
-  AuthLogout: WxApiRoot + 'auth/logout', //账号登出
-  AuthRegister: WxApiRoot + 'auth/register', //账号注册
-  AuthReset: WxApiRoot + 'auth/reset', //账号密码重置
+  AuthLoginByWeixin：WxApiRoot +'auth / login_by_weixin'，//微信登錄（陳武done）			
+  AuthLoginByAccount：WxApiRoot +'auth / login'，//賬號登錄（陳武done）
+  AuthLogout：WxApiRoot +'auth / logout'，//賬號登出（）
+  AuthRegister：WxApiRoot +'auth / register'，//賬號註冊
+  AuthReset：WxApiRoot +'auth / reset'，//賬號密碼重置
   AuthRegisterCaptcha: WxApiRoot + 'auth/regCaptcha', //验证码
   AuthBindPhone: WxApiRoot + 'auth/bindPhone', //绑定微信手机号
 

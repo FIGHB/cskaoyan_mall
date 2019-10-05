@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.bean.wxbean;
+package com.cskaoyan.mall.bean.wxfbean;
 
 import java.math.BigDecimal;
 

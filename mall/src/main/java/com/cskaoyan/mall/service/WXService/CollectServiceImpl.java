@@ -1,12 +1,9 @@
 package com.cskaoyan.mall.service.WXService;
 
 import com.cskaoyan.mall.bean.Collect;
-import com.cskaoyan.mall.bean.CollectExample;
-import com.cskaoyan.mall.bean.Goods;
-import com.cskaoyan.mall.bean.wxbean.CollectList;
+import com.cskaoyan.mall.bean.wxfbean.CollectList;
 import com.cskaoyan.mall.mapper.CollectMapper;
 import com.cskaoyan.mall.mapper.GoodsMapper;
-import com.cskaoyan.mall.mapper.UserMapper;
 import com.cskaoyan.mall.mapper.WXMapper.WxfCollectMapper;
 import com.cskaoyan.mall.mapper.WXMapper.WxfUserMapper;
 import com.cskaoyan.mall.vo.BaseRespVo;
@@ -14,8 +11,6 @@ import com.cskaoyan.mall.vo.CollectListVo;
 import com.cskaoyan.mall.vo.Type;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

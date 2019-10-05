@@ -20,4 +20,17 @@
         keywords, `level`, `name`, pic_url picUrl, pid, sort_order sortOrder
         from cskaoyan_mall_category where pid = #{pid} and deleted = false
     </select>
+
+    <select id="queryDefaultKeyword" resultType="com.cskaoyan.mall.bean.Keyword">
+        select id, add_time addTime, deleted, is_default isDefault, is_hot isHot,
+        keyword, sort_order sortOrder, update_time updateTime, `url`
+        from cskaoyan_mall_keyword where is_default = true and deleted = false
+        limit 0, 1
+    </select>
+
+    <select id="queryHotKeywordList" resultType="com.cskaoyan.mall.bean.Keyword">
+        select id, add_time addTime, deleted, is_default isDefault, is_hot isHot,
+        keyword, sort_order sortOrder, update_time updateTime, `url`
+        from cskaoyan_mall_keyword where is_hot = true and deleted = false
+    </select>
 </mapper>

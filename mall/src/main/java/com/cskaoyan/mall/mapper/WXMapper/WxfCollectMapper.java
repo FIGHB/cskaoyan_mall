@@ -1,8 +1,7 @@
 package com.cskaoyan.mall.mapper.WXMapper;
 
 import com.cskaoyan.mall.bean.Collect;
-import com.cskaoyan.mall.bean.Goods;
-import com.cskaoyan.mall.bean.wxbean.CollectList;
+import com.cskaoyan.mall.bean.wxfbean.CollectList;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
