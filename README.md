@@ -30,7 +30,7 @@ cskaoyan-mall
   //周榆淮
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口(周榆淮 done)						
   CatalogList: WxApiRoot + 'catalog/index', //分类目录全部分类数据接口(李锐 done)
-  CatalogCurrent: WxApiRoot + 'catalog/current', //分类目录当前分类数据接口
+  CatalogCurrent: WxApiRoot + 'catalog/current', //分类目录当前分类数据接口 (周榆淮 done)
   
   BrandList: WxApiRoot + 'brand/list', //品牌列表			 							
   BrandDetail: WxApiRoot + 'brand/detail', //品牌详情
