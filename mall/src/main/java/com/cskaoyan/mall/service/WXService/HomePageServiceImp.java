@@ -1,8 +1,9 @@
 package com.cskaoyan.mall.service.WXService;
-import com.cskaoyan.mall.bean.wxfbean.FloorGoodList;
-import com.cskaoyan.mall.bean.wxfbean.GroupOn;
-import com.cskaoyan.mall.bean.wxfbean.HomePageVO;
+import com.cskaoyan.mall.bean.Brand;
+import com.cskaoyan.mall.bean.Category;
+import com.cskaoyan.mall.bean.wxfbean.*;
 import com.cskaoyan.mall.mapper.WXMapper.HomePageMapper;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,32 @@ public class HomePageServiceImp implements HomePageService {
         homePageVO.setNewGoodsList(homePageMapper.queryNewGoodsList(homePageMapper.querySystemByKeyName("cskaoyan_mall_wx_index_new")));
         homePageVO.setTopicList(homePageMapper.queryTopicList(homePageMapper.querySystemByKeyName("cskaoyan_mall_wx_index_topic")));
         return homePageVO;
+    }
+
+    @Override
+    public CurrentCategoryBean queryCurrentCategory(int id) {
+        CurrentCategoryBean currentCategoryBean = new CurrentCategoryBean();
+        Category parentCategory = homePageMapper.queryCategoryById(id);
+        currentCategoryBean.setCurrentCategory(parentCategory);
+        currentCategoryBean.setCurrentSubCategory(homePageMapper.queryCategoryByPid(parentCategory.getId()));
+        return currentCategoryBean;
+    }
+
+    @Override
+    public BrandListBean queryBrandList(int page, int size) {
+        BrandListBean brandListBean = new BrandListBean();
+        PageHelper.startPage(page,size);
+        List<Brand> brandList = homePageMapper.queryBrands();
+        int total = homePageMapper.queryTotolOfBrand();
+        brandListBean.setBrandList(brandList);
+        brandListBean.setTotalPages((int) Math.ceil(total / size));
+        return brandListBean;
+    }
+
+    @Override
+    public BrandDetailBean queryBrandDetail(int id) {
+        BrandDetailBean brandDetailBean = new BrandDetailBean();
+        brandDetailBean.setBrand(homePageMapper.queryBrandById(id));
+        return brandDetailBean;
     }
 }
