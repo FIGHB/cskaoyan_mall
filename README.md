@@ -60,12 +60,12 @@ cskaoyan-mall
   RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 doing）
 
   //李锐
-  SearchIndex: WxApiRoot + 'search/index', //搜索关键字				 
-  SearchResult: WxApiRoot + 'search/result', //搜索结果
-  SearchHelper: WxApiRoot + 'search/helper', //搜索帮助
-  SearchClearHistory: WxApiRoot + 'search/clearhistory', //搜索历史清楚
+  SearchIndex: WxApiRoot + 'search/index', //搜索关键字 (李锐 doing)	
+  SearchResult: WxApiRoot + 'search/result', //搜索结果 (李锐 doing)
+  SearchHelper: WxApiRoot + 'search/helper', //搜索帮助 (李锐 doing)
+  SearchClearHistory: WxApiRoot + 'search/clearhistory', //搜索历史清楚 (李锐 doing)
 
-  UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息
+  UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息 (李锐 doing)
 
   //赵亚云
   AddressList: WxApiRoot + 'address/list', //收货地址列表				
