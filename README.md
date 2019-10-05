@@ -74,7 +74,7 @@ cskaoyan-mall
   AddressDelete: WxApiRoot + 'address/delete', //保存收货地址
 
   //陈武
-  AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录			
+  AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录()			
   AuthLoginByAccount: WxApiRoot + 'auth/login', //账号登录
   AuthLogout: WxApiRoot + 'auth/logout', //账号登出
   AuthRegister: WxApiRoot + 'auth/register', //账号注册
