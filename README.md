@@ -61,11 +61,11 @@ cskaoyan-mall
 
   //李锐
   SearchIndex: WxApiRoot + 'search/index', //搜索关键字 (李锐 done)	
-  SearchResult: WxApiRoot + 'search/result', //搜索结果 (李锐 doing)
+  SearchResult: WxApiRoot + 'search/result', //搜索结果 (李锐 未找到)
   SearchHelper: WxApiRoot + 'search/helper', //搜索帮助 (李锐 done)
   SearchClearHistory: WxApiRoot + 'search/clearhistory', //搜索历史清楚 (李锐 done)
 
-  UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息 (李锐 doing)
+  UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息 (李锐 未找到)
 
   //赵亚云
   AddressList: WxApiRoot + 'address/list', //收货地址列表			done	
