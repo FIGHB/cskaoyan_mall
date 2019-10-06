@@ -2,6 +2,8 @@ package com.cskaoyan.mall.mapper.wechat;
 
 import com.cskaoyan.mall.bean.Category;
 import com.cskaoyan.mall.bean.Keyword;
+import com.cskaoyan.mall.bean.Order;
+import com.cskaoyan.mall.bean.wechat.UserCouponBean;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -43,4 +45,11 @@ public interface LRWXMallMapper {
 
     @Select("select id from cskaoyan_mall_user where username = #{username} and deleted = false")
     int selectUserIdByUserName(String username);
+
+    List<Order> queryOrdersByUserAndStatus(int userId, int status);
+
+    //查询对应订单的评论状态 -1超期不可评论，0未评论，其他则对应评论表的id
+    int queryCommentStatusByOrderId(Integer orderId);
+
+    List<UserCouponBean> queryMyCouponListByStatus(int userId, int status);
 }
