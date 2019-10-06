@@ -39,8 +39,8 @@ cskaoyan-mall
   GoodsCount: WxApiRoot + 'goods/count', //统计商品总数(李锐 done)					
   GoodsList: WxApiRoot + 'goods/list', //获得商品列表(杨磊 done)
   GoodsCategory: WxApiRoot + 'goods/category', //获得分类数据 (杨磊 done)		 				
-  GoodsDetail: WxApiRoot + 'goods/detail', //获得商品的详情
-  GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）
+  GoodsDetail: WxApiRoot + 'goods/detail', //获得商品的详情(杨磊 done)
+  GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）(杨磊 done 未测试)
 
   //王小凤
   CollectList: WxApiRoot + 'collect/list', //收藏列表(doing)			 
@@ -76,26 +76,26 @@ cskaoyan-mall
   //陈武
   AuthLoginByWeixin：WxApiRoot +'auth / login_by_weixin'，//微信登錄（陳武done）			
   AuthLoginByAccount：WxApiRoot +'auth / login'，//賬號登錄（陳武done）
-  AuthLogout：WxApiRoot +'auth / logout'，//賬號登出（）
-  AuthRegister：WxApiRoot +'auth / register'，//賬號註冊
-  AuthReset：WxApiRoot +'auth / reset'，//賬號密碼重置
-  AuthRegisterCaptcha: WxApiRoot + 'auth/regCaptcha', //验证码
-  AuthBindPhone: WxApiRoot + 'auth/bindPhone', //绑定微信手机号
+  AuthLogout：WxApiRoot +'auth / logout'，//賬號登出（陈武done）
+  AuthRegister：WxApiRoot +'auth / register'，//賬號註冊（陈武done）
+  AuthReset：WxApiRoot +'auth / reset'，//賬號密碼重置（陈武done）
+  AuthRegisterCaptcha: WxApiRoot + 'auth/regCaptcha', //验证码（陈武done）
+  AuthBindPhone: WxApiRoot + 'auth/bindPhone', //绑定微信手机号（陈武doing）
 
 
-  CartList: WxApiRoot + 'cart/index', //获取购物车的数据							
-  CartAdd: WxApiRoot + 'cart/add', // 添加商品到购物车
-  CartFastAdd: WxApiRoot + 'cart/fastadd', // 立即购买商品
-  CartUpdate: WxApiRoot + 'cart/update', // 更新购物车的商品
-  CartDelete: WxApiRoot + 'cart/delete', // 删除购物车的商品
-  CartChecked: WxApiRoot + 'cart/checked', // 选择或取消选择商品				
-  CartGoodsCount: WxApiRoot + 'cart/goodscount', // 获取购物车商品件数
-  CartCheckout: WxApiRoot + 'cart/checkout', // 下单前信息确认
+  CartList: WxApiRoot + 'cart/index', //获取购物车的数据	（陈武done）						
+  CartAdd: WxApiRoot + 'cart/add', // 添加商品到购物车（陈武done）
+  CartFastAdd: WxApiRoot + 'cart/fastadd', // 立即购买商品（陈武done）
+  CartUpdate: WxApiRoot + 'cart/update', // 更新购物车的商品（陈武done）
+  CartDelete: WxApiRoot + 'cart/delete', // 删除购物车的商品（陈武done）
+  CartChecked: WxApiRoot + 'cart/checked', // 选择或取消选择商品	（陈武done）		
+  CartGoodsCount: WxApiRoot + 'cart/goodscount', // 获取购物车商品件数（陈武done）
+  CartCheckout: WxApiRoot + 'cart/checkout', // 下单前信息确认(陈武done)
   
   
-  OrderSubmit: WxApiRoot + 'order/submit', // 提交订单				
-  OrderPrepay: WxApiRoot + 'order/prepay', // 订单的预支付会话
-  OrderList: WxApiRoot + 'order/list', //订单列表
+  OrderSubmit: WxApiRoot + 'order/submit', // 提交订单（陈武done）				
+  OrderPrepay: WxApiRoot + 'order/prepay', // 订单的预支付会话（陈武done）
+  OrderList: WxApiRoot + 'order/list', //订单列表（陈武doing）
   OrderDetail: WxApiRoot + 'order/detail', //订单详情
   OrderCancel: WxApiRoot + 'order/cancel', //取消订单
   OrderRefund: WxApiRoot + 'order/refund', //退款取消订单
@@ -124,7 +124,7 @@ cskaoyan-mall
 
   StorageUpload: WxApiRoot + 'storage/upload', //图片上传,
 
-  UserIndex: WxApiRoot + 'user/index', //个人页面用户相关信息
+  UserIndex: WxApiRoot + 'user/index', //个人页面用户相关信息(李锐 doing)
 ```
 
 
