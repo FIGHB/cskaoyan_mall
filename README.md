@@ -39,8 +39,8 @@ cskaoyan-mall
   GoodsCount: WxApiRoot + 'goods/count', //统计商品总数(李锐 done)					
   GoodsList: WxApiRoot + 'goods/list', //获得商品列表(杨磊 done)
   GoodsCategory: WxApiRoot + 'goods/category', //获得分类数据 (杨磊 done)		 				
-  GoodsDetail: WxApiRoot + 'goods/detail', //获得商品的详情
-  GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）
+  GoodsDetail: WxApiRoot + 'goods/detail', //获得商品的详情(杨磊 doing)
+  GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）(杨磊 doing)
 
   //王小凤
   CollectList: WxApiRoot + 'collect/list', //收藏列表(doing)			 
