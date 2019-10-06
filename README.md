@@ -117,7 +117,7 @@ cskaoyan-mall
   GroupOnJoin: WxApiRoot + 'groupon/join', //团购API-详情
 
   CouponList: WxApiRoot + 'coupon/list', //优惠券列表
-  CouponMyList: WxApiRoot + 'coupon/mylist', //我的优惠券列表(李锐 doing)
+  CouponMyList: WxApiRoot + 'coupon/mylist', //我的优惠券列表(李锐 done)
   CouponSelectList: WxApiRoot + 'coupon/selectlist', //当前订单可用优惠券列表
   CouponReceive: WxApiRoot + 'coupon/receive', //优惠券领取
   CouponExchange: WxApiRoot + 'coupon/exchange', //优惠券兑换
