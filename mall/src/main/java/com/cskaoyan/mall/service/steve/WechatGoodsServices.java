@@ -1,9 +1,6 @@
 package com.cskaoyan.mall.service.steve;
 
-import com.cskaoyan.mall.vo.steve.BrandListVo;
-import com.cskaoyan.mall.vo.steve.WeChatCategoryVo;
-import com.cskaoyan.mall.vo.steve.WeChatGoodsReceiveData;
-import com.cskaoyan.mall.vo.steve.WechatGoodsList;
+import com.cskaoyan.mall.vo.steve.*;
 
 /**
  * @author Steve
@@ -15,4 +12,7 @@ public interface WechatGoodsServices {
 
     WeChatCategoryVo queryCategoryList(int id);
 
+    WeChatGoodsDetailVo queryGoodsDetail(int id);
+
+    WeChataGoodsListVo queryWeChatGoodsForRelated(int id);
 }

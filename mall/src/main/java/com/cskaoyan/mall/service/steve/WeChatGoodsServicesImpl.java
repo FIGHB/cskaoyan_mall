@@ -2,16 +2,16 @@ package com.cskaoyan.mall.service.steve;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.mapper.*;
-import com.cskaoyan.mall.vo.steve.BrandListVo;
-import com.cskaoyan.mall.vo.steve.WeChatCategoryVo;
-import com.cskaoyan.mall.vo.steve.WeChatGoodsReceiveData;
-import com.cskaoyan.mall.vo.steve.WechatGoodsList;
+import com.cskaoyan.mall.vo.steve.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.lang.System;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -36,6 +36,21 @@ public class WeChatGoodsServicesImpl implements WechatGoodsServices {
 
     @Autowired
     BrandMapper brandMapper;
+    
+    @Autowired
+    GoodsAttributeMapper goodsAttributeMapper;
+
+    @Autowired
+    CommentMapper commentMapper;
+
+    @Autowired
+    IssueMapper issueMapper;
+
+    @Autowired
+    GoodsProductMapper goodsProductMapper;
+
+    @Autowired
+    GoodsSpecificationMapper goodsSpecificationMapper;
 
     @Override
     public WechatGoodsList queryWeChatGoodsList(WeChatGoodsReceiveData weChatGoodsReceiveData, String username) {
@@ -220,4 +235,93 @@ public class WeChatGoodsServicesImpl implements WechatGoodsServices {
         }
     }
 
+    @Override
+    public WeChatGoodsDetailVo queryGoodsDetail(int id) {
+        WeChatGoodsDetailVo weChatGoodsDetailVo = new WeChatGoodsDetailVo();
+        Goods goods = goodsMapper.selectByPrimaryKey(id);
+        weChatGoodsDetailVo.setInfo(goods);
+
+        GoodsAttributeExample goodsAttributeExample = new GoodsAttributeExample();
+        GoodsAttributeExample.Criteria criteria = goodsAttributeExample.createCriteria();
+        criteria.andGoodsIdEqualTo(id);
+        List<GoodsAttribute> goodsAttributes = goodsAttributeMapper.selectByExample(goodsAttributeExample);
+        weChatGoodsDetailVo.setAttribute(goodsAttributes);
+
+        Brand brand = null;
+        if (goods.getBrandId() != 0) {
+            brand = brandMapper.selectByPrimaryKey(goods.getBrandId());
+        }
+        weChatGoodsDetailVo.setBrand(brand);
+
+        CommentExample commentExample = new CommentExample();
+        CommentExample.Criteria commentExampleCriteria = commentExample.createCriteria();
+        commentExampleCriteria.andValueIdEqualTo(goods.getId());
+        List<Comment> commentList = commentMapper.selectByExample(commentExample);
+        PageInfo<Comment> commentPageInfo = new PageInfo<>(commentList);
+        long count = commentPageInfo.getTotal();
+
+        WeChatCommentVo weChatCommentVo = new WeChatCommentVo();
+        weChatCommentVo.setCount(count);
+        weChatCommentVo.setData(commentList);
+        weChatGoodsDetailVo.setComment(weChatCommentVo);
+
+        //如果后续有团购的话,这里需要加东西
+        List<Groupon> groupons = new ArrayList<>();
+        weChatGoodsDetailVo.setGroupon(groupons);
+
+        IssueExample issueExample = new IssueExample();
+        List<Issue> issueList = issueMapper.selectByExample(issueExample);
+        weChatGoodsDetailVo.setIssue(issueList);
+
+        GoodsProductExample goodsProductExample = new GoodsProductExample();
+        GoodsProductExample.Criteria goodsProductExampleCriteria = goodsProductExample.createCriteria();
+        goodsProductExampleCriteria.andGoodsIdEqualTo(goods.getId());
+        List<GoodsProduct> goodsProductList = goodsProductMapper.selectByExample(goodsProductExample);
+        weChatGoodsDetailVo.setProductList(goodsProductList);
+
+        GoodsSpecificationExample goodsSpecificationExample = new GoodsSpecificationExample();
+        GoodsSpecificationExample.Criteria goodsSpecificationExampleCriteria = goodsSpecificationExample.createCriteria();
+        goodsSpecificationExampleCriteria.andGoodsIdEqualTo(goods.getId());
+        List<GoodsSpecification> goodsSpecificationList = goodsSpecificationMapper.selectByExample(goodsSpecificationExample);
+
+        //System.out.println(goodsSpecificationList);
+        WeChatSpecVo weChatSpecVo = new WeChatSpecVo();
+        //根据specification 分组 所以用set
+        HashSet<String> set = new HashSet<>();
+        for (GoodsSpecification goodsSpecification : goodsSpecificationList) {
+            set.add(goodsSpecification.getSpecification());
+        }
+
+        List<WeChatSpecVo> specificationList = new ArrayList<>();
+        if (!set.isEmpty()) {
+            for (String spec : set) {
+                GoodsSpecificationExample goodsSpecExample = new GoodsSpecificationExample();
+                GoodsSpecificationExample.Criteria goodsSpecExampleCriteria = goodsSpecExample.createCriteria();
+                goodsSpecExampleCriteria.andSpecificationEqualTo(spec).andGoodsIdEqualTo(goods.getId());
+                List<GoodsSpecification> goodsSpecificationList1 = goodsSpecificationMapper.selectByExample(goodsSpecExample);
+                weChatSpecVo.setName(spec);
+                weChatSpecVo.setValueList(goodsSpecificationList1);
+                System.out.println(weChatSpecVo);
+                specificationList.add(weChatSpecVo);
+            }
+        }
+        weChatGoodsDetailVo.setSpecificationList(specificationList);
+        weChatGoodsDetailVo.setUserHasCollect(false);
+
+        return weChatGoodsDetailVo;
+    }
+
+    @Override
+    public WeChataGoodsListVo queryWeChatGoodsForRelated(int id) {
+        WeChataGoodsListVo weChataGoodsListVo = new WeChataGoodsListVo();
+        Goods goods = goodsMapper.selectByPrimaryKey(id);
+
+        GoodsExample goodsExample = new GoodsExample();
+        GoodsExample.Criteria criteria = goodsExample.createCriteria();
+        criteria.andCategoryIdEqualTo(goods.getCategoryId());
+        List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
+        weChataGoodsListVo.setGoodsList(goodsList);
+
+        return weChataGoodsListVo;
+    }
 }

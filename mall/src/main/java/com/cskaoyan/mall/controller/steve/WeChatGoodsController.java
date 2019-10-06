@@ -2,12 +2,10 @@ package com.cskaoyan.mall.controller.steve;
 
 import com.cskaoyan.mall.bean.Brand;
 import com.cskaoyan.mall.bean.Category;
+import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.service.steve.WechatGoodsServices;
 import com.cskaoyan.mall.vo.BaseRespVo;
-import com.cskaoyan.mall.vo.steve.BrandListVo;
-import com.cskaoyan.mall.vo.steve.WeChatCategoryVo;
-import com.cskaoyan.mall.vo.steve.WeChatGoodsReceiveData;
-import com.cskaoyan.mall.vo.steve.WechatGoodsList;
+import com.cskaoyan.mall.vo.steve.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,4 +45,27 @@ public class WeChatGoodsController {
         return baseRespVo;
     }
 
+    @RequestMapping("wx/goods/detail")
+    public BaseRespVo weChatGoodsList(Goods goods){
+        int id = goods.getId();
+
+        BaseRespVo<Object> objectBaseRespVo = new BaseRespVo<>();
+
+        WeChatGoodsDetailVo weChatCategoryVo = wechatGoodsServices.queryGoodsDetail(id);
+
+        BaseRespVo baseRespVo = BaseRespVo.ok(weChatCategoryVo);
+        return baseRespVo;
+    }
+
+    @RequestMapping("wx/goods/related")
+    public BaseRespVo weChatRelatedGoods(Goods goods){
+        int id = goods.getId();
+
+        BaseRespVo<Object> objectBaseRespVo = new BaseRespVo<>();
+
+        WeChataGoodsListVo weChataGoodsListVo = wechatGoodsServices.queryWeChatGoodsForRelated(id);
+
+        BaseRespVo baseRespVo = BaseRespVo.ok(weChataGoodsListVo);
+        return baseRespVo;
+    }
 }
