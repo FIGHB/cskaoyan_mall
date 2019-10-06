@@ -122,7 +122,7 @@ cskaoyan-mall
   CouponReceive: WxApiRoot + 'coupon/receive', //优惠券领取
   CouponExchange: WxApiRoot + 'coupon/exchange', //优惠券兑换
 
-  StorageUpload: WxApiRoot + 'storage/upload', //图片上传,
+  StorageUpload: WxApiRoot + 'storage/upload', //图片上传,（王小凤 done)
 
   UserIndex: WxApiRoot + 'user/index', //个人页面用户相关信息(李锐 done)
 ```
