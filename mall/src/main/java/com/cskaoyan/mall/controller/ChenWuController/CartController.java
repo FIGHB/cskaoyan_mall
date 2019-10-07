@@ -11,6 +11,7 @@ import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CWCheckVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CartTotal;
 import com.cskaoyan.mall.vo.ChenWuWx.CartTotalVo;
+import com.cskaoyan.mall.vo.GuoVo.GuoCart;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,8 @@ public class CartController {
      * 未测试
      */
     @PostMapping("add")
-    public BaseRespVo<Integer> add(int goodsId, short number, int productId) {
+    @ResponseBody
+    public BaseRespVo<Integer> add(@RequestBody GuoCart guoCart) {
         //这里要利用传来的参数查询出完整的商品信息cart再插入cart表中方便index使用
         int useId = getUserId();
         BaseRespVo<Integer> integerBaseRespVo = new BaseRespVo<>();
@@ -81,7 +83,7 @@ public class CartController {
          * 这里比较繁琐要查三张表
          * check里有id
          * */
-        int a = cartService.selectAllNumber(useId, goodsId, number, productId);//在这里依次完成插入和统计数量的功能
+        int a = cartService.selectAllNumber(useId, guoCart.getGoodsId(), guoCart.getNumber(), guoCart.getProductId());//在这里依次完成插入和统计数量的功能
         //这是总购物车商品数量,鑫哥说用cart表。
         Integer A = new Integer(a);
         integerBaseRespVo.setData(A);
