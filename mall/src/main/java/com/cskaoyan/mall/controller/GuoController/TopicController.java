@@ -1,17 +1,24 @@
 package com.cskaoyan.mall.controller.GuoController;
 
+import com.cskaoyan.mall.bean.Feedback;
+import com.cskaoyan.mall.bean.Footprint;
 import com.cskaoyan.mall.bean.Region;
 import com.cskaoyan.mall.bean.Topic;
-import com.cskaoyan.mall.controller.UserController;
+import com.cskaoyan.mall.service.GuoService.GuoFeedbackService;
+import com.cskaoyan.mall.service.GuoService.GuoFootprintService;
 import com.cskaoyan.mall.service.GuoService.GuoTopicService;
 import com.cskaoyan.mall.vo.BaseRespVo;
+import com.cskaoyan.mall.vo.GuoVo.FootprintDetail;
+import com.cskaoyan.mall.vo.GuoVo.FootprintShow;
 import com.cskaoyan.mall.vo.GuoVo.GuoTopicShow;
 import com.cskaoyan.mall.vo.GuoVo.TopicDetail;
-import com.cskaoyan.mall.vo.ItemsList;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,6 +30,10 @@ public class TopicController {
 
     @Autowired
     GuoTopicService topicService;
+    @Autowired
+    GuoFeedbackService guoFeedbackService;
+    @Autowired
+    GuoFootprintService guoFootprintService;
 
     @RequestMapping("/topic/list")
     @ResponseBody
@@ -46,8 +57,7 @@ public class TopicController {
         int page=(int)(Math.random()*4)+1;
         PageHelper.startPage(page,4);
         List<Topic> topicList = topicService.getTopicList();
-        ItemsList<Topic> topicItemsList = UserController.itemsList(topicList);
-        BaseRespVo ok = BaseRespVo.ok(topicItemsList);
+        BaseRespVo ok = BaseRespVo.ok(topicList);
         return ok;
     }
     @RequestMapping("/region/list")
@@ -57,6 +67,31 @@ public class TopicController {
         BaseRespVo ok = BaseRespVo.ok(regionList);
         return ok;
     }
+    @RequestMapping("/feedback/submit")
+    @ResponseBody
+    public BaseRespVo feedbackByUsername(@RequestBody Feedback feedback) {
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+
+        guoFeedbackService.feedbackByUsername(username,feedback);
+
+        BaseRespVo baseRespVo = new BaseRespVo();
+        baseRespVo.setData(null);
+        baseRespVo.setErrmsg("");
+        baseRespVo.setErrno(0);
+        return baseRespVo;
+    }
+    @RequestMapping("/footprint/list")
+    @ResponseBody
+    public BaseRespVo footprintShow(Integer page, Integer size){
+        PageHelper.startPage(page,size);
+        List<Footprint> footprintList=guoFootprintService.getFootprintList();
+        FootprintShow footprintShow = itemsListF(footprintList);
+        List<FootprintDetail> footprintDetailList=guoFootprintService.getFootprintDetailList(footprintList);
+        footprintShow.setFootprintList(footprintDetailList);
+        BaseRespVo ok = BaseRespVo.ok(footprintShow);
+        return ok;
+    }
 
     public static GuoTopicShow itemsList(List<Topic> list){
         PageInfo<Topic> pageInfo=new PageInfo<>(list);
@@ -64,6 +99,13 @@ public class TopicController {
         GuoTopicShow guoTopicShow=new GuoTopicShow();
         guoTopicShow.setData(list);
         guoTopicShow.setCount(total);
+        return guoTopicShow;
+    }
+    public static FootprintShow itemsListF(List<Footprint> list){
+        PageInfo<Footprint> pageInfo=new PageInfo<>(list);
+        long total = pageInfo.getTotal();
+        FootprintShow guoTopicShow=new FootprintShow();
+        guoTopicShow.setTotalPages(total);
         return guoTopicShow;
     }
 }

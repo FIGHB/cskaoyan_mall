@@ -64,6 +64,8 @@ public class GoodsServicesImpl implements GoodsServices {
         GoodsExample goodsExample = new GoodsExample();
         goodsExample.setOrderByClause("add_time desc");
 
+
+
         //这玩意是内部类
         GoodsExample.Criteria criteria = goodsExample.createCriteria();
 

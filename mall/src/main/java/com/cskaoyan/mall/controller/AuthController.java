@@ -2,11 +2,11 @@ package com.cskaoyan.mall.controller;
 
 import com.cskaoyan.mall.service.LiAuthService;
 import com.cskaoyan.mall.service.LiLogService;
+import com.cskaoyan.mall.shiro.CustomToken;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.LoginVo;
 import com.cskaoyan.mall.vo.UserInfo;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +34,14 @@ public class AuthController {
     public BaseRespVo login(@RequestBody LoginVo loginVo, HttpServletRequest request) {
         String username = loginVo.getUsername();
         String password = loginVo.getPassword();
-        String errmsg = authService.login(loginVo);
-        //如果不为空表明有错误需要修改;
-        if(errmsg != null) {
-            return BaseRespVo.getBaseResVo(500,null,errmsg);
+//        String errmsg = authService.login(loginVo);
+//        //如果不为空表明有错误需要修改;
+        if(username == null || "".equals(username)) {
+            return BaseRespVo.getBaseResVo(500,null, "用户名不能为空");
+        } else if(password == null || "".equals(password)) {
+            return BaseRespVo.getBaseResVo(500, null, "密码不能为空");
         }
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        CustomToken token = new CustomToken(username, password, "admin");
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
@@ -49,14 +51,6 @@ public class AuthController {
         Serializable id = subject.getSession().getId();
         //向日志中添加登录信息
         logService.addSucceedLog(request,username,1,"登录");
-//        String ip = IpUtils.getIpAddr(request);
-//        Log logMessage = new Log();
-//        logMessage.setIp(ip);
-//        logMessage.setAdmin(username);
-//        logMessage.setType(1);
-//        logMessage.setStatus(true);
-//        logMessage.setAction("登录");
-//        authService.addLog(logMessage);
 
         return BaseRespVo.ok(id);
 
@@ -74,11 +68,11 @@ public class AuthController {
     }
 
     @RequestMapping("admin/auth/info")
-    public BaseRespVo info(String token) {
+    public BaseRespVo info() {
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
 
-        UserInfo userInfo = authService.getUserInfoByUserName(username);
+        UserInfo userInfo = authService.getAdminInfoByUserName(username);
 
         BaseRespVo ok = BaseRespVo.ok(userInfo);
         return ok;

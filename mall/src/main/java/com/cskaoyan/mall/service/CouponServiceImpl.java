@@ -64,6 +64,28 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public BaseRespVo insert(Coupon coupon) {
+        if((coupon.getTotal()!=null&&coupon.getTotal()<0)||
+                (coupon.getLimit()!=null&&coupon.getTotal()<0) ||
+                (coupon.getMin()!=null&&coupon.getMin().signum()==-1)||
+                (coupon.getDiscount()!=null&&coupon.getDiscount().signum()==-1)){
+            return BaseRespVo.fail(500,"参数不对");
+        }
+        if(coupon.getTimeType()==0){
+            if(coupon.getDays()==null){
+                return BaseRespVo.fail(500,"优惠天数不能为空");
+            }else {
+                if(coupon.getDays()<0){
+                    return BaseRespVo.fail(500,"优惠天数不能为负数");
+                }
+            }
+        }else if(coupon.getTimeType()==1){
+            if(coupon.getStartTime()==null||coupon.getEndTime()==null){
+                return BaseRespVo.fail(500,"优惠日期不能为空");
+            }
+        }else {
+            return BaseRespVo.fail(500,"参数不对");
+        }
+
         wxfCouponMapper.insertSelective(coupon);
         Coupon couponResp = wxfCouponMapper.selectLastInsert();
         return BaseRespVo.ok(couponResp);

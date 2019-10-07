@@ -2,17 +2,17 @@ package com.cskaoyan.mall.vo.ChenWuWx;
 
 
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class LoginVo {
+public class WxLoginVo {
    String tokenExpire;
-    String token;
+    Serializable token;
     UserInfo userInfo;
 
-    public LoginVo() {
+    public WxLoginVo() {
     }
 
-    public LoginVo(String tokenExpire, String token, UserInfo userInfo) {
+    public WxLoginVo(String tokenExpire, String token, UserInfo userInfo) {
         this.tokenExpire = tokenExpire;
         this.token = token;
         this.userInfo = userInfo;
@@ -26,11 +26,11 @@ public class LoginVo {
         this.tokenExpire = tokenExpire;
     }
 
-    public String getToken() {
+    public Serializable getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(Serializable token) {
         this.token = token;
     }
 
