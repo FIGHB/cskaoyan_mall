@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.wechat.AddressWxMapper">
+    <!--
+    <resultMap id="addressDetailWx" type="com.cskaoyan.mall.bean.wxfbean.AddressDetailWx">
+        <result column="id" property="id"/>
+        <result column="address" property="address"/>
+        <result column="areaId" property="areaId"/>
+        <association property="areaName" column="areaName"  select=""/>
+        <result column="cityId" property="cityId"/>
+        <association property="cityName" column="cityName" select=""/>
+        <result column="privinceId" property="provinceId"/>
+        <association property="provinceName" column="provinceName" select=""/>
+        <result column="isDefault" property="isDefault"/>
+        <result column="mobile" property="mobile"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    -->
+
+<select id="selectLastId" resultType="com.cskaoyan.mall.bean.Address">
+    select id from cskaoyan_mall_address where id = last_insert_id()
+</select>
+</mapper>
