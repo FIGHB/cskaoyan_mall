@@ -51,14 +51,6 @@ public class AuthController {
         Serializable id = subject.getSession().getId();
         //向日志中添加登录信息
         logService.addSucceedLog(request,username,1,"登录");
-//        String ip = IpUtils.getIpAddr(request);
-//        Log logMessage = new Log();
-//        logMessage.setIp(ip);
-//        logMessage.setAdmin(username);
-//        logMessage.setType(1);
-//        logMessage.setStatus(true);
-//        logMessage.setAction("登录");
-//        authService.addLog(logMessage);
 
         return BaseRespVo.ok(id);
 
