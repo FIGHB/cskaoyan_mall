@@ -27,6 +27,8 @@ public class GuoGroupServiceImpl implements GuoGroupService {
     GuoSpecificationMapper guoSpecificationMapper;
     @Autowired
     GrouponRulesMapper grouponRulesMapper;
+    @Autowired
+    GoodsMapper goodsMapper;
 
     @Override
     public GroupDetail getGroupDetailByGrouponId(Integer grouponId) {
@@ -109,7 +111,13 @@ public class GuoGroupServiceImpl implements GuoGroupService {
             guoOrderGoods.setGoodsSpecificationValues(goodsSpecificationList);
             guoOrderGoods.setId(orderGood.getId());
             guoOrderGoods.setGoodsName(orderGood.getGoodsName());
-            guoOrderGoods.setRetailPrice(orderGood.getPrice());
+            Integer goodsId = orderGood.getGoodsId();
+            GoodsExample goodsExample = new GoodsExample();
+            GoodsExample.Criteria criteria5 = goodsExample.createCriteria();
+            criteria5.andIdEqualTo(goodsId);
+            List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
+            Goods goods = goodsList.get(0);
+            guoOrderGoods.setRetailPrice(goods.getRetailPrice());
 
             guoOrderGoodsList.add(guoOrderGoods);
         }
