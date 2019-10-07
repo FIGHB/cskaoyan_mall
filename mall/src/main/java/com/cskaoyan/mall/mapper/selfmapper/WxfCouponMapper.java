@@ -16,4 +16,8 @@ public interface WxfCouponMapper {
     Coupon selectLastInsert();
 
     Coupon[] queryCouponByCondition(Coupon coupon);
+
+    int queryCodeTotal(@Param("code") String code);
+
+    Coupon queryCouponByCode(@Param("code") String code);
 }

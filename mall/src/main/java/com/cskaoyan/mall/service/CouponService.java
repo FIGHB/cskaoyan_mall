@@ -16,4 +16,6 @@ public interface CouponService {
     BaseRespVo queryCouponUserByCondition(int page, int limit,CouponUser couponUser);
 
     BaseRespVo insert(Coupon coupon);
+
+    BaseRespVo exchange(Coupon coupon,String username);
 }
