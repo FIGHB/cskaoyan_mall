@@ -1,11 +1,10 @@
 package com.cskaoyan.mall.service.wechat;
 
 
-import com.cskaoyan.mall.bean.Category;
-import com.cskaoyan.mall.bean.Coupon;
-import com.cskaoyan.mall.bean.Order;
+import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.wechat.UserCouponBean;
 import com.cskaoyan.mall.mapper.CategoryMapper;
+import com.cskaoyan.mall.mapper.GoodsMapper;
 import com.cskaoyan.mall.mapper.KeywordMapper;
 import com.cskaoyan.mall.mapper.wechat.LRWXMallMapper;
 import com.github.pagehelper.PageHelper;
@@ -30,6 +29,9 @@ public class LRWXMallServiceImpl implements LRWXMallService {
 
     @Autowired
     KeywordMapper keywordMapper;
+
+    @Autowired
+    GoodsMapper goodsMapper;
 
     @Override
     public Map queryCatalogIndex() {
@@ -117,7 +119,7 @@ public class LRWXMallServiceImpl implements LRWXMallService {
 
     @Override
     public String receiveCoupon(String username, Integer couponId) {
-        int userId = lrwxMallMapper.queryUserIdByUserName(username);
+        int userId = getUserIdByUsername(username);
         //查询当前用户是否拥有该优惠券
         int count = lrwxMallMapper.queryCouponehaded(couponId, userId);
         if(count > 0) {
@@ -166,7 +168,68 @@ public class LRWXMallServiceImpl implements LRWXMallService {
     @Override
     public Integer getGoodsCount(String username) {
         if(username == null) return 0;
-        int userId = lrwxMallMapper.queryUserIdByUserName(username);
+        int userId = getUserIdByUsername(username);
         return lrwxMallMapper.querGoodsCount(userId);
+    }
+
+    @Override
+    public String fastAddCart(Cart cart, String username) {
+        if(username == null) return "请登录";
+        int userId = getUserIdByUsername(username);
+        Goods goods = goodsMapper.selectByPrimaryKey(cart.getGoodsId());
+        GoodsProduct goodsProduct = lrwxMallMapper.queryGoodsProductById(cart.getGoodsId());
+        Date date = new Date();
+        cart.setUserId(userId);
+        cart.setGoodsSn(goods.getGoodsSn());
+        cart.setGoodsName(goods.getName());
+        cart.setPrice(goodsProduct.getPrice());
+        cart.setSpecifications(goodsProduct.getSpecifications());
+        cart.setPicUrl(goodsProduct.getUrl());
+        cart.setAddTime(date);
+        cart.setUpdateTime(date);
+        int update = lrwxMallMapper.insertCart(cart);
+        return null;
+    }
+
+    @Override
+    public int queryCartId(int userId) {
+        return lrwxMallMapper.queryCartId(userId);
+    }
+
+    @Override
+    public int getUserIdByUsername(String username) {
+        return lrwxMallMapper.queryUserIdByUserName(username);
+    }
+
+    @Override
+    public Map checkoutCart(int userId, Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId) {
+        HashMap<Object, Object> map = new HashMap<>();
+        Cart cart = lrwxMallMapper.queryCartById(cartId);
+        GoodsProduct goodsProduct = lrwxMallMapper.queryGoodsProductById(Integer.parseInt(cart.getGoodsSn()));
+        map.put("grouponPrice", 0);
+        map.put("grouponRulesId", 0);
+        //如果 addressId为 0 则查询默认地址，反之根据id 查询地址
+        if(addressId == 0) {
+            map.put("checkedAddress", lrwxMallMapper.queryDefaultAddressByUserId(userId));
+        } else {
+            map.put("checkedAddress", lrwxMallMapper.queryAddressByAddressId(addressId));
+        }
+        map.put("actualPrice", goodsProduct.getPrice());
+        map.put("orderTotalPrice", goodsProduct.getPrice());
+        map.put("couponPrice", goodsProduct.getPrice());
+        map.put("availableCouponLength", 0);
+        map.put("couponId", couponId);
+        map.put("freightPrice", 0);
+        List<Object> array = new ArrayList<>();
+        if(cartId == 0) {
+            array.addAll(lrwxMallMapper.queryCartByUserId(userId));
+        } else {
+            array.add(cart);
+        }
+        map.put("checkedGoodsList", array);
+
+        map.put("goodsTotalPrice", 286);
+        map.put("addressId", addressId);
+        return map;
     }
 }

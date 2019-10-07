@@ -7,6 +7,7 @@ import com.cskaoyan.mall.mapper.GoodsMapper;
 import com.cskaoyan.mall.mapper.GoodsProductMapper;
 import com.cskaoyan.mall.service.ChenWuService.CartService;
 import com.cskaoyan.mall.service.ChenWuService.OrderService;
+import com.cskaoyan.mall.service.wechat.LRWXMallService;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CWCheckVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CartTotal;
@@ -96,7 +97,7 @@ public class CartController {
      * 插入order表（如零售价格乘以number之后就是订单表中所需的商品总价格）以及在product中减少对应的库存。还要执行的
      * 一个操作是将当前的商品添加到cart表中之后delete设为-1.
      */
-    @PostMapping("fastadd")
+//    @PostMapping("fastadd")
     public BaseRespVo<Integer> fastadd(Integer goodsId, short number, Integer productId) {
         BaseRespVo<Integer> integerBaseRespVo = new BaseRespVo<>();
         integerBaseRespVo.setErrno(0);
@@ -164,14 +165,13 @@ public class CartController {
      * 因为这是购物车和商品详情立即购买页面共用的接口
      * cartId好像有问题因为商品详情立即购买那里的请求参数也有一个cartId.
      */
-    @PostMapping("checkout")
+//    @PostMapping("checkout")
     public BaseRespVo checkout(Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId) {
-        BaseRespVo baseRespVo = new BaseRespVo();
-        int userId = getUserId();
+        int userId = getUserIdBySecurityUtils();
+        if(userId == -1) return BaseRespVo.getBaseResVo(502,"", "系统内部错误");
         orderService.InsertStatusValue(userId,cartId, addressId, couponId, grouponRulesId);
-        baseRespVo.setErrmsg("系统内部错误");
-        baseRespVo.setErrno(502);
-        return baseRespVo;
+        //不晓得返回的是啥数据
+        return BaseRespVo.ok("");
     }
 
     @PostMapping("checked")
@@ -200,4 +200,14 @@ public class CartController {
 //        baseRespVo.setErrno(0);
 //        return baseRespVo;
 //    }
+    @Autowired
+    LRWXMallService lrwxMallService;
+
+
+    private int getUserIdBySecurityUtils() {
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        if(username == null) return -1;
+        return lrwxMallService.getUserIdByUsername(username);
+    }
 }
