@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -52,14 +53,19 @@ public class CartServiceImpl implements CartService{
         cart.setProductId(goodsProduct.getId());
         cart.setPrice(goodsProduct.getPrice());
         //int number1 = goodsProduct.getNumber();不能插入总的库存量
-        cart.setNumber((short)number);
+        cart.setNumber(number);
         cart.setSpecifications(goodsProduct.getSpecifications());
         cart.setPicUrl(goods.getPicUrl());
         cart.setAddTime(goods.getAddTime());
         cart.setUpdateTime(goods.getUpdateTime());
         cart.setDeleted(goods.getDeleted());
         int insert = cartMapper.insert(cart);
-        int l = (int) cartMapper.sumByColumnName("number");
+        /*int l =cartMapper.sumByColumnName("number");*/
+        CartExample cartExample = new CartExample();
+        CartExample.Criteria criteria2 = cartExample.createCriteria();
+        criteria2.andIdIsNotNull();
+        List<Cart>  cartList= cartMapper.selectByExample(cartExample);
+        int l=cartList.size();
         return l;
     }
 
@@ -67,10 +73,17 @@ public class CartServiceImpl implements CartService{
      */
     @Override
     public CartTotal queryCartTotal() {
-        int number = cartMapper.sumByColumnName("number");
+
+        /*int number = cartMapper.sumByColumnName("number");*/
+        CartExample cartExample = new CartExample();
+        CartExample.Criteria criteria2 = cartExample.createCriteria();
+        criteria2.andIdIsNotNull();
+        List<Cart>  cartList= cartMapper.selectByExample(cartExample);
+        int number=cartList.size();
+
         CartTotal cartTotal = new CartTotal();
         cartTotal.setGoodsCount(number);//checkedgoodscount与goodscount不同
-        CartExample cartExample = new CartExample();
+        /*CartExample cartExample = new CartExample();*/
         CartExample.Criteria criteria = cartExample.createCriteria();
         criteria.andCheckedEqualTo(true);
         List<Cart> carts = cartMapper.selectByExample(cartExample);
@@ -78,7 +91,10 @@ public class CartServiceImpl implements CartService{
         int checkedGoodsCount = 0;//选中的商品总数
         float checkedGoodsAmount = 0;//选中的商品总价
         BigDecimal singleSum = null;
-        BigDecimal totalSum = null;
+
+        /*BigDecimal totalSum = null;*/
+        BigDecimal totalSum=BigDecimal.valueOf(0);
+
         for (Cart cart : carts) {
             Short number1 = cart.getNumber();
             BigDecimal price = cart.getPrice();
