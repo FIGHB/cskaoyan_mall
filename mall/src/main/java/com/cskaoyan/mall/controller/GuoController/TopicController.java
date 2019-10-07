@@ -6,12 +6,10 @@ import com.cskaoyan.mall.bean.Region;
 import com.cskaoyan.mall.bean.Topic;
 import com.cskaoyan.mall.service.GuoService.GuoFeedbackService;
 import com.cskaoyan.mall.service.GuoService.GuoFootprintService;
+import com.cskaoyan.mall.service.GuoService.GuoGroupService;
 import com.cskaoyan.mall.service.GuoService.GuoTopicService;
 import com.cskaoyan.mall.vo.BaseRespVo;
-import com.cskaoyan.mall.vo.GuoVo.FootprintDetail;
-import com.cskaoyan.mall.vo.GuoVo.FootprintShow;
-import com.cskaoyan.mall.vo.GuoVo.GuoTopicShow;
-import com.cskaoyan.mall.vo.GuoVo.TopicDetail;
+import com.cskaoyan.mall.vo.GuoVo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
@@ -34,6 +32,8 @@ public class TopicController {
     GuoFeedbackService guoFeedbackService;
     @Autowired
     GuoFootprintService guoFootprintService;
+    @Autowired
+    GuoGroupService guoGroupService;
 
     @RequestMapping("/topic/list")
     @ResponseBody
@@ -90,6 +90,13 @@ public class TopicController {
         List<FootprintDetail> footprintDetailList=guoFootprintService.getFootprintDetailList(footprintList);
         footprintShow.setFootprintList(footprintDetailList);
         BaseRespVo ok = BaseRespVo.ok(footprintShow);
+        return ok;
+    }
+    @RequestMapping("/groupon/detail")
+    @ResponseBody
+    public BaseRespVo getGroupDetail(Integer grouponId){
+        GroupDetail groupDetailList=guoGroupService.getGroupDetailByGrouponId(grouponId);
+        BaseRespVo ok = BaseRespVo.ok(groupDetailList);
         return ok;
     }
 

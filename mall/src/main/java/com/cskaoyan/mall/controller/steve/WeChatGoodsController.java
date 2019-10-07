@@ -6,6 +6,8 @@ import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.service.steve.WechatGoodsServices;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.steve.*;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +25,8 @@ public class WeChatGoodsController {
     @RequestMapping("wx/goods/list")
     public BaseRespVo weChatGoodsList(WeChatGoodsReceiveData weChatGoodsReceiveData){
         //后续这里要修改 这里要通过token查出来userneme,后面需要根据username来查出来userId
-        String username = "steve";
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
 
         BaseRespVo<Object> objectBaseRespVo = new BaseRespVo<>();
 
