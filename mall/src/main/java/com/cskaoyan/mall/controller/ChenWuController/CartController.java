@@ -190,14 +190,14 @@ public class CartController {
 
     }
 
-    @GetMapping("goodscount")
-    public BaseRespVo goodscount() {
-        BaseRespVo baseRespVo = new BaseRespVo();//data是购物车中商品的总数
-        CartTotal cartTotal = cartService.queryCartTotal();
-        int goodsCount = cartTotal.getGoodsCount();
-        baseRespVo.setData(goodsCount);
-        baseRespVo.setErrmsg("成功");
-        baseRespVo.setErrno(0);
-        return baseRespVo;
-    }
+//    @GetMapping("goodscount")
+//    public BaseRespVo goodscount() {
+//        BaseRespVo baseRespVo = new BaseRespVo();//data是购物车中商品的总数
+//        CartTotal cartTotal = cartService.queryCartTotal();
+//        int goodsCount = cartTotal.getGoodsCount();
+//        baseRespVo.setData(goodsCount);
+//        baseRespVo.setErrmsg("成功");
+//        baseRespVo.setErrno(0);
+//        return baseRespVo;
+//    }
 }

@@ -73,4 +73,7 @@ public interface LRWXMallMapper {
 
     @Select("select * from cskaoyan_mall_coupon where deleted = false")
     List<Coupon> queryAllCouponList();
+
+    @Select("select count(*) from cskaoyan_mall_cart where user_id = #{userId} and deleted = false")
+    Integer querGoodsCount(int userId);
 }

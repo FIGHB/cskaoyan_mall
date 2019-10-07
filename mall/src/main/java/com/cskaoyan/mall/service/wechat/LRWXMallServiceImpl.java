@@ -161,4 +161,12 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         map.put("data", coupons);
         return map;
     }
+
+
+    @Override
+    public Integer getGoodsCount(String username) {
+        if(username == null) return 0;
+        int userId = lrwxMallMapper.queryUserIdByUserName(username);
+        return lrwxMallMapper.querGoodsCount(userId);
+    }
 }

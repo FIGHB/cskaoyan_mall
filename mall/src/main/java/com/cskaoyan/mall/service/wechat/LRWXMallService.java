@@ -37,4 +37,7 @@ public interface LRWXMallService {
     String receiveCoupon(String username, Integer couponId);
 
     Map queryCouponList(int page, int size);
+
+
+    Integer getGoodsCount(String username);
 }

@@ -125,4 +125,12 @@ public class LRWXMallController {
     public BaseRespVo queryCouponList(@Param("page") int page, @Param("size")int size) {
         return BaseRespVo.ok(lrwxMallService.queryCouponList(page, size));
     }
+
+    //返回购物车总数
+    @GetMapping("/cart/goodscount")
+    public BaseRespVo getGoodsCount() {
+        String username = getUsernameByShiro();
+        return BaseRespVo.ok(lrwxMallService.getGoodsCount(username));
+
+    }
 }
