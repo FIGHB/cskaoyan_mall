@@ -34,6 +34,9 @@ public class GuoFootprintServiceImpl implements GuoFootprintService {
     public List<FootprintDetail> getFootprintDetailList(List<Footprint> footprintList) {
         GoodsExample goodsExample = new GoodsExample();
         List<FootprintDetail> footprintDetailList=new ArrayList<>();
+        if(footprintList.size()==0){
+            return footprintDetailList;
+        }
         for (Footprint footprint : footprintList) {
             GoodsExample.Criteria criteria = goodsExample.createCriteria();
             Integer goodsId = footprint.getGoodsId();
