@@ -17,4 +17,18 @@ public interface LRWXMallService {
     List<String> querySearchHelper(String keyword);
 
     boolean deleteSearchHistory(String username);
+
+    Map queryUserIndex(String username);
+
+
+    /**
+     * 查询当前用户拥有的优惠券
+     *
+     * @param username
+     * @param status
+     * @param page
+     * @param size
+     * @return
+     */
+    Map queryMyCouponList(String username, int status, int page, int size);
 }

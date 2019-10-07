@@ -2,9 +2,13 @@ package com.cskaoyan.mall.service.wechat;
 
 
 import com.cskaoyan.mall.bean.Category;
+import com.cskaoyan.mall.bean.Order;
+import com.cskaoyan.mall.bean.wechat.UserCouponBean;
 import com.cskaoyan.mall.mapper.CategoryMapper;
 import com.cskaoyan.mall.mapper.KeywordMapper;
 import com.cskaoyan.mall.mapper.wechat.LRWXMallMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,5 +73,47 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         int userId = lrwxMallMapper.queryUserIdByUserName(username);
         int flag = lrwxMallMapper.deleteSearchHistory(userId);
         return flag > 0;
+    }
+
+    /**
+     * 查询当前登录用户的各订单状态的总数
+     * @param username 当前登录用户的用户名
+     * @return
+     */
+    @Override
+    public Map queryUserIndex(String username) {
+        Map<Object, Object> map = new HashMap<>();
+        int userId = lrwxMallMapper.queryUserIdByUserName(username);
+        //查询订单状态是已收货的id
+        List<Order> orders = lrwxMallMapper.queryOrdersByUserAndStatus(userId, 402);
+        int uncomment = 0;
+        for (Order order : orders) {
+            int commentStatus = lrwxMallMapper.queryCommentStatusByOrderId(order.getId());
+            if(commentStatus == 0) {
+                uncomment++;
+            }
+        }
+        map.put("uncomment", uncomment);
+        map.put("unpaid", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 101).size());
+        map.put("unrecv", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 301).size());
+        map.put("unship", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 201).size());
+        HashMap<Object, Object> order = new HashMap<>();
+        order.put("order", map);
+        return order;
+    }
+
+    @Override
+    public Map queryMyCouponList(String username, int status, int page, int size) {
+        //获取用户id
+        int userId = lrwxMallMapper.queryUserIdByUserName(username);
+        //开启分页
+        PageHelper.startPage(page, size);
+        List<UserCouponBean> userCouponlists = lrwxMallMapper.queryMyCouponListByStatus(userId, status);
+        //获取总数
+        PageInfo<UserCouponBean> pageInfo = new PageInfo<>(userCouponlists);
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("data", userCouponlists);
+        map.put("count", pageInfo.getTotal());
+        return map;
     }
 }

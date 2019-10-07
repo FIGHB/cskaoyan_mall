@@ -12,6 +12,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author 李锐
+ */
 @Component
 public class WxRealm extends AuthorizingRealm  {
 

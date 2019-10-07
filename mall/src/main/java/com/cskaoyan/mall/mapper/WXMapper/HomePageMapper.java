@@ -1,7 +1,6 @@
 package com.cskaoyan.mall.mapper.WXMapper;
 
 import com.cskaoyan.mall.bean.*;
-import com.cskaoyan.mall.bean.System;
 import com.cskaoyan.mall.bean.wxfbean.FloorGoodList;
 import com.cskaoyan.mall.bean.wxfbean.GroupOn;
 import org.apache.ibatis.annotations.Param;

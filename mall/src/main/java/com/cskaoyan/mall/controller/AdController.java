@@ -3,6 +3,7 @@ package com.cskaoyan.mall.controller;
 import com.cskaoyan.mall.bean.Ad;
 import com.cskaoyan.mall.service.AdService;
 import com.cskaoyan.mall.vo.BaseRespVo;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,24 +19,28 @@ public class AdController {
     AdService adService;
 
     @RequestMapping("/admin/ad/list")
+    @RequiresPermissions("admin:ad:list")
     public BaseRespVo adList(int page, int limit,Ad ad){
         BaseRespVo baseRespVo = adService.queryByNameAndContent(page, limit, ad);
         return baseRespVo;
     }
 
     @RequestMapping("/admin/ad/update")
+    @RequiresPermissions("admin:ad:update")
     public BaseRespVo update(@RequestBody Ad ad){
         BaseRespVo update = adService.update(ad);
         return update;
     }
 
     @RequestMapping("/admin/ad/create")
+    @RequiresPermissions("admin:ad:create")
     public BaseRespVo create(@RequestBody Ad ad){
         BaseRespVo insert = adService.insert(ad);
         return insert;
     }
 
     @RequestMapping("/admin/ad/delete")
+    @RequiresPermissions("admin:ad:delete")
     public BaseRespVo delete(@RequestBody Ad ad){
         BaseRespVo delete = adService.delete(ad);
         return delete;
