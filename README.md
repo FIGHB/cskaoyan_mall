@@ -119,7 +119,7 @@ cskaoyan-mall
   CouponList: WxApiRoot + 'coupon/list', //优惠券列表(李锐 doing)
   CouponMyList: WxApiRoot + 'coupon/mylist', //我的优惠券列表(李锐 done)
   CouponSelectList: WxApiRoot + 'coupon/selectlist', //当前订单可用优惠券列表(李锐 doing)
-  CouponReceive: WxApiRoot + 'coupon/receive', //优惠券领取(李锐 doing)
+  CouponReceive: WxApiRoot + 'coupon/receive', //优惠券领取(李锐 done)
   CouponExchange: WxApiRoot + 'coupon/exchange', //优惠券兑换(李锐 doing)
 
   StorageUpload: WxApiRoot + 'storage/upload', //图片上传,（王小凤 done)
