@@ -105,9 +105,9 @@ cskaoyan-mall
   OrderComment: WxApiRoot + 'order/comment', // 评价订单商品信息
 
 
-  FeedbackAdd: WxApiRoot + 'feedback/submit', //添加反馈
-  FootprintList: WxApiRoot + 'footprint/list', //足迹列表
-  FootprintDelete: WxApiRoot + 'footprint/delete', //删除足迹
+  FeedbackAdd: WxApiRoot + 'feedback/submit', //添加反馈   （国旭 done）
+  FootprintList: WxApiRoot + 'footprint/list', //足迹列表  国旭（done）
+  FootprintDelete: WxApiRoot + 'footprint/delete', //删除足迹  （国旭 未找到）
 
 
   GroupOnList: WxApiRoot + 'groupon/list', //团购列表
