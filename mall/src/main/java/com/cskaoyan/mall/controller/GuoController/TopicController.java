@@ -1,11 +1,15 @@
 package com.cskaoyan.mall.controller.GuoController;
 
 import com.cskaoyan.mall.bean.Feedback;
+import com.cskaoyan.mall.bean.Footprint;
 import com.cskaoyan.mall.bean.Region;
 import com.cskaoyan.mall.bean.Topic;
 import com.cskaoyan.mall.service.GuoService.GuoFeedbackService;
+import com.cskaoyan.mall.service.GuoService.GuoFootprintService;
 import com.cskaoyan.mall.service.GuoService.GuoTopicService;
 import com.cskaoyan.mall.vo.BaseRespVo;
+import com.cskaoyan.mall.vo.GuoVo.FootprintDetail;
+import com.cskaoyan.mall.vo.GuoVo.FootprintShow;
 import com.cskaoyan.mall.vo.GuoVo.GuoTopicShow;
 import com.cskaoyan.mall.vo.GuoVo.TopicDetail;
 import com.github.pagehelper.PageHelper;
@@ -28,6 +32,8 @@ public class TopicController {
     GuoTopicService topicService;
     @Autowired
     GuoFeedbackService guoFeedbackService;
+    @Autowired
+    GuoFootprintService guoFootprintService;
 
     @RequestMapping("/topic/list")
     @ResponseBody
@@ -75,6 +81,17 @@ public class TopicController {
         baseRespVo.setErrno(0);
         return baseRespVo;
     }
+    @RequestMapping("/footprint/list")
+    @ResponseBody
+    public BaseRespVo footprintShow(Integer page, Integer size){
+        PageHelper.startPage(page,size);
+        List<Footprint> footprintList=guoFootprintService.getFootprintList();
+        FootprintShow footprintShow = itemsListF(footprintList);
+        List<FootprintDetail> footprintDetailList=guoFootprintService.getFootprintDetailList(footprintList);
+        footprintShow.setFootprintList(footprintDetailList);
+        BaseRespVo ok = BaseRespVo.ok(footprintShow);
+        return ok;
+    }
 
     public static GuoTopicShow itemsList(List<Topic> list){
         PageInfo<Topic> pageInfo=new PageInfo<>(list);
@@ -82,6 +99,13 @@ public class TopicController {
         GuoTopicShow guoTopicShow=new GuoTopicShow();
         guoTopicShow.setData(list);
         guoTopicShow.setCount(total);
+        return guoTopicShow;
+    }
+    public static FootprintShow itemsListF(List<Footprint> list){
+        PageInfo<Footprint> pageInfo=new PageInfo<>(list);
+        long total = pageInfo.getTotal();
+        FootprintShow guoTopicShow=new FootprintShow();
+        guoTopicShow.setTotalPages(total);
         return guoTopicShow;
     }
 }
