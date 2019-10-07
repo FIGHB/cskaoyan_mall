@@ -12,18 +12,23 @@ public class WeChatGoodsReceiveData {
     String order;
     Integer categoryId;
     Integer brandId;
+    boolean isHot;
+    boolean isNew;
 
-    public WeChatGoodsReceiveData() {
+    public boolean getIsHot() {
+        return isHot;
     }
 
-    public WeChatGoodsReceiveData(String keyword, Integer page, Integer size, String sort, String order, Integer categoryId, Integer brandId) {
-        this.keyword = keyword;
-        this.page = page;
-        this.size = size;
-        this.sort = sort;
-        this.order = order;
-        this.categoryId = categoryId;
-        this.brandId = brandId;
+    public void setIsHot(boolean hot) {
+        isHot = hot;
+    }
+
+    public boolean getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(boolean aNew) {
+        isNew = aNew;
     }
 
     public String getKeyword() {
