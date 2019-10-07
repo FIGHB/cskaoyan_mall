@@ -8,6 +8,8 @@ import com.cskaoyan.mall.bean.wxfbean.AddressSimpleWx;
 import com.cskaoyan.mall.service.wechat.AddressWxService;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +28,9 @@ public class AddressWxZhaoController {
 
     @RequestMapping("/wx/address/list")
     public BaseRespVo addressListShowWx(){
-        List<AddressSimpleWx> data = addressWxService.queryAddressList();
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        List<AddressSimpleWx> data = addressWxService.queryAddressList(username);
         BaseRespVo baseRespVo = BaseRespVo.ok(data);
         return baseRespVo;
     }
@@ -41,13 +45,16 @@ public class AddressWxZhaoController {
 
     @RequestMapping("/wx/address/save")
     public BaseRespVo addressInsert(@RequestBody Address address){
-        return BaseRespVo.ok(addressWxService.insertAddress(address));
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        return BaseRespVo.ok(addressWxService.saveAddress(address,username));
     }
 
     @RequestMapping("/wx/address/delete")
     public BaseRespVo addressDelete(@RequestBody Address address){
-
-        int deleteNum = addressWxService.deleteAddress(address.getId());
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        int deleteNum = addressWxService.deleteAddress(address.getId(),username);
         if (deleteNum>0){
             return BaseRespVo.ok(null);
         }

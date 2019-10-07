@@ -3,16 +3,16 @@ package com.cskaoyan.mall.bean.wxfbean;
 public class AddressSimpleWx {
     String detailedAddress;
     int id;
-    int isDefault;
+    boolean isDefault;
     String mobile;
     String name;
 
-    public int getIsDefault() {
+    public boolean getIsDefault() {
         return isDefault;
     }
 
-    public void setIsDefault(int isDefault) {
-        this.isDefault = isDefault;
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault= isDefault;
     }
 
     public String getDetailedAddress() {

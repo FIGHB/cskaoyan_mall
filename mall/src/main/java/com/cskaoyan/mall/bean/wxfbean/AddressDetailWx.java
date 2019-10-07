@@ -11,9 +11,26 @@ public class AddressDetailWx {
     String cityName;
     int provinceId;
     String provinceName;
-    int isDefault;
+    boolean isDefault;
     String mobile;
     String name;
+
+    @Override
+    public String toString() {
+        return "AddressDetailWx{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", areaId=" + areaId +
+                ", areaName='" + areaName + '\'' +
+                ", cityId=" + cityId +
+                ", cityName='" + cityName + '\'' +
+                ", provinceId=" + provinceId +
+                ", provinceName='" + provinceName + '\'' +
+                ", isDefault=" + isDefault +
+                ", mobile='" + mobile + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 
     public int getCityId() {
         return cityId;
@@ -79,11 +96,11 @@ public class AddressDetailWx {
         this.provinceName = provinceName;
     }
 
-    public int getIsDefault() {
+    public boolean getIsDefault() {
         return isDefault;
     }
 
-    public void setIsDefault(int isDefault) {
+    public void setIsDefault(boolean isDefault) {
         this.isDefault = isDefault;
     }
 
