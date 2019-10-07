@@ -123,7 +123,7 @@ public class GuoGroupServiceImpl implements GuoGroupService {
         GrouponRules grouponRules1 = grouponRules.get(0);
         groupDetail.setRules(grouponRules1);
 
-        //linkGroupponId
+        //linkGroupponId 写死了
         groupDetail.setLinkGrouponId(1);
 
         return groupDetail;
