@@ -32,4 +32,5 @@ public class HomePageController {
         return BaseRespVo.ok(homePageService.queryBrandDetail(id));
     }
 
+
 }

@@ -33,4 +33,38 @@
         keyword, sort_order sortOrder, update_time updateTime, `url`
         from cskaoyan_mall_keyword where is_hot = true and deleted = false
     </select>
+
+    <select id="queryOrdersByUserAndStatus" resultType="com.cskaoyan.mall.bean.Order">
+        select id, user_id userId, order_status orderStatus, order_sn orderSn
+        from cskaoyan_mall_order
+        where user_id = #{userId} and order_status = #{status} and deleted = false
+    </select>
+
+    <select id="queryCommentStatusByOrderId" resultType="int">
+        select `comment` from cskaoyan_mall_order_goods
+        where order_id = #{orderId} and deleted = false
+    </select>
+
+    <select id="queryMyCouponListByStatus" resultType="com.cskaoyan.mall.bean.wechat.UserCouponBean">
+         select cu.id id, `desc`, `discount`, cu.end_time endTime, `min`, name, cu.start_time StartTime, tag
+        from cskaoyan_mall_coupon c left join cskaoyan_mall_coupon_user cu on coupon_id = c.id
+        where user_id = #{userId} and cu.status = #{status} and c.deleted = false and cu.deleted = false
+    </select>
+
+    <select id="queryCouponehaded" resultType="int">
+        select count(*) from cskaoyan_mall_coupon_user
+        where user_id = #{userId} and coupon_id = #{couponId} and deleted = false
+    </select>
+
+    <insert id="addCouponForUser">
+        insert into cskaoyan_mall_coupon_user
+         (user_id, coupon_id, status, start_time, end_time, add_time, update_time, deleted)
+        values
+        (#{userId}, #{couponId}, 0, #{startTime}, #{endTime}, #{addTime},  #{addTime}, false)
+    </insert>
+
+    <select id="queryCouponById" resultType="com.cskaoyan.mall.bean.Coupon">
+        select id, `total`, start_time startTime, end_time endTime, deleted from
+        cskaoyan_mall_coupon where id = #{couponId} and deleted = false
+    </select>
 </mapper>

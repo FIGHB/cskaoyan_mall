@@ -19,6 +19,7 @@ import java.util.List;
 
 
 /**
+ * @author 李锐
  * CustomRealm
  * 在域中获取认证和授权信息
  * 后续的代码主要就写在这儿
