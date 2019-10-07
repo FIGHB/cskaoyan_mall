@@ -2,15 +2,24 @@ server:
   port: 80
 
 spring:
+  profiles:
+    active: aliyun
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/cskaoyanmall?useUnicode=true&characterEncoding=utf-8&useSSL=true
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
 
+  resources:
+    static-locations: file:${mall.file.upload}
+
   servlet:
     multipart:
       enabled: true
+
+mall:
+  file:
+    upload: D:\\spring\\file\\cskaoyanmall
 
 pagehelper:
   helper-dialect: mysql

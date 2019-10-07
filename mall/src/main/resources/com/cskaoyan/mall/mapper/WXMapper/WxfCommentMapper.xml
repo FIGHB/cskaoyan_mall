@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.WXMapper.WxfCommentMapper">
+  <resultMap id="BaseResultMap" type="com.cskaoyan.mall.bean.Comment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="value_id" jdbcType="INTEGER" property="valueId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="has_picture" jdbcType="BIT" property="hasPicture" />
+    <result column="pic_urls" jdbcType="VARCHAR" property="picUrls" />
+    <result column="star" jdbcType="SMALLINT" property="star" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, value_id, type, content, user_id, has_picture, pic_urls, star, add_time, update_time,
+    deleted
+  </sql>
+
+  <resultMap id="CommentResult" type="com.cskaoyan.mall.vo.CommentUserInfo">
+    <result column="content" property="content"/>
+    <result column="add_time" property="addTime"/>
+    <result column="pic_urls" property="picList"/>
+    <association property="userInfo" javaType="com.cskaoyan.mall.vo.UserInfoWxf">
+      <result column="avatar" property="avatarUrl"/>
+      <result column="nickName" property="nickName"/>
+    </association>
+  </resultMap>
+
+  <select id="queryAllComment" resultMap="CommentResult">
+    select
+    content,c.add_time,pic_urls,avatar,nickName
+    from cskaoyan_mall_comment c
+    left join cskaoyan_mall_user u on c.user_id = u.id
+    where value_id = #{valueId} and type = #{type} order by c.id desc
+  </select>
+
+  <select id="selectLastInsert" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from cskaoyan_mall_comment
+    where id = LAST_INSERT_ID()
+  </select>
+
+</mapper>

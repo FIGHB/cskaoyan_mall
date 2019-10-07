@@ -81,4 +81,36 @@
     from cskaoyan_mall_topic
     limit #{limit}
   </select>
+
+
+
+
+  <select id="queryCategoryById" resultType="com.cskaoyan.mall.bean.Category">
+    select add_time as addTime, `desc`, icon_url as iconUrl, id, keywords, level, name, pic_url as picUrl, pid, update_time as updateTime
+    from cskaoyan_mall_category
+    where id = #{id}
+  </select>
+
+  <select id="queryCategoryByPid" resultType="com.cskaoyan.mall.bean.Category">
+    select add_time as addTime, `desc`, icon_url as iconUrl, id, keywords, level, name, pic_url as picUrl, pid, update_time as updateTime
+    from cskaoyan_mall_category
+    where pid = #{pid}
+  </select>
+
+  <select id="queryBrands" resultType="com.cskaoyan.mall.bean.Brand">
+    select id,name,`desc`,pic_url as picUrl,sort_order as sortOrder,floor_price as floorPrice,add_time as addTime,update_time as updateTime,deleted
+    from cskaoyan_mall_brand
+  </select>
+
+  <select id="queryTotolOfBrand" resultType="int">
+    select count(*)
+    from cskaoyan_mall_brand
+  </select>
+
+  <select id="queryBrandById" resultType="com.cskaoyan.mall.bean.Brand">
+    select id,name,`desc`,pic_url as picUrl,sort_order as sortOrder,floor_price as floorPrice,add_time as addTime,update_time as updateTime,deleted
+    from cskaoyan_mall_brand
+    where id = #{id}
+  </select>
 </mapper>
+

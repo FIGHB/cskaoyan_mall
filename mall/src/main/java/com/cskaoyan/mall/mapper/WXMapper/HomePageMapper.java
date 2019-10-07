@@ -1,7 +1,6 @@
 package com.cskaoyan.mall.mapper.WXMapper;
 
 import com.cskaoyan.mall.bean.*;
-import com.cskaoyan.mall.bean.System;
 import com.cskaoyan.mall.bean.wxfbean.FloorGoodList;
 import com.cskaoyan.mall.bean.wxfbean.GroupOn;
 import org.apache.ibatis.annotations.Param;
@@ -37,4 +36,14 @@ public interface HomePageMapper {
     List<Goods> queryNewGoodsList(int limit);
 
     List<Topic> queryTopicList(int limit);
+
+    Category queryCategoryById(int id);
+
+    List<Category> queryCategoryByPid(Integer pid);
+
+    List<Brand> queryBrands();
+
+    int queryTotolOfBrand();
+
+    Brand queryBrandById(int id);
 }

@@ -1,7 +1,8 @@
 package com.cskaoyan.mall.controller.ChenWuController;
 
 import com.cskaoyan.mall.vo.BaseRespVo;
-import com.cskaoyan.mall.vo.ChenWuWx.LoginVo;
+import com.cskaoyan.mall.vo.ChenWuWx.WxLoginVo;
+
 import com.cskaoyan.mall.vo.ChenWuWx.UserInfo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("wx/auth/")
 public class CHAuthController {
-    @PostMapping("login")
-    public BaseRespVo<LoginVo> login( String password, String username) {
-        BaseRespVo<LoginVo> baseRespVo = new BaseRespVo<>();
-        LoginVo loginVo = new LoginVo();
+   // @PostMapping("login")
+    public BaseRespVo<WxLoginVo> login(String password, String username) {
+        BaseRespVo<WxLoginVo> baseRespVo = new BaseRespVo<>();
+        WxLoginVo loginVo = new WxLoginVo();
         UserInfo userInfo = new UserInfo();
         userInfo.setAvatarUrl("");
         userInfo.setNickname("wx");
@@ -32,7 +33,7 @@ public class CHAuthController {
         return baseRespVo;
     }
 
-    @PostMapping("logout")
+//    @PostMapping("logout")
     public BaseRespVo logOut() {
         BaseRespVo baseRespVo = new BaseRespVo();
         baseRespVo.setErrmsg("请登录");
@@ -68,3 +69,4 @@ public class CHAuthController {
 
 
 }
+

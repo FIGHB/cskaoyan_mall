@@ -160,7 +160,7 @@ public class UserController {
         itemsList.setItems(list);
         return itemsList;
     }
-    private static <T,V> ItemsList<V> itemsList1(List<T> list, List<V> vList){
+    public static <T,V> ItemsList<V> itemsList1(List<T> list, List<V> vList){
         PageInfo<T> pageInfo=new PageInfo<>(list);
         long total = pageInfo.getTotal();
         ItemsList<V> itemsList=new ItemsList<>();

@@ -19,12 +19,13 @@ import java.util.List;
 
 
 /**
+ * @author 李锐
+ * CustomRealm
  * 在域中获取认证和授权信息
  * 后续的代码主要就写在这儿
- * 我们上一个demo使用的是IniRealm
  */
 @Component
-public class CustomRealm extends AuthorizingRealm {
+public class AdminRealm extends AuthorizingRealm {
 
     @Autowired
     MyUserMapper userMapper;
@@ -45,7 +46,7 @@ public class CustomRealm extends AuthorizingRealm {
         //subject执行login时传入的usernamePasswordToken中的username
         String principal = (String) authenticationToken.getPrincipal();
         //根据principle也就是用户名去数据库查询用户名所对应的密码信息
-        String passwordFromDb = userMapper.queryPasswordByUsername(principal);
+        String passwordFromDb = adminMapper.queryPasswordByUsername(principal);
         //第一个参数在处理授权信息时可以获得
         //第二个参数 该用户正确的密码（来源于数据库的）
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(principal, passwordFromDb, this.getName());
