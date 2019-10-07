@@ -43,12 +43,12 @@ cskaoyan-mall
   GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）(杨磊 done 未测试)
 
   //王小凤
-  CollectList: WxApiRoot + 'collect/list', //收藏列表(doing)			 
-  CollectAddOrDelete: WxApiRoot + 'collect/addordelete', //添加或取消收藏(doing)
+  CollectList: WxApiRoot + 'collect/list', //收藏列表(done)			 
+  CollectAddOrDelete: WxApiRoot + 'collect/addordelete', //添加或取消收藏(done)
 
-  CommentList: WxApiRoot + 'comment/list', //评论列表			(doing)		
-  CommentCount: WxApiRoot + 'comment/count', //评论总数(doing)
-  CommentPost: WxApiRoot + 'comment/post', //发表评论(doing)
+  CommentList: WxApiRoot + 'comment/list', //评论列表	(done)		
+  CommentCount: WxApiRoot + 'comment/count', //评论总数(done)
+  CommentPost: WxApiRoot + 'comment/post', //发表评论(done)
 
   //国旭
   TopicList: WxApiRoot + 'topic/list', //专题列表   （国旭 done）								
@@ -120,7 +120,7 @@ cskaoyan-mall
   CouponMyList: WxApiRoot + 'coupon/mylist', //我的优惠券列表(李锐 done)
   CouponSelectList: WxApiRoot + 'coupon/selectlist', //当前订单可用优惠券列表(李锐 无法抓包)
   CouponReceive: WxApiRoot + 'coupon/receive', //优惠券领取(李锐 done)
-  CouponExchange: WxApiRoot + 'coupon/exchange', //优惠券兑换(王小凤 doing)
+  CouponExchange: WxApiRoot + 'coupon/exchange', //优惠券兑换(王小凤 done)
 
   StorageUpload: WxApiRoot + 'storage/upload', //图片上传,（王小凤 done)
 
