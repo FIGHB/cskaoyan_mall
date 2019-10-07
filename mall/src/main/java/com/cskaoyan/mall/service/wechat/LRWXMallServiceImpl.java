@@ -204,8 +204,20 @@ public class LRWXMallServiceImpl implements LRWXMallService {
     @Override
     public Map checkoutCart(int userId, Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId) {
         HashMap<Object, Object> map = new HashMap<>();
-        Cart cart = lrwxMallMapper.queryCartById(cartId);
-        GoodsProduct goodsProduct = lrwxMallMapper.queryGoodsProductById(Integer.parseInt(cart.getGoodsSn()));
+        List<Object> array = new ArrayList<>();
+        if(cartId != 0) {
+            Cart cart = lrwxMallMapper.queryCartById(cartId);
+            GoodsProduct goodsProduct = lrwxMallMapper.queryGoodsProductById(Integer.parseInt(cart.getGoodsSn()));
+            map.put("actualPrice", goodsProduct.getPrice());
+            map.put("orderTotalPrice", goodsProduct.getPrice());
+            map.put("couponPrice", goodsProduct.getPrice());
+            array.add(cart);
+        } else {
+            array.addAll(lrwxMallMapper.queryCartByUserId(userId));
+            map.put("actualPrice", 0);
+            map.put("orderTotalPrice", 0);
+            map.put("couponPrice", 0);
+        }
         map.put("grouponPrice", 0);
         map.put("grouponRulesId", 0);
         //如果 addressId为 0 则查询默认地址，反之根据id 查询地址
@@ -214,18 +226,10 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         } else {
             map.put("checkedAddress", lrwxMallMapper.queryAddressByAddressId(addressId));
         }
-        map.put("actualPrice", goodsProduct.getPrice());
-        map.put("orderTotalPrice", goodsProduct.getPrice());
-        map.put("couponPrice", goodsProduct.getPrice());
         map.put("availableCouponLength", 0);
         map.put("couponId", couponId);
         map.put("freightPrice", 0);
-        List<Object> array = new ArrayList<>();
-        if(cartId == 0) {
-            array.addAll(lrwxMallMapper.queryCartByUserId(userId));
-        } else {
-            array.add(cart);
-        }
+
         map.put("checkedGoodsList", array);
 
         map.put("goodsTotalPrice", 286);
