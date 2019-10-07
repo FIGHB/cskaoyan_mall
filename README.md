@@ -43,29 +43,29 @@ cskaoyan-mall
   GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）(杨磊 done 未测试)
 
   //王小凤
-  CollectList: WxApiRoot + 'collect/list', //收藏列表(doing)			 
-  CollectAddOrDelete: WxApiRoot + 'collect/addordelete', //添加或取消收藏(doing)
+  CollectList: WxApiRoot + 'collect/list', //收藏列表(done)			 
+  CollectAddOrDelete: WxApiRoot + 'collect/addordelete', //添加或取消收藏(done)
 
-  CommentList: WxApiRoot + 'comment/list', //评论列表			(doing)		
-  CommentCount: WxApiRoot + 'comment/count', //评论总数(doing)
-  CommentPost: WxApiRoot + 'comment/post', //发表评论(doing)
+  CommentList: WxApiRoot + 'comment/list', //评论列表	(done)		
+  CommentCount: WxApiRoot + 'comment/count', //评论总数(done)
+  CommentPost: WxApiRoot + 'comment/post', //发表评论(done)
 
   //国旭
   TopicList: WxApiRoot + 'topic/list', //专题列表   （国旭 done）								
-  TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 doing）
-  TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 doing）	
+  TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 done）
+  TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 done）	
   
-  ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 doing）
+  ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 未找到）
 
-  RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 doing）
+  RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 done）
 
   //李锐
   SearchIndex: WxApiRoot + 'search/index', //搜索关键字 (李锐 done)	
-  SearchResult: WxApiRoot + 'search/result', //搜索结果 (李锐 doing)
+  SearchResult: WxApiRoot + 'search/result', //搜索结果 (李锐 未找到)
   SearchHelper: WxApiRoot + 'search/helper', //搜索帮助 (李锐 done)
   SearchClearHistory: WxApiRoot + 'search/clearhistory', //搜索历史清楚 (李锐 done)
 
-  UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息 (李锐 doing)
+  UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息 (李锐 未找到)
 
   //赵亚云
   AddressList: WxApiRoot + 'address/list', //收货地址列表			done	
@@ -105,26 +105,26 @@ cskaoyan-mall
   OrderComment: WxApiRoot + 'order/comment', // 评价订单商品信息
 
 
-  FeedbackAdd: WxApiRoot + 'feedback/submit', //添加反馈
-  FootprintList: WxApiRoot + 'footprint/list', //足迹列表
-  FootprintDelete: WxApiRoot + 'footprint/delete', //删除足迹
+  FeedbackAdd: WxApiRoot + 'feedback/submit', //添加反馈   （国旭 done）
+  FootprintList: WxApiRoot + 'footprint/list', //足迹列表  国旭（done）
+  FootprintDelete: WxApiRoot + 'footprint/delete', //删除足迹  （国旭 未找到）
 
 
-  GroupOnList: WxApiRoot + 'groupon/list', //团购列表
-  GroupOn: WxApiRoot + 'groupon/query', //团购API-查询
+  GroupOnList: WxApiRoot + 'groupon/list', //团购列表 （周榆淮 done）
+  GroupOn: WxApiRoot + 'groupon/query', //团购API-查询 （找不到）
   GroupOnMy: WxApiRoot + 'groupon/my', //团购API-我的团购
   GroupOnDetail: WxApiRoot + 'groupon/detail', //团购API-详情
-  GroupOnJoin: WxApiRoot + 'groupon/join', //团购API-详情
+  GroupOnJoin: WxApiRoot + 'groupon/join', //团购API-详情 （找不到）
 
-  CouponList: WxApiRoot + 'coupon/list', //优惠券列表
-  CouponMyList: WxApiRoot + 'coupon/mylist', //我的优惠券列表
-  CouponSelectList: WxApiRoot + 'coupon/selectlist', //当前订单可用优惠券列表
-  CouponReceive: WxApiRoot + 'coupon/receive', //优惠券领取
-  CouponExchange: WxApiRoot + 'coupon/exchange', //优惠券兑换
+  CouponList: WxApiRoot + 'coupon/list', //优惠券列表(李锐 done)
+  CouponMyList: WxApiRoot + 'coupon/mylist', //我的优惠券列表(李锐 done)
+  CouponSelectList: WxApiRoot + 'coupon/selectlist', //当前订单可用优惠券列表(李锐 无法抓包)
+  CouponReceive: WxApiRoot + 'coupon/receive', //优惠券领取(李锐 done)
+  CouponExchange: WxApiRoot + 'coupon/exchange', //优惠券兑换(王小凤 done)
 
-  StorageUpload: WxApiRoot + 'storage/upload', //图片上传,
+  StorageUpload: WxApiRoot + 'storage/upload', //图片上传,（王小凤 done)
 
-  UserIndex: WxApiRoot + 'user/index', //个人页面用户相关信息(李锐 doing)
+  UserIndex: WxApiRoot + 'user/index', //个人页面用户相关信息(李锐 done)
 ```
 
 

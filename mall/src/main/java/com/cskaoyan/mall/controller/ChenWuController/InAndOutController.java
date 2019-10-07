@@ -12,12 +12,15 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
+/**
+ * 微信小程序部分的登录、登出
+ * @author 李锐
+ */
 @RestController
 public class InAndOutController {
 

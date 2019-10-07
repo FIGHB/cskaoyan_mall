@@ -20,21 +20,21 @@ public class Order {
 
     private String address;
 
-    private String message;
+    private String message;//商品是否团购商品isgroupin,id去coupon表查
 
-    private BigDecimal goodsPrice;
+    private BigDecimal goodsPrice;//
 
-    private BigDecimal freightPrice;
+    private BigDecimal freightPrice;//优惠了多少价（要减去的）
 
-    private BigDecimal couponPrice;
+    private BigDecimal couponPrice;//邮费
 
-    private BigDecimal integralPrice;
+    private BigDecimal integralPrice;//
 
-    private BigDecimal grouponPrice;
+    private BigDecimal grouponPrice;//团购价
 
-    private BigDecimal orderPrice;
+    private BigDecimal orderPrice;//订单价
 
-    private BigDecimal actualPrice;
+    private BigDecimal actualPrice;//实付价格,即数量乘以单价
 
     private String payId;
 
@@ -269,6 +269,38 @@ public class Order {
     }
 
     public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Order() {
+    }
+
+    public Order(Integer id, Integer userId, String orderSn, Short orderStatus, String consignee, String mobile, String address, String message, BigDecimal goodsPrice, BigDecimal freightPrice, BigDecimal couponPrice, BigDecimal integralPrice, BigDecimal grouponPrice, BigDecimal orderPrice, BigDecimal actualPrice, String payId, Date payTime, String shipSn, String shipChannel, Date shipTime, Date confirmTime, Short comments, Date endTime, Date addTime, Date updateTime, Boolean deleted) {
+        this.id = id;
+        this.userId = userId;
+        this.orderSn = orderSn;
+        this.orderStatus = orderStatus;
+        this.consignee = consignee;
+        this.mobile = mobile;
+        this.address = address;
+        this.message = message;
+        this.goodsPrice = goodsPrice;
+        this.freightPrice = freightPrice;
+        this.couponPrice = couponPrice;
+        this.integralPrice = integralPrice;
+        this.grouponPrice = grouponPrice;
+        this.orderPrice = orderPrice;
+        this.actualPrice = actualPrice;
+        this.payId = payId;
+        this.payTime = payTime;
+        this.shipSn = shipSn;
+        this.shipChannel = shipChannel;
+        this.shipTime = shipTime;
+        this.confirmTime = confirmTime;
+        this.comments = comments;
+        this.endTime = endTime;
+        this.addTime = addTime;
+        this.updateTime = updateTime;
         this.deleted = deleted;
     }
 }
