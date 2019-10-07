@@ -52,12 +52,12 @@ cskaoyan-mall
 
   //国旭
   TopicList: WxApiRoot + 'topic/list', //专题列表   （国旭 done）								
-  TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 doing）
-  TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 doing）	
+  TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 done）
+  TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 done）	
   
   ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 未找到）
 
-  RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 doing）
+  RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 done）
 
   //李锐
   SearchIndex: WxApiRoot + 'search/index', //搜索关键字 (李锐 done)	
@@ -105,22 +105,22 @@ cskaoyan-mall
   OrderComment: WxApiRoot + 'order/comment', // 评价订单商品信息
 
 
-  FeedbackAdd: WxApiRoot + 'feedback/submit', //添加反馈
-  FootprintList: WxApiRoot + 'footprint/list', //足迹列表
-  FootprintDelete: WxApiRoot + 'footprint/delete', //删除足迹
+  FeedbackAdd: WxApiRoot + 'feedback/submit', //添加反馈   （国旭 done）
+  FootprintList: WxApiRoot + 'footprint/list', //足迹列表  国旭（done）
+  FootprintDelete: WxApiRoot + 'footprint/delete', //删除足迹  （国旭 未找到）
 
 
-  GroupOnList: WxApiRoot + 'groupon/list', //团购列表
-  GroupOn: WxApiRoot + 'groupon/query', //团购API-查询
+  GroupOnList: WxApiRoot + 'groupon/list', //团购列表 （周榆淮 done）
+  GroupOn: WxApiRoot + 'groupon/query', //团购API-查询 （找不到）
   GroupOnMy: WxApiRoot + 'groupon/my', //团购API-我的团购
   GroupOnDetail: WxApiRoot + 'groupon/detail', //团购API-详情
-  GroupOnJoin: WxApiRoot + 'groupon/join', //团购API-详情
+  GroupOnJoin: WxApiRoot + 'groupon/join', //团购API-详情 （找不到）
 
-  CouponList: WxApiRoot + 'coupon/list', //优惠券列表
+  CouponList: WxApiRoot + 'coupon/list', //优惠券列表(李锐 done)
   CouponMyList: WxApiRoot + 'coupon/mylist', //我的优惠券列表(李锐 done)
-  CouponSelectList: WxApiRoot + 'coupon/selectlist', //当前订单可用优惠券列表
-  CouponReceive: WxApiRoot + 'coupon/receive', //优惠券领取
-  CouponExchange: WxApiRoot + 'coupon/exchange', //优惠券兑换
+  CouponSelectList: WxApiRoot + 'coupon/selectlist', //当前订单可用优惠券列表(李锐 doing)
+  CouponReceive: WxApiRoot + 'coupon/receive', //优惠券领取(李锐 done)
+  CouponExchange: WxApiRoot + 'coupon/exchange', //优惠券兑换(王小凤 doing)
 
   StorageUpload: WxApiRoot + 'storage/upload', //图片上传,（王小凤 done)
 

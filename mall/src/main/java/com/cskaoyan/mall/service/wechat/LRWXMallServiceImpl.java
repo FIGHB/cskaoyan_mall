@@ -2,6 +2,7 @@ package com.cskaoyan.mall.service.wechat;
 
 
 import com.cskaoyan.mall.bean.Category;
+import com.cskaoyan.mall.bean.Coupon;
 import com.cskaoyan.mall.bean.Order;
 import com.cskaoyan.mall.bean.wechat.UserCouponBean;
 import com.cskaoyan.mall.mapper.CategoryMapper;
@@ -12,10 +13,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author 李锐
@@ -114,6 +112,53 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         HashMap<Object, Object> map = new HashMap<>();
         map.put("data", userCouponlists);
         map.put("count", pageInfo.getTotal());
+        return map;
+    }
+
+    @Override
+    public String receiveCoupon(String username, Integer couponId) {
+        int userId = lrwxMallMapper.queryUserIdByUserName(username);
+        //查询当前用户是否拥有该优惠券
+        int count = lrwxMallMapper.queryCouponehaded(couponId, userId);
+        if(count > 0) {
+            return "优惠券已经领取过了";
+        }
+        //查询优惠券是否被逻辑删除，如果删除的表明库存为0
+        int count1 = lrwxMallMapper.queryCoupondeleted(couponId);
+        if(count1 == 0) {
+            return "优惠券已领完";
+        }
+
+        Coupon coupon = lrwxMallMapper.queryCouponById(couponId);
+        Date date = new Date();
+        //为当前用户添加优惠券
+        int update = lrwxMallMapper.addCouponForUser(
+                userId, couponId, coupon.getStartTime(),coupon.getEndTime(),date);
+        if(update < 1) {
+            return "系统错误，添加失败";
+        } else {
+            int total = coupon.getTotal();
+            //修改优惠券的库存
+            //如果只有1张了 则 逻辑删除
+            if(total == 1) {
+                lrwxMallMapper.deleteCouponById(couponId);
+            } else {
+                --total;
+                lrwxMallMapper.updateCouponTotal(couponId, total);
+            }
+            //返回null表示添加成功
+            return null;
+        }
+    }
+
+    @Override
+    public Map queryCouponList(int page, int size) {
+        PageHelper.startPage(page, size);
+        List<Coupon> coupons = lrwxMallMapper.queryAllCouponList();
+        PageInfo<Coupon> couponPageInfo = new PageInfo<>(coupons);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("count", couponPageInfo.getTotal());
+        map.put("data", coupons);
         return map;
     }
 }

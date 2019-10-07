@@ -1,7 +1,10 @@
 package com.cskaoyan.mall.controller.WXController;
 
+import com.cskaoyan.mall.bean.Address;
 import com.cskaoyan.mall.bean.Collect;
+import com.cskaoyan.mall.mapper.AddressMapper;
 import com.cskaoyan.mall.service.WXService.CollectService;
+import com.cskaoyan.mall.utils.GetUserName;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -15,14 +18,10 @@ public class CollectController {
     @Autowired
     CollectService collectService;
 
-    private String getUsername(){
-        Subject subject = SecurityUtils.getSubject();
-        String username = (String) subject.getPrincipal();
-        return username;
-    }
+
     @RequestMapping("/wx/collect/list")
     public BaseRespVo list(int type,int page,int size){
-        String username = getUsername();
+        String username = GetUserName.getUserName();
         if(username==null){
             return BaseRespVo.fail(501,"请登录");
         }
@@ -32,7 +31,7 @@ public class CollectController {
 
     @RequestMapping("/wx/collect/addordelete")
     public BaseRespVo addordelete(@RequestBody Collect collect){
-        String username = getUsername();
+        String username = GetUserName.getUserName();
         if(username==null){
             return BaseRespVo.fail(501,"请登录");
         }
