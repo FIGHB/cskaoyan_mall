@@ -110,11 +110,11 @@ cskaoyan-mall
   FootprintDelete: WxApiRoot + 'footprint/delete', //删除足迹  （国旭 未找到）
 
 
-  GroupOnList: WxApiRoot + 'groupon/list', //团购列表
-  GroupOn: WxApiRoot + 'groupon/query', //团购API-查询
+  GroupOnList: WxApiRoot + 'groupon/list', //团购列表 （周榆淮 done）
+  GroupOn: WxApiRoot + 'groupon/query', //团购API-查询 （找不到）
   GroupOnMy: WxApiRoot + 'groupon/my', //团购API-我的团购
   GroupOnDetail: WxApiRoot + 'groupon/detail', //团购API-详情
-  GroupOnJoin: WxApiRoot + 'groupon/join', //团购API-详情
+  GroupOnJoin: WxApiRoot + 'groupon/join', //团购API-详情 （找不到）
 
   CouponList: WxApiRoot + 'coupon/list', //优惠券列表
   CouponMyList: WxApiRoot + 'coupon/mylist', //我的优惠券列表(李锐 done)
