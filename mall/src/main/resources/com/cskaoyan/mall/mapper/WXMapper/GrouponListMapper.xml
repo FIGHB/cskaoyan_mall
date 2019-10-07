@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.WXMapper.GrouponListMapper">
+  <select id="queryGrouponRuleList" resultType="com.cskaoyan.mall.vo.GrouponDataVO">
+    select goods_id as goodsId,discount,discount_member as groupon_member
+    from cskaoyan_mall_groupon_rules
+  </select>
+
+  <select id="queryGoodsById" resultType="com.cskaoyan.mall.bean.Goods">
+    select brief,counter_price as counterPrice,id,name,pic_url as picUrl,retail_price as retailPrice
+    from cskaoyan_mall_goods
+    where id = #{goodsId}
+  </select>
+
+  <select id="queryGrouponListCount" resultType="int">
+    select COUNT(*)
+    from cskaoyan_mall_groupon_rules
+  </select>
+
+  <select id="queryUserIdByName" resultType="int">
+    select id
+    from cskaoyan_mall_user
+    where username = #{username}
+  </select>
+
+  <select id="queryGrouponListByCreatUserId" resultType="com.cskaoyan.mall.vo.MyGrouponDataVO">
+    select  id, order_id as orderId, groupon_id as grouponId, rules_id as rulesId, user_id as userId, creator_user_id as creatorUserID,
+    add_time as addTime, update_time as updateTime, share_url as shareUrl, payed, deleted
+    from cskaoyan_mall_groupon
+    where creator_user_id = #{userId}
+  </select>
+
+  <select id="queryGrouponListByUserId" resultType="com.cskaoyan.mall.vo.MyGrouponDataVO">
+    select  id, order_id as orderId, groupon_id as grouponId, rules_id as rulesId, user_id as userId, creator_user_id as creatorUserID,
+    add_time as addTime, update_time as updateTime, share_url as shareUrl, payed, deleted
+    from cskaoyan_mall_groupon
+    where user_id = #{userId}
+  </select>
+
+  <select id="queryGrouponById" resultType="com.cskaoyan.mall.bean.Groupon">
+    select  id, order_id as orderId, groupon_id as grouponId, rules_id as rulesId, user_id as userId, creator_user_id as creatorUserID,
+    add_time as addTime, update_time as updateTime, share_url as shareUrl, payed, deleted
+    from cskaoyan_mall_groupon
+    where id = #{id}
+  </select>
+
+  <select id="queryRuleById" resultType="com.cskaoyan.mall.bean.GrouponRules">
+    select id, goods_id as goodsId, goods_name as goodsName, pic_url as picUrl, discount, discount_member as discountMember,
+     add_time as addTime, update_time as updateTime, expire_time as expireTime, deleted
+     from cskaoyan_mall_groupon_rules
+     where id = #{rulesId}
+  </select>
+
+  <select id="queryGoodsByOrderId" resultType="com.cskaoyan.mall.bean.OrderGoods">
+    select goods_name as goodsName,id,number,pic_url as picUrl
+    from cskaoyan_mall_order_goods
+    where order_id = #{orderId}
+  </select>
+
+  <select id="queryOrderSnByOrderId" resultType="string">
+    select order_sn
+    from cskaoyan_mall_order
+    where id = #{orderId}
+  </select>
+
+  <select id="queryOrderStatusByOrderId" resultType="int">
+    select order_status
+    from cskaoyan_mall_order
+    where id = #{orderId}
+  </select>
+
+  <select id="queryJoinerCountByGrouponId" resultType="int">
+    select count(*)
+    from cskaoyan_mall_groupon
+    where groupon_id = #{grouponId}
+  </select>
+
+  <select id="queryCeatorNameByCreatUserId" resultType="string">
+    select nickname
+    from cskaoyan_mall_user
+    where id = #{creatorUserId}
+  </select>
+
+  <select id="queryOrderByOrderId" resultType="com.cskaoyan.mall.bean.Order">
+    select goods_price as goodsPrice,groupon_price as grouponPrice
+    from cskaoyan_mall_order
+    where id = #{orderId}
+  </select>
+</mapper>
