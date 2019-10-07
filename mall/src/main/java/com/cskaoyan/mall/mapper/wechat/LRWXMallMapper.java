@@ -1,6 +1,7 @@
 package com.cskaoyan.mall.mapper.wechat;
 
 import com.cskaoyan.mall.bean.Category;
+import com.cskaoyan.mall.bean.Coupon;
 import com.cskaoyan.mall.bean.Keyword;
 import com.cskaoyan.mall.bean.Order;
 import com.cskaoyan.mall.bean.wechat.UserCouponBean;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -52,4 +54,23 @@ public interface LRWXMallMapper {
     int queryCommentStatusByOrderId(Integer orderId);
 
     List<UserCouponBean> queryMyCouponListByStatus(int userId, int status);
+
+    int queryCouponehaded(Integer couponId, int userId);
+
+
+    @Select("select count(*) from cskaoyan_mall_coupon where id = #{couponId} and deleted = false")
+    int queryCoupondeleted(Integer couponId);
+
+    int addCouponForUser(int userId, Integer couponId, Date startTime, Date endTime, Date addTime);
+
+    Coupon queryCouponById(Integer couponId);
+
+    @Update("update cskaoyan_mall_coupon set deleted = true where id = #{couponId}")
+    int deleteCouponById(Integer couponId);
+
+    @Update("update cskaoyan_mall_coupon set total = #{total} where id = #{couponId}")
+    int updateCouponTotal(Integer couponId, int total);
+
+    @Select("select * from cskaoyan_mall_coupon where deleted = false")
+    List<Coupon> queryAllCouponList();
 }

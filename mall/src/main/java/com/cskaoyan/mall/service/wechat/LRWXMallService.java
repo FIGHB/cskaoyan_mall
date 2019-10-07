@@ -1,6 +1,8 @@
 package com.cskaoyan.mall.service.wechat;
 
 
+import com.cskaoyan.mall.vo.BaseRespVo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -31,4 +33,8 @@ public interface LRWXMallService {
      * @return
      */
     Map queryMyCouponList(String username, int status, int page, int size);
+
+    String receiveCoupon(String username, Integer couponId);
+
+    Map queryCouponList(int page, int size);
 }
