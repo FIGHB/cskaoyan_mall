@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("wx/auth/")
-public class WxController {
-//    @PostMapping("login")
+public class CHAuthController {
+   // @PostMapping("login")
     public BaseRespVo<WxLoginVo> login(String password, String username) {
         BaseRespVo<WxLoginVo> baseRespVo = new BaseRespVo<>();
         WxLoginVo loginVo = new WxLoginVo();
@@ -57,7 +57,16 @@ public class WxController {
         return baseRespVo;
     }
 
+    @PostMapping("regCaptcha")
+    public BaseRespVo regCaptcha(String mobile) {
+        BaseRespVo baseRespVo = new BaseRespVo();
+        baseRespVo.setErrmsg("小程序后台验证码服务不支持");
+        baseRespVo.setErrno(701);
+        return baseRespVo;
+    }
+
 
 
 
 }
+
