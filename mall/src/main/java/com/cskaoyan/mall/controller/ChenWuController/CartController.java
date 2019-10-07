@@ -46,11 +46,12 @@ public class CartController {
 
     /**
      * 陈武
-     * 未测试
+     * 少写代码吧
      * 先等商品详情
      * 多用逆向工程
      */
-    @PostMapping("index")
+    @RequestMapping("index")
+    @ResponseBody
     public BaseRespVo<CartTotalVo> index() {
         BaseRespVo<CartTotalVo> cartTotalVoBaseRespVo = new BaseRespVo<>();
         CartTotalVo cartTotalVo = new CartTotalVo();
@@ -68,7 +69,7 @@ public class CartController {
 
 
     /**
-     * 未测试
+     * 少写代码
      */
     @PostMapping("add")
     @ResponseBody
