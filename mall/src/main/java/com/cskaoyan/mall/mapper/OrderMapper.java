@@ -42,4 +42,6 @@ public interface OrderMapper {
     List<OrderGoodsBean> queryOrderGoodsListByOrderId(@Param("orderId") int orderId);
 
     User queryUserById(@Param("userId") Integer userId);
+
+
 }
