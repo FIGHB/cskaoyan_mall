@@ -55,7 +55,7 @@ cskaoyan-mall
   TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 done）
   TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 done）	
   
-  ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 未找到）
+  ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 done）
 
   RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 done）
 
