@@ -34,4 +34,6 @@ public interface OrderService {
     int updateOrderPrepay(Integer orderId);
 
 
+    void insertOrder();
+
 }
