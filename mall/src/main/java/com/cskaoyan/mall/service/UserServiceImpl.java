@@ -71,12 +71,14 @@ public class UserServiceImpl implements UserService{
         AddressExample addressExample = new AddressExample();
         AddressExample.Criteria criteria = addressExample.createCriteria();
         if((adressShow.getUserId()!=null&&!"".equals(adressShow.getUserId()))&&(adressShow.getName()!=null&&!"".equals(adressShow.getName()))){
-            Integer userId=(Integer)adressShow.getUserId();
+            String userIdStr = (String) adressShow.getUserId();
+            int userId = Integer.parseInt(userIdStr);
             criteria.andUserIdEqualTo(userId).andNameLike("%"+adressShow.getName()+"%").andDeletedEqualTo(false);
         }else if((adressShow.getUserId()==null||"".equals(adressShow.getUserId()))&&(adressShow.getName()!=null&&!"".equals(adressShow.getName()))){
             criteria.andNameLike("%"+adressShow.getName()+"%").andDeletedEqualTo(false);
         }else if((adressShow.getUserId()!=null&&!"".equals(adressShow.getUserId()))&&(adressShow.getName()==null||"".equals(adressShow.getName()))){
-            Integer userId=(Integer)adressShow.getUserId();
+            String userIdStr=(String)adressShow.getUserId();
+            int userId = Integer.parseInt(userIdStr);
             criteria.andUserIdEqualTo(userId).andDeletedEqualTo(false);
         }else {
             criteria.andIdIsNotNull().andDeletedEqualTo(false);
@@ -120,13 +122,21 @@ public class UserServiceImpl implements UserService{
         CollectExample.Criteria criteria = collectExample.createCriteria();
         if( (collectShow.getValueId()!=null&&!"".equals(collectShow.getValueId()) )
         &&( collectShow.getUserId()!=null&&!"".equals(collectShow.getUserId()) ) ){
-            criteria.andValueIdEqualTo((Integer) collectShow.getValueId()).andUserIdEqualTo((Integer) collectShow.getUserId()).andDeletedEqualTo(false);
+            String valueIdStr = (String) collectShow.getValueId();
+            int valueId = Integer.parseInt(valueIdStr);
+            String userIdStr = (String)collectShow.getUserId();
+            int userId = Integer.parseInt(userIdStr);
+            criteria.andValueIdEqualTo(valueId).andUserIdEqualTo(userId).andDeletedEqualTo(false);
         }else if( collectShow.getValueId()!=null&&!"".equals(collectShow.getValueId())
             &&(collectShow.getUserId()==null||"".equals(collectShow.getUserId())) ){
-            criteria.andValueIdEqualTo((Integer) collectShow.getValueId()).andDeletedEqualTo(false);
+            String valueIdStr = (String)collectShow.getValueId();
+            int i = Integer.parseInt(valueIdStr);
+            criteria.andValueIdEqualTo(i).andDeletedEqualTo(false);
         }else if( collectShow.getUserId()!=null&&!"".equals(collectShow.getUserId())
             &&(collectShow.getValueId()==null||"".equals(collectShow.getValueId()))){
-            criteria.andUserIdEqualTo((Integer) collectShow.getUserId()).andDeletedEqualTo(false);
+            String userIdStr = (String)collectShow.getUserId();
+            int userId = Integer.parseInt(userIdStr);
+            criteria.andUserIdEqualTo(userId).andDeletedEqualTo(false);
         }else {
             criteria.andIdIsNotNull().andDeletedEqualTo(false);
         }
@@ -157,17 +167,25 @@ public class UserServiceImpl implements UserService{
            footprintShow.getUserId()!=null&&!"".equals(footprintShow.getUserId())
            &&footprintShow.getGoodsId()!=null&&!"".equals(footprintShow.getGoodsId())
         ){
-            criteria.andGoodsIdEqualTo((Integer) footprintShow.getGoodsId()).andUserIdEqualTo((Integer) footprintShow.getUserId()).andDeletedEqualTo(false);
+            String goodsIdStr = (String)footprintShow.getGoodsId();
+            int goodsId = Integer.parseInt(goodsIdStr);
+            String userIdStr =(String) footprintShow.getUserId();
+            int i = Integer.parseInt(userIdStr);
+            criteria.andGoodsIdEqualTo(goodsId).andUserIdEqualTo(i).andDeletedEqualTo(false);
         }else if(
             footprintShow.getUserId()!=null&&!"".equals(footprintShow.getUserId())
             &&(footprintShow.getGoodsId()==null||"".equals(footprintShow.getGoodsId()))
         ){
-            criteria.andUserIdEqualTo((Integer) footprintShow.getUserId()).andDeletedEqualTo(false);
+            String userIdStr =(String) footprintShow.getUserId();
+            int i = Integer.parseInt(userIdStr);
+            criteria.andUserIdEqualTo(i).andDeletedEqualTo(false);
         }else if(
             footprintShow.getGoodsId()!=null&&!"".equals(footprintShow.getGoodsId())
             &&(footprintShow.getUserId()==null||"".equals(footprintShow.getUserId()))
         ){
-            criteria.andGoodsIdEqualTo((Integer) footprintShow.getGoodsId()).andDeletedEqualTo(false);
+            String goodsIdStr = (String)footprintShow.getGoodsId();
+            int goodsId = Integer.parseInt(goodsIdStr);
+            criteria.andGoodsIdEqualTo(goodsId).andDeletedEqualTo(false);
         }else {
             criteria.andIdIsNotNull().andDeletedEqualTo(false);
         }
@@ -197,12 +215,16 @@ public class UserServiceImpl implements UserService{
             searchHistoryShow.getUserId()!=null&&!"".equals(searchHistoryShow.getUserId())
             &&searchHistoryShow.getKeyword()!=null&&!"".equals(searchHistoryShow.getKeyword())
         ){
-            criteria.andKeywordLike("%"+searchHistoryShow.getKeyword()+"%").andUserIdEqualTo((Integer) searchHistoryShow.getUserId()).andDeletedEqualTo(false);
+            String userIdStr = (String) searchHistoryShow.getUserId();
+            int userId = Integer.parseInt(userIdStr);
+            criteria.andKeywordLike("%"+searchHistoryShow.getKeyword()+"%").andUserIdEqualTo(userId).andDeletedEqualTo(false);
         }else if(
                 searchHistoryShow.getUserId()!=null&&!"".equals(searchHistoryShow.getUserId())
                 &&(searchHistoryShow.getKeyword()==null||"".equals(searchHistoryShow.getKeyword()))
         ){
-            criteria.andDeletedEqualTo(false).andUserIdEqualTo((Integer) searchHistoryShow.getUserId());
+            String userIdStr = (String) searchHistoryShow.getUserId();
+            int userId = Integer.parseInt(userIdStr);
+            criteria.andDeletedEqualTo(false).andUserIdEqualTo(userId);
         }else if(
                 searchHistoryShow.getKeyword()!=null&&!"".equals(searchHistoryShow.getKeyword())
                 &&(searchHistoryShow.getUserId()==null||"".equals(searchHistoryShow.getUserId()))
@@ -223,12 +245,16 @@ public class UserServiceImpl implements UserService{
             feedbackShow.getId()!=null&&!"".equals(feedbackShow.getId())
             &&feedbackShow.getUsername()!=null&&!"".equals(feedbackShow.getUsername())
         ){
-            criteria.andIdEqualTo((Integer) feedbackShow.getId()).andUsernameLike("%"+feedbackShow.getUsername()+"%").andDeletedEqualTo(false);
+            String idStr = (String) feedbackShow.getId();
+            int id = Integer.parseInt(idStr);
+            criteria.andIdEqualTo(id).andUsernameLike("%"+feedbackShow.getUsername()+"%").andDeletedEqualTo(false);
         }else if(
             feedbackShow.getId()!=null&&!"".equals(feedbackShow.getId())
             &&(feedbackShow.getUsername()==null||"".equals(feedbackShow.getUsername()))
         ){
-            criteria.andDeletedEqualTo(false).andIdEqualTo((Integer) feedbackShow.getId());
+            String idStr = (String) feedbackShow.getId();
+            int id = Integer.parseInt(idStr);
+            criteria.andDeletedEqualTo(false).andIdEqualTo(id);
         }else if(
             feedbackShow.getUsername()!=null&&!"".equals(feedbackShow.getUsername())
             &&(feedbackShow.getId()==null||"".equals(feedbackShow.getId()))
