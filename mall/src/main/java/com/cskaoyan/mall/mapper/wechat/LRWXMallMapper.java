@@ -1,15 +1,13 @@
 package com.cskaoyan.mall.mapper.wechat;
 
-import com.cskaoyan.mall.bean.Category;
-import com.cskaoyan.mall.bean.Coupon;
-import com.cskaoyan.mall.bean.Keyword;
-import com.cskaoyan.mall.bean.Order;
+import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.wechat.UserCouponBean;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -73,4 +71,23 @@ public interface LRWXMallMapper {
 
     @Select("select * from cskaoyan_mall_coupon where deleted = false")
     List<Coupon> queryAllCouponList();
+
+    @Select("select count(*) from cskaoyan_mall_cart where user_id = #{userId} and deleted = false")
+    Integer querGoodsCount(int userId);
+
+    GoodsProduct queryGoodsProductById(Integer goodsId);
+
+    int insertCart(Cart cart);
+
+    Address queryDefaultAddressByUserId(int userId);
+
+    Address queryAddressByAddressId(Integer addressId);
+
+    Cart queryCartById(int cartId);
+
+    List<Cart> queryCartByUserId(int userId);
+
+    @Select("Select max(id) from cskaoyan_mall_cart where user_id = #{userId}")
+    int queryCartId(int userId);
+
 }

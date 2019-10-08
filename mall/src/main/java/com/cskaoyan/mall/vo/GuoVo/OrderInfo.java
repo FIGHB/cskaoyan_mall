@@ -1,18 +1,18 @@
-package com.cskaoyan.mall.bean;
+package com.cskaoyan.mall.vo.GuoVo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Order {
+public class OrderInfo {
     private Integer id;
 
     private Integer userId;
 
     private String orderSn;
 
-    private Short orderStatus;
+    private String orderStatusText;
 
     private String consignee;
 
@@ -20,21 +20,21 @@ public class Order {
 
     private String address;
 
-    private String message;//商品是否团购商品isgroupin,id去coupon表查
+    private String message;
 
-    private BigDecimal goodsPrice;//
+    private BigDecimal goodsPrice;
 
-    private BigDecimal freightPrice;//优惠了多少价（要减去的）
+    private BigDecimal freightPrice;
 
-    private BigDecimal couponPrice;//邮费
+    private BigDecimal couponPrice;
 
-    private BigDecimal integralPrice;//
+    private BigDecimal integralPrice;
 
-    private BigDecimal grouponPrice;//团购价
+    private BigDecimal grouponPrice;
 
-    private BigDecimal orderPrice;//订单价
+    private BigDecimal orderPrice;
 
-    private BigDecimal actualPrice;//实付价格,即数量乘以单价
+    private BigDecimal actualPrice;
 
     private String payId;
 
@@ -64,6 +64,8 @@ public class Order {
 
     private Boolean deleted;
 
+    private HandleOption handleOption;
+
     public Integer getId() {
         return id;
     }
@@ -85,15 +87,16 @@ public class Order {
     }
 
     public void setOrderSn(String orderSn) {
-        this.orderSn = orderSn == null ? null : orderSn.trim();
+        this.orderSn = orderSn;
     }
 
-    public Short getOrderStatus() {
-        return orderStatus;
+
+    public String getOrderStatusText() {
+        return orderStatusText;
     }
 
-    public void setOrderStatus(Short orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setOrderStatusText(String orderStatusText) {
+        this.orderStatusText = orderStatusText;
     }
 
     public String getConsignee() {
@@ -101,7 +104,7 @@ public class Order {
     }
 
     public void setConsignee(String consignee) {
-        this.consignee = consignee == null ? null : consignee.trim();
+        this.consignee = consignee;
     }
 
     public String getMobile() {
@@ -109,7 +112,7 @@ public class Order {
     }
 
     public void setMobile(String mobile) {
-        this.mobile = mobile == null ? null : mobile.trim();
+        this.mobile = mobile;
     }
 
     public String getAddress() {
@@ -117,7 +120,7 @@ public class Order {
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
     }
 
     public String getMessage() {
@@ -125,7 +128,7 @@ public class Order {
     }
 
     public void setMessage(String message) {
-        this.message = message == null ? null : message.trim();
+        this.message = message;
     }
 
     public BigDecimal getGoodsPrice() {
@@ -189,7 +192,7 @@ public class Order {
     }
 
     public void setPayId(String payId) {
-        this.payId = payId == null ? null : payId.trim();
+        this.payId = payId;
     }
 
     public Date getPayTime() {
@@ -205,7 +208,7 @@ public class Order {
     }
 
     public void setShipSn(String shipSn) {
-        this.shipSn = shipSn == null ? null : shipSn.trim();
+        this.shipSn = shipSn;
     }
 
     public String getShipChannel() {
@@ -213,7 +216,7 @@ public class Order {
     }
 
     public void setShipChannel(String shipChannel) {
-        this.shipChannel = shipChannel == null ? null : shipChannel.trim();
+        this.shipChannel = shipChannel;
     }
 
     public Date getShipTime() {
@@ -272,35 +275,12 @@ public class Order {
         this.deleted = deleted;
     }
 
-    public Order() {
+    public HandleOption getHandleOption() {
+        return handleOption;
     }
 
-    public Order(Integer id, Integer userId, String orderSn, Short orderStatus, String consignee, String mobile, String address, String message, BigDecimal goodsPrice, BigDecimal freightPrice, BigDecimal couponPrice, BigDecimal integralPrice, BigDecimal grouponPrice, BigDecimal orderPrice, BigDecimal actualPrice, String payId, Date payTime, String shipSn, String shipChannel, Date shipTime, Date confirmTime, Short comments, Date endTime, Date addTime, Date updateTime, Boolean deleted) {
-        this.id = id;
-        this.userId = userId;
-        this.orderSn = orderSn;
-        this.orderStatus = orderStatus;
-        this.consignee = consignee;
-        this.mobile = mobile;
-        this.address = address;
-        this.message = message;
-        this.goodsPrice = goodsPrice;
-        this.freightPrice = freightPrice;
-        this.couponPrice = couponPrice;
-        this.integralPrice = integralPrice;
-        this.grouponPrice = grouponPrice;
-        this.orderPrice = orderPrice;
-        this.actualPrice = actualPrice;
-        this.payId = payId;
-        this.payTime = payTime;
-        this.shipSn = shipSn;
-        this.shipChannel = shipChannel;
-        this.shipTime = shipTime;
-        this.confirmTime = confirmTime;
-        this.comments = comments;
-        this.endTime = endTime;
-        this.addTime = addTime;
-        this.updateTime = updateTime;
-        this.deleted = deleted;
+    public void setHandleOption(HandleOption handleOption) {
+        this.handleOption = handleOption;
     }
+
 }

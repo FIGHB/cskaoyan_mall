@@ -2,11 +2,13 @@ package com.cskaoyan.mall.mapper;
 
 import com.cskaoyan.mall.bean.Cart;
 import com.cskaoyan.mall.bean.CartExample;
+import com.cskaoyan.mall.bean.Order;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface CartMapper {
+
     long countByExample(CartExample example);
 
     int deleteByExample(CartExample example);
@@ -28,4 +30,8 @@ public interface CartMapper {
     int updateByPrimaryKeySelective(Cart record);
 
     int updateByPrimaryKey(Cart record);
+
+    int sumByColumnName(@Param("columnname") String  columnname);
+
+    int insertGoodsPrice(@Param("order") Order order);
 }

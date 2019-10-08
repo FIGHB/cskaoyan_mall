@@ -1,5 +1,6 @@
 package com.cskaoyan.mall.controller.wechat;
 
+import com.cskaoyan.mall.bean.Cart;
 import com.cskaoyan.mall.service.wechat.LRWXMallService;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import org.apache.ibatis.annotations.Param;
@@ -124,5 +125,49 @@ public class LRWXMallController {
     @GetMapping("/coupon/list")
     public BaseRespVo queryCouponList(@Param("page") int page, @Param("size")int size) {
         return BaseRespVo.ok(lrwxMallService.queryCouponList(page, size));
+    }
+
+    //返回购物车总数
+    @GetMapping("/cart/goodscount")
+    public BaseRespVo getGoodsCount() {
+        String username = getUsernameByShiro();
+        return BaseRespVo.ok(lrwxMallService.getGoodsCount(username));
+
+    }
+
+    //点击立即购买发生的请求
+    @PostMapping("/cart/fastadd")
+    public BaseRespVo fastAddCart(@RequestBody Cart cart) {
+        String username = getUsernameByShiro();
+        String errmsg = lrwxMallService.fastAddCart(cart, username);
+        //如果返回空表示没有问题
+        if(errmsg == null) {
+            int userId = getUserIdBySecurityUtils();
+            int cartId = lrwxMallService.queryCartId(userId);
+            return BaseRespVo.ok(cartId);
+        } else {
+
+            return BaseRespVo.getBaseResVo(500, null, errmsg);
+        }
+    }
+
+    @GetMapping("/cart/checkout")
+    public BaseRespVo checkoutCart(Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId) {
+        int userId = getUserIdBySecurityUtils();
+        if(userId == -1) return BaseRespVo.getBaseResVo(502,"", "系统内部错误");
+        Map map = lrwxMallService.checkoutCart(userId,cartId,addressId,couponId,grouponRulesId);
+        return BaseRespVo.ok(map);
+    }
+
+    @GetMapping("/cart/index")
+    public BaseRespVo cartIndex() {
+        int userId = getUserIdBySecurityUtils();
+        return BaseRespVo.ok(lrwxMallService.getCartIndex(userId));
+    }
+
+    private int getUserIdBySecurityUtils() {
+        String username = getUsernameByShiro();
+        if(username == null) return -1;
+        return lrwxMallService.getUserIdByUsername(username);
     }
 }

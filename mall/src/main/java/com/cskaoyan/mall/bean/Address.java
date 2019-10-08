@@ -27,6 +27,24 @@ public class Address {
 
     private Boolean deleted;
 
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userId=" + userId +
+                ", provinceId=" + provinceId +
+                ", cityId=" + cityId +
+                ", areaId=" + areaId +
+                ", address='" + address + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", isDefault=" + isDefault +
+                ", addTime=" + addTime +
+                ", updateTime=" + updateTime +
+                ", deleted=" + deleted +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
