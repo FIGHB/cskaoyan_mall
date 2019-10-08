@@ -1,6 +1,7 @@
 package com.cskaoyan.mall.controller.wechat;
 
 import com.cskaoyan.mall.bean.Order;
+import com.cskaoyan.mall.bean.OrderGoods;
 import com.cskaoyan.mall.mapper.wechat.OrderDeleteMapper;
 import com.cskaoyan.mall.service.wechat.OrderDeleteService;
 import com.cskaoyan.mall.vo.BaseRespVo;
@@ -21,13 +22,11 @@ public class OrderDeleteController {
     @Autowired
     OrderDeleteMapper orderDeleteMapper;
     @RequestMapping("wx/order/delete")
-    public BaseRespVo orderDelete(@RequestBody Order order){
-        Subject subject = SecurityUtils.getSubject();
-        String username = (String) subject.getPrincipal();
-        if(orderDeleteService.orderDelete(order.getId())){
+    public BaseRespVo orderDelete(@RequestBody OrderGoods orderGoods){
+        if(orderDeleteService.orderDelete(orderGoods.getOrderId())){
             return BaseRespVo.ok(null);
         }
-        return BaseRespVo.fail(500,"删除订单失败");
+        return BaseRespVo.fail(700,"删除订单失败");
     }
 
 }

@@ -10,7 +10,7 @@ public class OrderDeleteServiceImpl implements OrderDeleteService {
     OrderDeleteMapper orderDeleteMapper;
     @Override
     public boolean orderDelete(int id) {
-        int i = orderDeleteMapper.updateStateOfDelete(id,false);
+        int i = orderDeleteMapper.updateStateOfDelete(id,true);
         if (i>0){return true;}
         return false;
     }
