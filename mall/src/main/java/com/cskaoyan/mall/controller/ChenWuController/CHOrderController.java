@@ -67,6 +67,7 @@ public class CHOrderController {
     }
 
 
+
     /**
      * showtype作用？订单的五种状态：全部0，代付款1，代发货2，待收货3，待评价4
      */
@@ -97,5 +98,4 @@ public class CHOrderController {
         BaseRespVo ok = BaseRespVo.ok(cwOrderDetail);
         return ok;
     }
-
 }

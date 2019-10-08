@@ -1,9 +1,7 @@
 package com.cskaoyan.mall.mapper.wechat;
 
-import com.cskaoyan.mall.bean.Category;
-import com.cskaoyan.mall.bean.Coupon;
-import com.cskaoyan.mall.bean.Keyword;
-import com.cskaoyan.mall.bean.Order;
+import com.cskaoyan.mall.bean.*;
+import com.cskaoyan.mall.bean.wechat.LiOrderBean;
 import com.cskaoyan.mall.bean.wechat.UserCouponBean;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -48,7 +46,6 @@ public interface LRWXMallMapper {
     @Select("select id from cskaoyan_mall_user where username = #{username} and deleted = false")
     int selectUserIdByUserName(String username);
 
-    List<Order> queryOrdersByUserAndStatus(int userId, int status);
 
     //查询对应订单的评论状态 -1超期不可评论，0未评论，其他则对应评论表的id
     int queryCommentStatusByOrderId(Integer orderId);
@@ -73,4 +70,36 @@ public interface LRWXMallMapper {
 
     @Select("select * from cskaoyan_mall_coupon where deleted = false")
     List<Coupon> queryAllCouponList();
+
+    @Select("select count(*) from cskaoyan_mall_cart where user_id = #{userId} and deleted = false")
+    Integer querGoodsCount(int userId);
+
+    GoodsProduct queryGoodsProductById(Integer goodsId);
+
+    int insertCart(Cart cart);
+
+    Address queryDefaultAddressByUserId(int userId);
+
+    Address queryAddressByAddressId(Integer addressId);
+
+    Cart queryCartById(int cartId);
+
+    List<Cart> queryCartByUserId(int userId);
+
+    @Select("Select max(id) from cskaoyan_mall_cart where user_id = #{userId}")
+    int queryCartId(int userId);
+
+    List<Order> queryOrdersByUser(int userId);
+
+    List<Order> queryOrdersByUserAndStatus(int userId, int status);
+
+    List<LiOrderBean> queryLiOrdersByUser(int userId);
+
+    List<LiOrderBean> queryLiOrdersByUserAndStatus(int userId, int status);
+
+    @Select("select * from cskaoyan_mall_goods where id = #{goodsId}")
+    Goods queryGoodsById(Integer goodsId);
+
+    @Select("select * from cskaoyan_mall_order_goods where order_id = #{orderId}")
+    OrderGoods getOrderGoodsByorderId(Integer orderId);
 }

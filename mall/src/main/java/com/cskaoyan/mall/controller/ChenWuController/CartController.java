@@ -7,10 +7,13 @@ import com.cskaoyan.mall.mapper.GoodsMapper;
 import com.cskaoyan.mall.mapper.GoodsProductMapper;
 import com.cskaoyan.mall.service.ChenWuService.CartService;
 import com.cskaoyan.mall.service.ChenWuService.OrderService;
+import com.cskaoyan.mall.service.wechat.LRWXMallService;
+import com.cskaoyan.mall.service.wechat.LRWXMallServiceImpl;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CWCheckVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CartTotal;
 import com.cskaoyan.mall.vo.ChenWuWx.CartTotalVo;
+import com.cskaoyan.mall.vo.GuoVo.GuoCart;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +48,12 @@ public class CartController {
 
     /**
      * 陈武
-     * 未测试
+     * 少写代码吧
      * 先等商品详情
      * 多用逆向工程
      */
-    @GetMapping("index")
+//    @GetMapping("index")
+//    @RequestMapping("index")
     public BaseRespVo<CartTotalVo> index() {
         BaseRespVo<CartTotalVo> cartTotalVoBaseRespVo = new BaseRespVo<>();
         CartTotalVo cartTotalVo = new CartTotalVo();
@@ -67,10 +71,11 @@ public class CartController {
 
 
     /**
-     * 未测试
+     * 少写代码
      */
     @PostMapping("add")
-    public BaseRespVo<Integer> add(int goodsId, short number, int productId) {
+    @ResponseBody
+    public BaseRespVo<Integer> add(@RequestBody GuoCart guoCart) {
         //这里要利用传来的参数查询出完整的商品信息cart再插入cart表中方便index使用
         int useId = getUserId();
         BaseRespVo<Integer> integerBaseRespVo = new BaseRespVo<>();
@@ -81,7 +86,7 @@ public class CartController {
          * 这里比较繁琐要查三张表
          * check里有id
          * */
-        int a = cartService.selectAllNumber(useId, goodsId, number, productId);//在这里依次完成插入和统计数量的功能
+        int a = cartService.selectAllNumber(useId, guoCart.getGoodsId(), guoCart.getNumber(), guoCart.getProductId());//在这里依次完成插入和统计数量的功能
         //这是总购物车商品数量,鑫哥说用cart表。
         Integer A = new Integer(a);
         integerBaseRespVo.setData(A);
@@ -101,7 +106,7 @@ public class CartController {
      * 而fastadd会覆盖掉原先add添加的商品直接显示当时添加的数量
      *
      */
-    @PostMapping("fastadd")
+//    @PostMapping("fastadd")
     public BaseRespVo<Integer> fastadd(Integer goodsId, short number, Integer productId) {
         BaseRespVo<Integer> integerBaseRespVo = new BaseRespVo<>();
         integerBaseRespVo.setErrno(0);
@@ -135,7 +140,7 @@ public class CartController {
         return integerBaseRespVo;
     }
 
-    @PostMapping("update")
+/*    @PostMapping("update")
     public BaseRespVo update(Integer goodsId, Integer id, short number, Integer productId) {
         //id是cart的id,这个方法主要执行对cart表的number的增加或减少操作(在库存允许范围内)
         BaseRespVo baseRespVo = new BaseRespVo();
@@ -161,7 +166,7 @@ public class CartController {
         cartTotalVoBaseRespVo.setErrno(0);
         cartTotalVoBaseRespVo.setData(cartTotalVo);
         return cartTotalVoBaseRespVo;
-    }
+    }*/
 
     /**
      * 老师的就只是返回这些，暂时不明白它要我执行什么操作
@@ -169,17 +174,16 @@ public class CartController {
      * 因为这是购物车和商品详情立即购买页面共用的接口
      * cartId好像有问题因为商品详情立即购买那里的请求参数也有一个cartId.
      */
-    @PostMapping("checkout")
+//    @PostMapping("checkout")
     public BaseRespVo checkout(Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId) {
-        BaseRespVo baseRespVo = new BaseRespVo();
-        int userId = getUserId();
+        int userId = getUserIdBySecurityUtils();
+        if(userId == -1) return BaseRespVo.getBaseResVo(502,"", "系统内部错误");
         orderService.InsertStatusValue(userId,cartId, addressId, couponId, grouponRulesId);
-        baseRespVo.setErrmsg("系统内部错误");
-        baseRespVo.setErrno(502);
-        return baseRespVo;
+        //不晓得返回的是啥数据
+        return BaseRespVo.ok("");
     }
 
-    @PostMapping("checked")
+/*    @PostMapping("checked")
     public BaseRespVo<CartTotalVo> checked(@RequestBody CWCheckVo cwCheckVo) {
         BaseRespVo<CartTotalVo> cartTotalVoBaseRespVo = new BaseRespVo<>();
         CartTotalVo cartTotalVo = new CartTotalVo();
@@ -193,16 +197,26 @@ public class CartController {
         cartTotalVoBaseRespVo.setData(cartTotalVo);
         return cartTotalVoBaseRespVo;
 
-    }
+    }*/
 
-    @GetMapping("goodscount")
-    public BaseRespVo goodscount() {
-        BaseRespVo baseRespVo = new BaseRespVo();//data是购物车中商品的总数
-        CartTotal cartTotal = cartService.queryCartTotal();
-        int goodsCount = cartTotal.getGoodsCount();
-        baseRespVo.setData(goodsCount);
-        baseRespVo.setErrmsg("成功");
-        baseRespVo.setErrno(0);
-        return baseRespVo;
+//    @GetMapping("goodscount")
+//    public BaseRespVo goodscount() {
+//        BaseRespVo baseRespVo = new BaseRespVo();//data是购物车中商品的总数
+//        CartTotal cartTotal = cartService.queryCartTotal();
+//        int goodsCount = cartTotal.getGoodsCount();
+//        baseRespVo.setData(goodsCount);
+//        baseRespVo.setErrmsg("成功");
+//        baseRespVo.setErrno(0);
+//        return baseRespVo;
+//    }
+
+
+
+    private int getUserIdBySecurityUtils() {
+        LRWXMallService lrwxMallService = new LRWXMallServiceImpl();
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        if(username == null) return -1;
+        return lrwxMallService.getUserIdByUsername(username);
     }
 }

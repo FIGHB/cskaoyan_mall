@@ -16,6 +16,10 @@ public class GoodsProduct {
 
     private String url;
 
+    private String picUrl;
+
+
+
     private Date addTime;
 
     private Date updateTime;
@@ -92,5 +96,13 @@ public class GoodsProduct {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 }

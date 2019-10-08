@@ -102,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.SearchHistory">
-    insert into cskaoyan_mall_search_history (id, user_id, keyword,
+    insert into cskaoyan_mall_search_history (user_id, keyword,
       `from`, add_time, update_time,
       deleted)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{keyword,jdbcType=VARCHAR},
+    values (#{userId,jdbcType=INTEGER}, #{keyword,jdbcType=VARCHAR},
       #{from,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=BIT})
   </insert>

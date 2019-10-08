@@ -67,4 +67,136 @@
         select id, `total`, start_time startTime, end_time endTime, deleted from
         cskaoyan_mall_coupon where id = #{couponId} and deleted = false
     </select>
+
+    <select id="queryGoodsProductById" resultType="com.cskaoyan.mall.bean.GoodsProduct">
+        select id, goods_id goodsId, specifications, `price`, `number`, `url`, add_time addTime, update_time updateTime
+        from cskaoyan_mall_goods_product where goods_id = #{goodsId} and deleted = false
+        limit 0, 1
+    </select>
+
+    <insert id="insertCart">
+        insert into cskaoyan_mall_cart
+        (user_id, goods_sn, goods_name, product_id, `price`, `number`, `specifications`, pic_url,add_time,update_time)
+        values
+        (#{userId}, #{goodsSn},#{goodsName},#{productId},#{price},#{number},#{specifications},
+        #{picUrl},#{addTime},#{updateTime})
+    </insert>
+
+    <select id="queryDefaultAddressByUserId" resultMap="addressMap">
+        select * from cskaoyan_mall_address where user_id = #{userId} and is_default = true and deleted = false
+    </select>
+
+    <select id="queryAddressByAddressId" resultMap="addressMap">
+        select * from cskaoyan_mall_address where id = #{addressId} and deleted = false
+    </select>
+
+    <resultMap id="addressMap" type="com.cskaoyan.mall.bean.Address">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="user_id" property="userId"/>
+        <result column="province_id" property="provinceId"/>
+        <result column="city_id" property="cityId"/>
+        <result column="address" property="address"/>
+        <result column="mobile" property="mobile"/>
+        <result column="is_default" property="isDefault"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <select id="queryCartById" resultMap="cartMap">
+        select * from cskaoyan_mall_cart where id = #{cartId} and deleted = false
+    </select>
+
+    <resultMap id="cartMap" type="com.cskaoyan.mall.bean.Cart">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="goods_sn" property="goodsSn"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="product_id" property="productId"/>
+        <result column="price" property="price"/>
+        <result column="number" property="number"/>
+        <result column="specifications" property="specifications"/>
+        <result column="checked" property="checked"/>
+        <result column="pic_url" property="picUrl"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <select id="queryCartByUserId" resultMap="cartMap">
+        select * from cskaoyan_mall_cart where user_id = #{userId} and deleted = false
+    </select>
+
+    <select id="queryOrdersByUser" resultMap="orderMap">
+        select * from cskaoyan_mall_order where user_id = #{userId} and deleted = false
+    </select>
+
+    <resultMap id="orderMap" type="com.cskaoyan.mall.bean.Order">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="order_sn" property="orderSn"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="consignee" property="consignee"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="message" property="message"/>
+        <result column="goods_price" property="goodsPrice"/>
+        <result column="freight_price" property="freightPrice"/>
+        <result column="coupon_price" property="couponPrice"/>
+        <result column="integral_price" property="integralPrice"/>
+        <result column="groupon_price" property="grouponPrice"/>
+        <result column="order_price" property="orderPrice"/>
+        <result column="actual_price" property="actualPrice"/>
+        <result column="pay_id" property="payId"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="ship_sn" property="ship_sn"/>
+        <result column="ship_channel" property="ship_channel"/>
+        <result column="ship_time" property="shipTime"/>
+        <result column="confirm_time" property="confirmTime"/>
+        <result column="comments" property="comments"/>
+        <result column="end_time" property="endTime"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <select id="queryLiOrdersByUser" resultMap="liOrderMap">
+        select * from cskaoyan_mall_order where user_id = #{userId} and deleted = false
+    </select>
+
+    <select id="queryLiOrdersByUserAndStatus" resultMap="liOrderMap">
+        select * from cskaoyan_mall_order
+        where user_id = #{userId} and order_status = #{status} and deleted = false
+    </select>
+
+    <resultMap id="liOrderMap" type="com.cskaoyan.mall.bean.wechat.LiOrderBean">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="order_sn" property="orderSn"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="consignee" property="consignee"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="message" property="message"/>
+        <result column="goods_price" property="goodsPrice"/>
+        <result column="freight_price" property="freightPrice"/>
+        <result column="coupon_price" property="couponPrice"/>
+        <result column="integral_price" property="integralPrice"/>
+        <result column="groupon_price" property="grouponPrice"/>
+        <result column="order_price" property="orderPrice"/>
+        <result column="actual_price" property="actualPrice"/>
+        <result column="pay_id" property="payId"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="ship_sn" property="shipSn"/>
+        <result column="ship_channel" property="shipChannel"/>
+        <result column="ship_time" property="shipTime"/>
+        <result column="confirm_time" property="confirmTime"/>
+        <result column="comments" property="comments"/>
+        <result column="end_time" property="endTime"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
 </mapper>
