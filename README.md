@@ -97,7 +97,7 @@ cskaoyan-mall
   OrderPrepay: WxApiRoot + 'order/prepay', // 订单的预支付会话（陈武done）
   OrderList: WxApiRoot + 'order/list', //订单列表（陈武doing）
   OrderDetail: WxApiRoot + 'order/detail', //订单详情
-  OrderCancel: WxApiRoot + 'order/cancel', //取消订单  (国旭 doing)
+  OrderCancel: WxApiRoot + 'order/cancel', //取消订单  (国旭 done)
   OrderRefund: WxApiRoot + 'order/refund', //退款取消订单
   OrderDelete: WxApiRoot + 'order/delete', //删除订单（赵亚云 正在做）
   OrderConfirm: WxApiRoot + 'order/confirm', //确认收货
