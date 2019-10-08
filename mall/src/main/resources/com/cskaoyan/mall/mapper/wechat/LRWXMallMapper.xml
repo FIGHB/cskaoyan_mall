@@ -127,4 +127,5 @@
     <select id="queryCartByUserId" resultMap="cartMap">
         select * from cskaoyan_mall_cart where user_id = #{userId} and deleted = false
     </select>
+
 </mapper>

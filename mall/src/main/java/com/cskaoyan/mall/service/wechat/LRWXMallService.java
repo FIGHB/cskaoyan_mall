@@ -49,4 +49,6 @@ public interface LRWXMallService {
     Map checkoutCart(int userId, Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId);
 
     int queryCartId(int userId);
+
+    Object getCartIndex(int userId);
 }
