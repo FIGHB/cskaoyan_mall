@@ -23,7 +23,7 @@
   </delete>
 
   <update id="deleteById">
-    update cskaoyan_mall_order set deleted = 1 where id = #{orderId}
+    update cskaoyan_mall_order set order_status = 203 where id = #{orderId}
   </update>
 
   <select id="queryproductId" resultType="int">
