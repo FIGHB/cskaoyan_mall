@@ -7,6 +7,7 @@ import com.cskaoyan.mall.mapper.CategoryMapper;
 import com.cskaoyan.mall.mapper.GoodsMapper;
 import com.cskaoyan.mall.mapper.KeywordMapper;
 import com.cskaoyan.mall.mapper.wechat.LRWXMallMapper;
+import com.cskaoyan.mall.vo.ChenWuWx.CartTotal;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -205,18 +206,37 @@ public class LRWXMallServiceImpl implements LRWXMallService {
     public Map checkoutCart(int userId, Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId) {
         HashMap<Object, Object> map = new HashMap<>();
         List<Object> array = new ArrayList<>();
+        float totalPrice = 0;
         if(cartId != 0) {
             Cart cart = lrwxMallMapper.queryCartById(cartId);
             GoodsProduct goodsProduct = lrwxMallMapper.queryGoodsProductById(Integer.parseInt(cart.getGoodsSn()));
-            map.put("actualPrice", goodsProduct.getPrice());
+            totalPrice = goodsProduct.getPrice().floatValue();
+            if(totalPrice > 80) {
+                map.put("freightPrice", 0);
+                map.put("actualPrice", goodsProduct.getPrice().floatValue() - 20);
+            } else {
+                map.put("freightPrice", 10);
+                map.put("actualPrice", goodsProduct.getPrice().floatValue() - 30);
+            }
             map.put("orderTotalPrice", goodsProduct.getPrice());
+            map.put("goodsTotalPrice", goodsProduct.getPrice());
             map.put("couponPrice", goodsProduct.getPrice());
             array.add(cart);
         } else {
-            array.addAll(lrwxMallMapper.queryCartByUserId(userId));
-            map.put("actualPrice", 0);
-            map.put("orderTotalPrice", 0);
-            map.put("couponPrice", 0);
+            List<Cart> carts = lrwxMallMapper.queryCartByUserId(userId);
+            CartTotal cartTotal = getCartTotal(carts);
+            array.addAll(carts);
+            totalPrice = cartTotal.getCheckedGoodsAmount();
+            if(totalPrice > 80) {
+                map.put("freightPrice", 0);
+                map.put("actualPrice", cartTotal.getCheckedGoodsAmount() - 20);
+            } else {
+                map.put("freightPrice", 10);
+                map.put("actualPrice", cartTotal.getCheckedGoodsAmount() - 30);
+            }
+            map.put("orderTotalPrice", cartTotal.getCheckedGoodsAmount());
+            map.put("couponPrice", 20);
+            map.put("goodsTotalPrice", cartTotal.getCheckedGoodsAmount());
         }
         map.put("grouponPrice", 0);
         map.put("grouponRulesId", 0);
@@ -228,12 +248,47 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         }
         map.put("availableCouponLength", 0);
         map.put("couponId", couponId);
-        map.put("freightPrice", 0);
-
         map.put("checkedGoodsList", array);
-
-        map.put("goodsTotalPrice", 286);
         map.put("addressId", addressId);
         return map;
+    }
+
+    @Override
+    public Object getCartIndex(int userId) {
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("cartList", lrwxMallMapper.queryCartByUserId(userId));
+        List<Cart> carts = lrwxMallMapper.queryCartByUserId(userId);
+        map.put("cartTotal", getCartTotal(carts));
+        return map;
+    }
+
+    private CartTotal getCartTotal(List<Cart> carts) {
+        CartTotal cartTotal = new CartTotal();
+        //选中的商品的价格
+        float checkedGoodsAmount = 0;
+        //选中的商品总数
+        int checkedGoodsCount = 0;
+
+        //所有商品
+        float goodsAmount = 0;
+        int goodsCount = 0;
+
+        for (Cart cart : carts) {
+            if(cart.getChecked() == true) {
+                checkedGoodsCount++;
+                checkedGoodsAmount += cart.getPrice().floatValue();
+            }
+            goodsCount++;
+            goodsAmount += cart.getPrice().floatValue();
+        }
+        //checked 为 true的 总价
+        cartTotal.setCheckedGoodsAmount(checkedGoodsAmount);
+        //checked 为 true的 总数
+        cartTotal.setCheckedGoodsCount(checkedGoodsCount);
+        //购物车所有物品的总价
+        cartTotal.setGoodsAmount(goodsAmount);
+        //购物车所有物品的总数
+        cartTotal.setGoodsCount(goodsCount);
+        return cartTotal;
     }
 }

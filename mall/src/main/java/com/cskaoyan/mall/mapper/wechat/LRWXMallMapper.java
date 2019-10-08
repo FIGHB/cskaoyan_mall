@@ -89,4 +89,5 @@ public interface LRWXMallMapper {
 
     @Select("Select max(id) from cskaoyan_mall_cart where user_id = #{userId}")
     int queryCartId(int userId);
+
 }

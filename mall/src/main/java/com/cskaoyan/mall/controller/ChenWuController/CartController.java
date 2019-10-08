@@ -51,7 +51,7 @@ public class CartController {
      * 先等商品详情
      * 多用逆向工程
      */
-    @RequestMapping("index")
+//    @RequestMapping("index")
     @ResponseBody
     public BaseRespVo<CartTotalVo> index() {
         BaseRespVo<CartTotalVo> cartTotalVoBaseRespVo = new BaseRespVo<>();
