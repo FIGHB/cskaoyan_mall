@@ -98,4 +98,9 @@ public class ZYHCartServiceImpl implements ZYHCartService {
         cartCheckedVO.setCartTotal(cartTotal);
         return cartCheckedVO;
     }
+
+    @Override
+    public void confirm(int orderId) {
+        cartMapper.confirm(orderId);
+    }
 }

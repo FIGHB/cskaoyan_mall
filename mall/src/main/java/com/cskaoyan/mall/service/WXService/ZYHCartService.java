@@ -9,4 +9,6 @@ public interface ZYHCartService {
     void updateCart(int id, int number);
 
     CartCheckedVO deleteCart(CartCheckedBean checkedBean, String username);
+
+    void confirm(int orderId);
 }
