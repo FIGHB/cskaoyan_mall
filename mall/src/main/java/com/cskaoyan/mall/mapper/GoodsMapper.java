@@ -47,4 +47,5 @@ public interface GoodsMapper {
     void insertProduct(@Param("products") List<GoodsProduct> products, @Param("goodId") int goodId);
 
     void insertSpec(@Param("specs") List<GoodsSpecification> specifications,@Param("goodId") int goodId);
+
 }

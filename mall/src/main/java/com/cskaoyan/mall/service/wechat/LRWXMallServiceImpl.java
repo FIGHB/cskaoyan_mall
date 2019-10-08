@@ -9,6 +9,7 @@ import com.cskaoyan.mall.mapper.GoodsMapper;
 import com.cskaoyan.mall.mapper.KeywordMapper;
 import com.cskaoyan.mall.mapper.wechat.LRWXMallMapper;
 import com.cskaoyan.mall.vo.ChenWuWx.CartTotal;
+import com.cskaoyan.mall.vo.steve.GoodsCountVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,11 @@ public class LRWXMallServiceImpl implements LRWXMallService {
     }
 
     @Override
-    public Integer queryGoodsCount() {
-        return lrwxMallMapper.queryGoodsCount();
+    public GoodsCountVo queryGoodsCount() {
+        GoodsCountVo goodsCountVo = new GoodsCountVo();
+         long count = lrwxMallMapper.queryGoodsCount();
+         goodsCountVo.setGoodsCount(count);
+        return goodsCountVo;
     }
 
     @Override
@@ -305,10 +309,10 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         for (Cart cart : carts) {
             if(cart.getChecked() == true) {
                 checkedGoodsCount++;
-                checkedGoodsAmount += cart.getPrice().floatValue();
+                checkedGoodsAmount += cart.getPrice().floatValue() * cart.getNumber();
             }
             goodsCount++;
-            goodsAmount += cart.getPrice().floatValue();
+            goodsAmount += cart.getPrice().floatValue() * cart.getNumber();
         }
         //checked 为 true的 总价
         cartTotal.setCheckedGoodsAmount(checkedGoodsAmount);
@@ -380,7 +384,7 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         HashMap<Object, Object> map = new HashMap<>();
         Goods goods = lrwxMallMapper.queryGoodsById(goodsProduct.getGoodsId());
         OrderGoods orderGoods = lrwxMallMapper.getOrderGoodsByorderId(order.getId());
-        map.put("goodsName", goods.getName());
+        map.put("goodsName", orderGoods.getGoodsName());
         map.put("id", goodsProduct.getId());
         map.put("number", orderGoods.getNumber());
         map.put("picUrl", orderGoods.getPicUrl());
