@@ -97,7 +97,7 @@ public interface LRWXMallMapper {
 
     List<LiOrderBean> queryLiOrdersByUserAndStatus(int userId, int status);
 
-    @Select("select * from cskaoyan_mall_goods where id = #{goodsId}")
+    @Select("select id, `name`, pic_url picUrl from cskaoyan_mall_goods where id = #{goodsId}")
     Goods queryGoodsById(Integer goodsId);
 
     @Select("select * from cskaoyan_mall_order_goods where order_id = #{orderId}")

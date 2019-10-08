@@ -95,11 +95,11 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         int uncomment = 0;
         for (Order order : orders) {
             int commentStatus = lrwxMallMapper.queryCommentStatusByOrderId(order.getId());
-            if(commentStatus == 0) {
+            if(commentStatus == 401) {
                 uncomment++;
             }
         }
-        map.put("uncomment", uncomment);
+        map.put("uncomment", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 401).size());
         map.put("unpaid", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 101).size());
         map.put("unrecv", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 301).size());
         map.put("unship", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 201).size());
@@ -361,7 +361,7 @@ public class LRWXMallServiceImpl implements LRWXMallService {
             goodsProduct.setPicUrl(goodsProduct.getUrl());
             //设置返回的goodsList
             goodsList.add(getGoods(goodsProduct, order));
-            hashMap.put("handleOption", getHandleOption());
+            hashMap.put("handleOption", getHandleOption(showType));
             hashMap.put("goodsList", goodsList);
             hashMap.put("actualPrice", actualPrice);
             hashMap.put("id", order.getId());
@@ -384,17 +384,21 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         HashMap<Object, Object> map = new HashMap<>();
         Goods goods = lrwxMallMapper.queryGoodsById(goodsProduct.getGoodsId());
         OrderGoods orderGoods = lrwxMallMapper.getOrderGoodsByorderId(order.getId());
-        map.put("goodsName", orderGoods.getGoodsName());
+        map.put("goodsName", goods.getName());
         map.put("id", goodsProduct.getId());
         map.put("number", orderGoods.getNumber());
-        map.put("picUrl", orderGoods.getPicUrl());
+        map.put("picUrl", goods.getPicUrl());
         return map;
     }
 
-    private Object getHandleOption() {
+    private Object getHandleOption(int showType) {
         HashMap<Object, Object> map = new HashMap<>();
+        if(showType == 4) {
+            map.put("comment", true);
+        } else {
+            map.put("comment", false);
+        }
         map.put("cancel", true);
-        map.put("comment", false);
         map.put("confirm", false);
         map.put("delete", false);
         map.put("pay", true);
