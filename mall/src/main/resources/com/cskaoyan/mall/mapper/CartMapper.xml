@@ -351,8 +351,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="sumByColumnName" parameterType="java.lang.String" resultType="java.lang.Integer">
-    select sum(columnname) from cskaoyan_mall_cart
+  <select id="sumByColumnName" parameterType="string" resultType="int">
+    select sum(#{columnname}) from cskaoyan_mall_cart
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
