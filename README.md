@@ -40,7 +40,7 @@ cskaoyan-mall
   GoodsList: WxApiRoot + 'goods/list', //获得商品列表(杨磊 done)
   GoodsCategory: WxApiRoot + 'goods/category', //获得分类数据 (杨磊 done)		 				
   GoodsDetail: WxApiRoot + 'goods/detail', //获得商品的详情(杨磊 done)
-  GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）(杨磊 done 未测试)
+  GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）(杨磊 done)
 
   //王小凤
   CollectList: WxApiRoot + 'collect/list', //收藏列表(done)			 
