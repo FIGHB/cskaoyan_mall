@@ -43,5 +43,6 @@ public interface OrderMapper {
 
     User queryUserById(@Param("userId") Integer userId);
 
+    int insertOrderData(@Param("order") Order order);
 
 }
