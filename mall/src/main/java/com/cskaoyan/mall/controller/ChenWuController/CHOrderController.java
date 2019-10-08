@@ -41,7 +41,7 @@ public class CHOrderController {
         return baseRespVo;
     }
 
-    @GetMapping("list")
+//    @GetMapping("list")
     public BaseRespVo<CWOrderListVo> list(int page, int size) {
         //psge是第几页,size是一页包含的订单条目数，要实现分页等
         BaseRespVo<CWOrderListVo> cwOrderListVoBaseRespVo = new BaseRespVo<>();
@@ -61,5 +61,4 @@ public class CHOrderController {
         cwOrderListVoBaseRespVo.setData(cwOrderListVo);
         return cwOrderListVoBaseRespVo;
     }
-
 }
