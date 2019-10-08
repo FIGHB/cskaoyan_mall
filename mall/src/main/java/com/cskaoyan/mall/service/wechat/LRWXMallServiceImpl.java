@@ -383,7 +383,7 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         map.put("goodsName", goods.getName());
         map.put("id", goodsProduct.getId());
         map.put("number", orderGoods.getNumber());
-        map.put("picUrl", goods.getPicUrl());
+        map.put("picUrl", orderGoods.getPicUrl());
         return map;
     }
 
