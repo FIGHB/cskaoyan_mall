@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_id, groupon_id, rules_id, user_id, creator_user_id, add_time, update_time, 
+    id, order_id, groupon_id, rules_id, user_id, creator_user_id, add_time, update_time,
     share_url, payed, deleted
   </sql>
   <select id="selectByExample" parameterType="com.cskaoyan.mall.bean.GrouponExample" resultMap="BaseResultMap">
@@ -91,7 +91,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_groupon
     where id = #{id,jdbcType=INTEGER}
@@ -107,13 +107,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Groupon">
-    insert into cskaoyan_mall_groupon (id, order_id, groupon_id, 
-      rules_id, user_id, creator_user_id, 
-      add_time, update_time, share_url, 
+    insert into cskaoyan_mall_groupon (id, order_id, groupon_id,
+      rules_id, user_id, creator_user_id,
+      add_time, update_time, share_url,
       payed, deleted)
-    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{grouponId,jdbcType=INTEGER}, 
-      #{rulesId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{creatorUserId,jdbcType=INTEGER}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{shareUrl,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{grouponId,jdbcType=INTEGER},
+      #{rulesId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{creatorUserId,jdbcType=INTEGER},
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{shareUrl,jdbcType=VARCHAR},
       #{payed,jdbcType=BIT}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.cskaoyan.mall.bean.Groupon">
@@ -303,4 +303,82 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <insert id="insertGrouponData">
+  <selectKey resultType="int" keyProperty="groupon.id" keyColumn="idz" order="AFTER">
+    select last_insert_id() as idz
+  </selectKey>
+  insert into cskaoyan_mall_groupon
+  <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="id != null">
+      id,
+    </if>
+    <if test="orderId != null">
+      order_id,
+    </if>
+    <if test="grouponId != null">
+      groupon_id,
+    </if>
+    <if test="rulesId != null">
+      rules_id,
+    </if>
+    <if test="userId != null">
+      user_id,
+    </if>
+    <if test="creatorUserId != null">
+      creator_user_id,
+    </if>
+    <if test="addTime != null">
+      add_time,
+    </if>
+    <if test="updateTime != null">
+      update_time,
+    </if>
+    <if test="shareUrl != null">
+      share_url,
+    </if>
+    <if test="payed != null">
+      payed,
+    </if>
+    <if test="deleted != null">
+      deleted,
+    </if>
+  </trim>
+  <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="id != null">
+      #{id,jdbcType=INTEGER},
+    </if>
+    <if test="orderId != null">
+      #{orderId,jdbcType=INTEGER},
+    </if>
+    <if test="grouponId != null">
+      #{grouponId,jdbcType=INTEGER},
+    </if>
+    <if test="rulesId != null">
+      #{rulesId,jdbcType=INTEGER},
+    </if>
+    <if test="userId != null">
+      #{userId,jdbcType=INTEGER},
+    </if>
+    <if test="creatorUserId != null">
+      #{creatorUserId,jdbcType=INTEGER},
+    </if>
+    <if test="addTime != null">
+      #{addTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="updateTime != null">
+      #{updateTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="shareUrl != null">
+      #{shareUrl,jdbcType=VARCHAR},
+    </if>
+    <if test="payed != null">
+      #{payed,jdbcType=BIT},
+    </if>
+    <if test="deleted != null">
+      #{deleted,jdbcType=BIT},
+    </if>
+  </trim>
+  </insert>
 </mapper>
