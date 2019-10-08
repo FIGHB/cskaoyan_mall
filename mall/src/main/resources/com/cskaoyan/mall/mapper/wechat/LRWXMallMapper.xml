@@ -41,8 +41,8 @@
     </select>
 
     <select id="queryCommentStatusByOrderId" resultType="int">
-        select `comment` from cskaoyan_mall_order_goods
-        where order_id = #{orderId} and deleted = false
+        select order_status from cskaoyan_mall_order
+        where id = #{orderId} and deleted = false
     </select>
 
     <select id="queryMyCouponListByStatus" resultType="com.cskaoyan.mall.bean.wechat.UserCouponBean">

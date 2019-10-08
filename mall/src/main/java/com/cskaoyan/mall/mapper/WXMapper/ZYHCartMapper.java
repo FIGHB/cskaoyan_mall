@@ -16,4 +16,5 @@ public interface ZYHCartMapper {
 
     void deleteCart(int productId);
 
+    void confirm(int orderId);
 }

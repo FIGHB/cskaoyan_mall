@@ -95,11 +95,11 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         int uncomment = 0;
         for (Order order : orders) {
             int commentStatus = lrwxMallMapper.queryCommentStatusByOrderId(order.getId());
-            if(commentStatus == 0) {
+            if(commentStatus == 401) {
                 uncomment++;
             }
         }
-        map.put("uncomment", uncomment);
+        map.put("uncomment", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 401).size());
         map.put("unpaid", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 101).size());
         map.put("unrecv", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 301).size());
         map.put("unship", lrwxMallMapper.queryOrdersByUserAndStatus(userId, 201).size());
@@ -309,10 +309,10 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         for (Cart cart : carts) {
             if(cart.getChecked() == true) {
                 checkedGoodsCount++;
-                checkedGoodsAmount += cart.getPrice().floatValue();
+                checkedGoodsAmount += cart.getPrice().floatValue() * cart.getNumber();
             }
             goodsCount++;
-            goodsAmount += cart.getPrice().floatValue();
+            goodsAmount += cart.getPrice().floatValue() * cart.getNumber();
         }
         //checked 为 true的 总价
         cartTotal.setCheckedGoodsAmount(checkedGoodsAmount);
@@ -361,7 +361,7 @@ public class LRWXMallServiceImpl implements LRWXMallService {
             goodsProduct.setPicUrl(goodsProduct.getUrl());
             //设置返回的goodsList
             goodsList.add(getGoods(goodsProduct, order));
-            hashMap.put("handleOption", getHandleOption());
+            hashMap.put("handleOption", getHandleOption(showType));
             hashMap.put("goodsList", goodsList);
             hashMap.put("actualPrice", actualPrice);
             hashMap.put("id", order.getId());
@@ -391,10 +391,14 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         return map;
     }
 
-    private Object getHandleOption() {
+    private Object getHandleOption(int showType) {
         HashMap<Object, Object> map = new HashMap<>();
+        if(showType == 4) {
+            map.put("comment", true);
+        } else {
+            map.put("comment", false);
+        }
         map.put("cancel", true);
-        map.put("comment", false);
         map.put("confirm", false);
         map.put("delete", false);
         map.put("pay", true);
