@@ -6,6 +6,7 @@ import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CWOrderDetail;
 import com.cskaoyan.mall.vo.ChenWuWx.CWSubmit;
 import com.cskaoyan.mall.vo.ChenWuWx.OrderInfo;
+import com.cskaoyan.mall.vo.ConfirmBean;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,11 @@ public class CHOrderController {
     OrderService orderService;
     @PostMapping("submit")
     public BaseRespVo<Integer> submit(@RequestBody CWSubmit cwSubmit) {
-        Subject subject = SecurityUtils.getSubject();//shiro
+        orderService.insertOrder();
+        ConfirmBean confirmBean = new ConfirmBean();
+        confirmBean.setOrderId(7);
+        return BaseRespVo.ok(confirmBean);
+        /*Subject subject = SecurityUtils.getSubject();//shiro
         String username = (String) subject.getPrincipal();
         //根据username拿到id再去查表,先把货物goods插入order_goods之后再查
         int useId = cartService.queryIdByName(username);
@@ -39,7 +44,7 @@ public class CHOrderController {
         integerBaseRespVo.setErrno(0);
         integerBaseRespVo.setErrmsg("成功");
         integerBaseRespVo.setData(orderId);
-        return integerBaseRespVo;
+        return integerBaseRespVo;*/
     }
 
 

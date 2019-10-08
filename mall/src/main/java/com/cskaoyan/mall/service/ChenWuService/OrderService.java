@@ -30,4 +30,6 @@ public interface OrderService {
     OrderInfo queryOrderInfo(Integer orderId);
 
     int updateOrderPrepay(Integer orderId);
+
+    void insertOrder();
 }

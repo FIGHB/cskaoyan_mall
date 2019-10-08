@@ -366,5 +366,11 @@ public class OrderServiceImpl implements OrderService{
         return i;
     }
 
+    @Override
+    public void insertOrder() {
+        orderMapper.insertOrder();
+        orderMapper.insertOrderGoods();
+    }
+
 
 }
