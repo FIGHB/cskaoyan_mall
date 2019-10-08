@@ -68,10 +68,10 @@ cskaoyan-mall
   UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息 (李锐 未找到)
 
   //赵亚云
-  AddressList: WxApiRoot + 'address/list', //收货地址列表			done	
-  AddressDetail: WxApiRoot + 'address/detail', //收货地址详情		done
-  AddressSave: WxApiRoot + 'address/save', //保存收货地址 done
-  AddressDelete: WxApiRoot + 'address/delete', //保存收货地址 done 
+  AddressList: WxApiRoot + 'address/list', //收货地址列表		（赵亚云 done）
+  AddressDetail: WxApiRoot + 'address/detail', //收货地址详情		（赵亚云 done）
+  AddressSave: WxApiRoot + 'address/save', //保存收货地址 （赵亚云 done）
+  AddressDelete: WxApiRoot + 'address/delete', //保存收货地址 （赵亚云 done）
 
   //陈武
   AuthLoginByWeixin：WxApiRoot +'auth / login_by_weixin'，//微信登錄（陳武done）			
