@@ -102,7 +102,7 @@ cskaoyan-mall
   OrderDelete: WxApiRoot + 'order/delete', //删除订单（赵亚云 正在做）
   OrderConfirm: WxApiRoot + 'order/confirm', //确认收货
   OrderGoods: WxApiRoot + 'order/goods', // 代评价商品信息
-  OrderComment: WxApiRoot + 'order/comment', // 评价订单商品信息(王小凤 doing)
+  OrderComment: WxApiRoot + 'order/comment', // 评价订单商品信息(找不到)
 
 
   FeedbackAdd: WxApiRoot + 'feedback/submit', //添加反馈   （国旭 done）
