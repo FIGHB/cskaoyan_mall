@@ -112,7 +112,7 @@ cskaoyan-mall
 
   GroupOnList: WxApiRoot + 'groupon/list', //团购列表 （周榆淮 done）
   GroupOn: WxApiRoot + 'groupon/query', //团购API-查询 （找不到）
-  GroupOnMy: WxApiRoot + 'groupon/my', //团购API-我的团购
+  GroupOnMy: WxApiRoot + 'groupon/my', //团购API-我的团购 （周榆淮 done）
   GroupOnDetail: WxApiRoot + 'groupon/detail', //团购API-详情  （国旭  done）
   GroupOnJoin: WxApiRoot + 'groupon/join', //团购API-详情 （找不到）
 
