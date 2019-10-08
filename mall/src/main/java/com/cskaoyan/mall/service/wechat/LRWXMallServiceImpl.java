@@ -9,6 +9,7 @@ import com.cskaoyan.mall.mapper.GoodsMapper;
 import com.cskaoyan.mall.mapper.KeywordMapper;
 import com.cskaoyan.mall.mapper.wechat.LRWXMallMapper;
 import com.cskaoyan.mall.vo.ChenWuWx.CartTotal;
+import com.cskaoyan.mall.vo.steve.GoodsCountVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,11 @@ public class LRWXMallServiceImpl implements LRWXMallService {
     }
 
     @Override
-    public Integer queryGoodsCount() {
-        return lrwxMallMapper.queryGoodsCount();
+    public GoodsCountVo queryGoodsCount() {
+        GoodsCountVo goodsCountVo = new GoodsCountVo();
+         long count = lrwxMallMapper.queryGoodsCount();
+         goodsCountVo.setGoodsCount(count);
+        return goodsCountVo;
     }
 
     @Override
