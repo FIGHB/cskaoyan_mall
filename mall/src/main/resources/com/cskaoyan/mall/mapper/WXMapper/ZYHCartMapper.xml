@@ -10,7 +10,19 @@
     select id, user_id as userId, goods_id as goodsId, goods_sn as goodsSn, goods_name as goodsName, product_id as productId,
     price, number, specifications,checked, pic_url as picUrl, add_time as addTime, update_time as updateTime, deleted
     from cskaoyan_mall_cart
-    where user_id = #{userId}
+    where user_id = #{userId} and deleted = false
   </select>
+
+  <update id="updateCart">
+    update cskaoyan_mall_cart
+    set number = #{number}
+    where id = #{id}
+  </update>
+
+  <update id="deleteCart">
+    update cskaoyan_mall_cart
+    set deleted = true
+    where product_id = #{productId}
+  </update>
 
 </mapper>

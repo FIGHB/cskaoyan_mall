@@ -62,4 +62,40 @@ public class ZYHCartServiceImpl implements ZYHCartService {
         cartCheckedVO.setCartTotal(cartTotal);
         return cartCheckedVO;
     }
+
+    @Override
+    public void updateCart(int id, int number) {
+        cartMapper.updateCart(id,number);
+    }
+
+    @Override
+    public CartCheckedVO deleteCart(CartCheckedBean checkedBean, String username) {
+        for (int productId : checkedBean.getProductIds()){
+            cartMapper.deleteCart(productId);
+        }
+        CartCheckedVO cartCheckedVO = new CartCheckedVO();
+        CartTotal cartTotal = new CartTotal();
+        int userId = grouponListMapper.queryUserIdByName(username);
+        List<Cart> cartList = cartMapper.queryCartListByUserId(userId);
+        cartCheckedVO.setCartList(cartList);
+
+        float checkedGoodsAmount = 0;
+        int checkedGoodsCount = 0;
+        float goodsAmount = 0;
+        int goodsCount = 0;
+        for (Cart cart : cartList){
+            goodsCount += cart.getNumber();
+            goodsAmount += cart.getNumber() * cart.getPrice().floatValue();
+            if (cart.getChecked() == true){
+                checkedGoodsCount += cart.getNumber();
+                checkedGoodsAmount += cart.getNumber() * cart.getPrice().floatValue();
+            }
+        }
+        cartTotal.setGoodsCount(goodsCount);
+        cartTotal.setGoodsAmount(goodsAmount);
+        cartTotal.setCheckedGoodsAmount(checkedGoodsAmount);
+        cartTotal.setCheckedGoodsCount(checkedGoodsCount);
+        cartCheckedVO.setCartTotal(cartTotal);
+        return cartCheckedVO;
+    }
 }

@@ -12,4 +12,8 @@ public interface ZYHCartMapper {
 
     List<Cart> queryCartListByUserId(int userId);
 
+    void updateCart(@Param("id") int id, @Param("number") int number);
+
+    void deleteCart(int productId);
+
 }
