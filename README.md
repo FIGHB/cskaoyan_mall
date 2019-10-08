@@ -86,9 +86,9 @@ cskaoyan-mall
   CartList: WxApiRoot + 'cart/index', //获取购物车的数据	（陈武done）(国旭 help)
   CartAdd: WxApiRoot + 'cart/add', // 添加商品到购物车（陈武done）(国旭 help)
   CartFastAdd: WxApiRoot + 'cart/fastadd', // 立即购买商品（陈武done）(李锐 help)
-  CartUpdate: WxApiRoot + 'cart/update', // 更新购物车的商品（陈武done）
-  CartDelete: WxApiRoot + 'cart/delete', // 删除购物车的商品（陈武done）
-  CartChecked: WxApiRoot + 'cart/checked', // 选择或取消选择商品	（陈武done）
+  CartUpdate: WxApiRoot + 'cart/update', // 更新购物车的商品（陈武done）(渝怀 help)
+  CartDelete: WxApiRoot + 'cart/delete', // 删除购物车的商品（陈武done）(渝怀 help)
+  CartChecked: WxApiRoot + 'cart/checked', // 选择或取消选择商品	（陈武done）(渝怀 help)
   CartGoodsCount: WxApiRoot + 'cart/goodscount', // 获取购物车商品件数（陈武done）(李锐 help)
   CartCheckout: WxApiRoot + 'cart/checkout', // 下单前信息确认(陈武done)(李锐 help)
   
