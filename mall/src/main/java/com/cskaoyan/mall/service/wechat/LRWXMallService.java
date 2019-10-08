@@ -2,6 +2,7 @@ package com.cskaoyan.mall.service.wechat;
 
 
 import com.cskaoyan.mall.bean.Cart;
+import com.cskaoyan.mall.vo.steve.GoodsCountVo;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
 public interface LRWXMallService {
     Map queryCatalogIndex();
 
-    Integer queryGoodsCount();
+    GoodsCountVo queryGoodsCount();
 
     Map querySearchIndex(String username);
 

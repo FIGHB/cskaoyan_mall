@@ -37,6 +37,7 @@ public class LRWXMallController {
      */
     @RequestMapping("/goods/count")
     public BaseRespVo queryGoodsCount() {
+
         return BaseRespVo.ok(lrwxMallService.queryGoodsCount());
     }
 
