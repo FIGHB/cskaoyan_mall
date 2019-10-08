@@ -3,6 +3,7 @@ package com.cskaoyan.mall.service;
 import com.cskaoyan.mall.bean.Coupon;
 import com.cskaoyan.mall.bean.CouponUser;
 import com.cskaoyan.mall.mapper.CouponMapper;
+import com.cskaoyan.mall.mapper.CouponUserMapper;
 import com.cskaoyan.mall.mapper.WXMapper.WxfUserMapper;
 import com.cskaoyan.mall.mapper.selfmapper.WxfCouponMapper;
 import com.cskaoyan.mall.mapper.selfmapper.WxfCouponUserMapper;
@@ -28,7 +29,8 @@ public class CouponServiceImpl implements CouponService {
     WxfCouponUserMapper wxfCouponUserMapper;
     @Autowired
     WxfUserMapper wxfUserMapper;
-
+    @Autowired
+    CouponUserMapper couponUserMapper;
     @Override
     public BaseRespVo queryCouponByCondition(int page, int limit, Coupon coupon) {
         PageHelper.startPage(page,limit);
@@ -39,7 +41,11 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public BaseRespVo delete(Coupon coupon) {
-        couponMapper.deleteByPrimaryKey(coupon.getId());
+        Coupon coupon1 = new Coupon();
+        coupon1.setId(coupon.getId());
+        coupon1.setDeleted(true);
+        //couponMapper.deleteByPrimaryKey(coupon.getId());
+        couponMapper.updateByPrimaryKeySelective(coupon1);
         return BaseRespVo.ok(null);
     }
 
@@ -110,12 +116,12 @@ public class CouponServiceImpl implements CouponService {
     @Override
     public BaseRespVo exchange(Coupon coupon,String username) {
         int i = wxfCouponMapper.queryCodeTotal(coupon.getCode());//查询优惠是否存在
-        if(i==1){
+        if(i!=0){
             Coupon couponResp = wxfCouponMapper.queryCouponByCode(coupon.getCode());
             Short limit = couponResp.getLimit();
             int userId = wxfUserMapper.queryUserId(username);
             CouponUser couponUser = new CouponUser();
-            couponUser.setCouponId(coupon.getId());
+            couponUser.setCouponId(couponResp.getId());
             couponUser.setUserId(userId);
             CouponUser[] couponUsers = wxfCouponUserMapper.queryCouponUserByCondition(couponUser);
             if(couponUsers.length<limit){
@@ -124,7 +130,7 @@ public class CouponServiceImpl implements CouponService {
                 couponUser.setUpdateTime(date);
                 couponUser.setStartTime(couponResp.getStartTime());
                 couponUser.setEndTime(couponResp.getEndTime());
-                
+                couponUserMapper.insertSelective(couponUser);
                 //插入数据到cakaoyan_mall_coupon_user
             }else {
                 return BaseRespVo.fail(741,"超出限领数量");

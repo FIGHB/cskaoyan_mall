@@ -42,7 +42,7 @@
      from cskaoyan_mall_coupon
   </select>
   <sql id="queryConditions">
-    where 1=1
+    where deleted = 'false'
     <trim>
       <if test="name != null or name !=''">
         and name like '%${name}%'

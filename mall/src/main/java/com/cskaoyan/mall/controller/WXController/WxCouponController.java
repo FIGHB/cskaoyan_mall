@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Base64;
 
 @RestController
-public class CouponController {
+public class WxCouponController {
 
     @Autowired
     CouponService couponService;
