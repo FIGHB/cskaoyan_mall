@@ -40,7 +40,7 @@ cskaoyan-mall
   GoodsList: WxApiRoot + 'goods/list', //获得商品列表(杨磊 done)
   GoodsCategory: WxApiRoot + 'goods/category', //获得分类数据 (杨磊 done)		 				
   GoodsDetail: WxApiRoot + 'goods/detail', //获得商品的详情(杨磊 done)
-  GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）(杨磊 done 未测试)
+  GoodsRelated: WxApiRoot + 'goods/related', //商品详情页的关联商品（大家都在看）(杨磊 done)
 
   //王小凤
   CollectList: WxApiRoot + 'collect/list', //收藏列表(done)			 
@@ -83,14 +83,14 @@ cskaoyan-mall
   AuthBindPhone: WxApiRoot + 'auth/bindPhone', //绑定微信手机号（陈武doing）
 
 
-  CartList: WxApiRoot + 'cart/index', //获取购物车的数据	（陈武done）						
-  CartAdd: WxApiRoot + 'cart/add', // 添加商品到购物车（陈武done）
-  CartFastAdd: WxApiRoot + 'cart/fastadd', // 立即购买商品（陈武done）
-  CartUpdate: WxApiRoot + 'cart/update', // 更新购物车的商品（陈武done）
-  CartDelete: WxApiRoot + 'cart/delete', // 删除购物车的商品（陈武done）
-  CartChecked: WxApiRoot + 'cart/checked', // 选择或取消选择商品	（陈武done）		
-  CartGoodsCount: WxApiRoot + 'cart/goodscount', // 获取购物车商品件数（陈武done）
-  CartCheckout: WxApiRoot + 'cart/checkout', // 下单前信息确认(陈武done)
+  CartList: WxApiRoot + 'cart/index', //获取购物车的数据	（陈武done）(国旭 help)
+  CartAdd: WxApiRoot + 'cart/add', // 添加商品到购物车（陈武done）(国旭 help)
+  CartFastAdd: WxApiRoot + 'cart/fastadd', // 立即购买商品（陈武done）(李锐 help)
+  CartUpdate: WxApiRoot + 'cart/update', // 更新购物车的商品（陈武done）(渝怀 help)
+  CartDelete: WxApiRoot + 'cart/delete', // 删除购物车的商品（陈武done）(渝怀 help)
+  CartChecked: WxApiRoot + 'cart/checked', // 选择或取消选择商品	（陈武done）(渝怀 help)
+  CartGoodsCount: WxApiRoot + 'cart/goodscount', // 获取购物车商品件数（陈武done）(李锐 help)
+  CartCheckout: WxApiRoot + 'cart/checkout', // 下单前信息确认(陈武done)(李锐 help)
   
   
   OrderSubmit: WxApiRoot + 'order/submit', // 提交订单（陈武done）				
@@ -112,7 +112,7 @@ cskaoyan-mall
 
   GroupOnList: WxApiRoot + 'groupon/list', //团购列表 （周榆淮 done）
   GroupOn: WxApiRoot + 'groupon/query', //团购API-查询 （找不到）
-  GroupOnMy: WxApiRoot + 'groupon/my', //团购API-我的团购
+  GroupOnMy: WxApiRoot + 'groupon/my', //团购API-我的团购 （周榆淮 done）
   GroupOnDetail: WxApiRoot + 'groupon/detail', //团购API-详情  （国旭  done）
   GroupOnJoin: WxApiRoot + 'groupon/join', //团购API-详情 （找不到）
 
