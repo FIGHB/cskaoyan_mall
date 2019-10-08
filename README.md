@@ -99,7 +99,7 @@ cskaoyan-mall
   OrderDetail: WxApiRoot + 'order/detail', //订单详情 （陈武）
   OrderCancel: WxApiRoot + 'order/cancel', //取消订单  (国旭 doing)
   OrderRefund: WxApiRoot + 'order/refund', //退款取消订单 （王小凤）
-  OrderDelete: WxApiRoot + 'order/delete', //删除订单（赵亚云 正在做）
+  OrderDelete: WxApiRoot + 'order/delete', //删除订单（赵亚云 done）
   OrderConfirm: WxApiRoot + 'order/confirm', //确认收货  （渝怀）
   OrderGoods: WxApiRoot + 'order/goods', // 代评价商品信息 （磊哥）
   OrderComment: WxApiRoot + 'order/comment', // 评价订单商品信息(找不到)
