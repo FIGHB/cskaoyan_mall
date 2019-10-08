@@ -205,51 +205,79 @@ public class LRWXMallServiceImpl implements LRWXMallService {
     @Override
     public Map checkoutCart(int userId, Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId) {
         HashMap<Object, Object> map = new HashMap<>();
-        List<Object> array = new ArrayList<>();
+        //存放商品列表
+        List<Object> goodsList = new ArrayList<>();
+        //存放可用优惠券列表
+        //总价
         float totalPrice = 0;
+        //优惠后的实际价格
+        float actualPrice = 0;
+        //可用优惠券数量
+        int availableCouponLength = 0;
+        //邮费
+        float freightPrice = 0;
+        //减免金额
+        float couponPrice = 0;
+        //计算总价
         if(cartId != 0) {
             Cart cart = lrwxMallMapper.queryCartById(cartId);
             GoodsProduct goodsProduct = lrwxMallMapper.queryGoodsProductById(Integer.parseInt(cart.getGoodsSn()));
             totalPrice = goodsProduct.getPrice().floatValue();
-            if(totalPrice > 80) {
-                map.put("freightPrice", 0);
-                map.put("actualPrice", goodsProduct.getPrice().floatValue() - 20);
-            } else {
-                map.put("freightPrice", 10);
-                map.put("actualPrice", goodsProduct.getPrice().floatValue() - 30);
-            }
-            map.put("orderTotalPrice", goodsProduct.getPrice());
-            map.put("goodsTotalPrice", goodsProduct.getPrice());
-            map.put("couponPrice", goodsProduct.getPrice());
-            array.add(cart);
+            goodsList.add(cart);
         } else {
             List<Cart> carts = lrwxMallMapper.queryCartByUserId(userId);
             CartTotal cartTotal = getCartTotal(carts);
-            array.addAll(carts);
+            goodsList.addAll(carts);
             totalPrice = cartTotal.getCheckedGoodsAmount();
-            if(totalPrice > 80) {
-                map.put("freightPrice", 0);
-                map.put("actualPrice", cartTotal.getCheckedGoodsAmount() - 20);
-            } else {
-                map.put("freightPrice", 10);
-                map.put("actualPrice", cartTotal.getCheckedGoodsAmount() - 30);
-            }
-            map.put("orderTotalPrice", cartTotal.getCheckedGoodsAmount());
-            map.put("couponPrice", 20);
-            map.put("goodsTotalPrice", cartTotal.getCheckedGoodsAmount());
         }
+
+        //计算邮费 大于80免邮
+        if(totalPrice > 80) {
+            freightPrice = 0;
+        } else {
+            freightPrice = 10;
+        }
+
+        //计算优惠价格
+        /*未作*/
+        if(couponId == 0) {
+            couponPrice = 10;
+        } else {
+            Coupon coupon = lrwxMallMapper.queryCouponById(couponId);
+            couponPrice = coupon.getDiscount().floatValue();
+            /*根据优惠券id计算优惠价格*/
+        }
+
+        //实际价格 = 总价 - 优惠价格 + 邮费
+        actualPrice = totalPrice - couponPrice + freightPrice;
+
+        //查询可用的优惠券数量
+        List<UserCouponBean> userCouponBeans = lrwxMallMapper.queryMyCouponListByStatus(userId, 0);
+        for (UserCouponBean userCouponBean : userCouponBeans) {
+            if(userCouponBean.getMin() < totalPrice) {
+                availableCouponLength++;
+            }
+        }
+
+/************************************************************************************************/
+        //map.put("couponId", couponId);
+        map.put("couponId", 1);
+        map.put("couponPrice", couponPrice);
+        map.put("availableCouponLength", availableCouponLength);
+        map.put("actualPrice", actualPrice);
+        map.put("freightPrice", freightPrice);
+        map.put("orderTotalPrice", totalPrice);
+        map.put("goodsTotalPrice", totalPrice);map.put("availableCouponLength", 0);
+        map.put("checkedGoodsList", goodsList);
         map.put("grouponPrice", 0);
         map.put("grouponRulesId", 0);
+        map.put("addressId", addressId);
         //如果 addressId为 0 则查询默认地址，反之根据id 查询地址
         if(addressId == 0) {
             map.put("checkedAddress", lrwxMallMapper.queryDefaultAddressByUserId(userId));
         } else {
             map.put("checkedAddress", lrwxMallMapper.queryAddressByAddressId(addressId));
         }
-        map.put("availableCouponLength", 0);
-        map.put("couponId", couponId);
-        map.put("checkedGoodsList", array);
-        map.put("addressId", addressId);
         return map;
     }
 
