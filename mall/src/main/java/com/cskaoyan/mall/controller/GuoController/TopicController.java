@@ -4,10 +4,7 @@ import com.cskaoyan.mall.bean.Feedback;
 import com.cskaoyan.mall.bean.Footprint;
 import com.cskaoyan.mall.bean.Region;
 import com.cskaoyan.mall.bean.Topic;
-import com.cskaoyan.mall.service.GuoService.GuoFeedbackService;
-import com.cskaoyan.mall.service.GuoService.GuoFootprintService;
-import com.cskaoyan.mall.service.GuoService.GuoGroupService;
-import com.cskaoyan.mall.service.GuoService.GuoTopicService;
+import com.cskaoyan.mall.service.GuoService.*;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.GuoVo.*;
 import com.github.pagehelper.PageHelper;
@@ -34,6 +31,8 @@ public class TopicController {
     GuoFootprintService guoFootprintService;
     @Autowired
     GuoGroupService guoGroupService;
+    @Autowired
+    GuoOrderService guoOrderService;
 
     @RequestMapping("/topic/list")
     @ResponseBody
@@ -75,18 +74,14 @@ public class TopicController {
 
         guoFeedbackService.feedbackByUsername(username,feedback);
 
-        BaseRespVo baseRespVo = new BaseRespVo();
-        baseRespVo.setData(null);
-        baseRespVo.setErrmsg("");
-        baseRespVo.setErrno(0);
-        return baseRespVo;
+        return nullDataBaseRespVo();
     }
     @RequestMapping("/footprint/list")
     @ResponseBody
     public BaseRespVo footprintShow(Integer page, Integer size){
         PageHelper.startPage(page,size);
         List<Footprint> footprintList=guoFootprintService.getFootprintList();
-        FootprintShow footprintShow = itemsListF(footprintList);
+        FootprintShow footprintShow = itemsListF(footprintList,size);
         List<FootprintDetail> footprintDetailList=guoFootprintService.getFootprintDetailList(footprintList);
         footprintShow.setFootprintList(footprintDetailList);
         BaseRespVo ok = BaseRespVo.ok(footprintShow);
@@ -99,6 +94,19 @@ public class TopicController {
         BaseRespVo ok = BaseRespVo.ok(groupDetailList);
         return ok;
     }
+    @RequestMapping("/order/cancel")
+    @ResponseBody
+    public BaseRespVo CancelOrderById(Integer orderId){
+        guoOrderService.cancelOrderById(orderId);
+        return nullDataBaseRespVo();
+    }
+    public static BaseRespVo nullDataBaseRespVo(){
+        BaseRespVo baseRespVo = new BaseRespVo();
+        baseRespVo.setData(null);
+        baseRespVo.setErrmsg("");
+        baseRespVo.setErrno(0);
+        return baseRespVo;
+    }
 
     public static GuoTopicShow itemsList(List<Topic> list){
         PageInfo<Topic> pageInfo=new PageInfo<>(list);
@@ -108,11 +116,16 @@ public class TopicController {
         guoTopicShow.setCount(total);
         return guoTopicShow;
     }
-    public static FootprintShow itemsListF(List<Footprint> list){
+    public static FootprintShow itemsListF(List<Footprint> list, int size){
         PageInfo<Footprint> pageInfo=new PageInfo<>(list);
         long total = pageInfo.getTotal();
         FootprintShow guoTopicShow=new FootprintShow();
-        guoTopicShow.setTotalPages(total);
+        if(total%size==0){
+            guoTopicShow.setTotalPages(total/size);
+        }else {
+            guoTopicShow.setTotalPages(total/size+1);
+        }
         return guoTopicShow;
     }
+
 }
