@@ -9,6 +9,7 @@ import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.GuoVo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,10 +97,12 @@ public class TopicController {
     }
     @RequestMapping("/order/cancel")
     @ResponseBody
-    public BaseRespVo CancelOrderById(Integer orderId){
-        guoOrderService.cancelOrderById(orderId);
+    public BaseRespVo CancelOrderById(@RequestBody CancelId cancelId ){
+        guoOrderService.cancelOrderById(cancelId.getOrderId());
         return nullDataBaseRespVo();
     }
+
+
     public static BaseRespVo nullDataBaseRespVo(){
         BaseRespVo baseRespVo = new BaseRespVo();
         baseRespVo.setData(null);
