@@ -55,7 +55,7 @@ cskaoyan-mall
   TopicDetail: WxApiRoot + 'topic/detail', //专题详情   （国旭 done）
   TopicRelated: WxApiRoot + 'topic/related', //相关专题	 （国旭 done）	
   
-  ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 未找到）
+  ExpressQuery: WxApiRoot + 'express/query', //物流查询  （国旭 done）
 
   RegionList: WxApiRoot + 'region/list', //获取区域列表   （国旭 done）
 
@@ -68,10 +68,10 @@ cskaoyan-mall
   UserFormIdCreate: WxApiRoot + 'formid/create', //用户FromId，用于发送模版消息 (李锐 未找到)
 
   //赵亚云
-  AddressList: WxApiRoot + 'address/list', //收货地址列表			done	
-  AddressDetail: WxApiRoot + 'address/detail', //收货地址详情		done
-  AddressSave: WxApiRoot + 'address/save', //保存收货地址 done
-  AddressDelete: WxApiRoot + 'address/delete', //保存收货地址 done 
+  AddressList: WxApiRoot + 'address/list', //收货地址列表		（赵亚云 done）
+  AddressDetail: WxApiRoot + 'address/detail', //收货地址详情		（赵亚云 done）
+  AddressSave: WxApiRoot + 'address/save', //保存收货地址 （赵亚云 done）
+  AddressDelete: WxApiRoot + 'address/delete', //保存收货地址 （赵亚云 done）
 
   //陈武
   AuthLoginByWeixin：WxApiRoot +'auth / login_by_weixin'，//微信登錄（陳武done）			
@@ -96,13 +96,13 @@ cskaoyan-mall
   OrderSubmit: WxApiRoot + 'order/submit', // 提交订单（陈武done）				
   OrderPrepay: WxApiRoot + 'order/prepay', // 订单的预支付会话（陈武done）
   OrderList: WxApiRoot + 'order/list', //订单列表（陈武doing）
-  OrderDetail: WxApiRoot + 'order/detail', //订单详情
-  OrderCancel: WxApiRoot + 'order/cancel', //取消订单
+  OrderDetail: WxApiRoot + 'order/detail', //订单详情ing
+  OrderCancel: WxApiRoot + 'order/cancel', //取消订单  (国旭 doing)
   OrderRefund: WxApiRoot + 'order/refund', //退款取消订单
-  OrderDelete: WxApiRoot + 'order/delete', //删除订单
+  OrderDelete: WxApiRoot + 'order/delete', //删除订单（赵亚云 正在做）
   OrderConfirm: WxApiRoot + 'order/confirm', //确认收货
   OrderGoods: WxApiRoot + 'order/goods', // 代评价商品信息
-  OrderComment: WxApiRoot + 'order/comment', // 评价订单商品信息
+  OrderComment: WxApiRoot + 'order/comment', // 评价订单商品信息(找不到)
 
 
   FeedbackAdd: WxApiRoot + 'feedback/submit', //添加反馈   （国旭 done）

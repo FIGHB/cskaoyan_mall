@@ -134,7 +134,7 @@ public class CartController {
         return integerBaseRespVo;
     }
 
-    @PostMapping("update")
+/*    @PostMapping("update")
     public BaseRespVo update(Integer goodsId, Integer id, short number, Integer productId) {
         //id是cart的id,这个方法主要执行对cart表的number的增加或减少操作(在库存允许范围内)
         BaseRespVo baseRespVo = new BaseRespVo();
@@ -160,7 +160,7 @@ public class CartController {
         cartTotalVoBaseRespVo.setErrno(0);
         cartTotalVoBaseRespVo.setData(cartTotalVo);
         return cartTotalVoBaseRespVo;
-    }
+    }*/
 
     /**
      * 老师的就只是返回这些，暂时不明白它要我执行什么操作
@@ -177,7 +177,7 @@ public class CartController {
         return BaseRespVo.ok("");
     }
 
-    @PostMapping("checked")
+/*    @PostMapping("checked")
     public BaseRespVo<CartTotalVo> checked(@RequestBody CWCheckVo cwCheckVo) {
         BaseRespVo<CartTotalVo> cartTotalVoBaseRespVo = new BaseRespVo<>();
         CartTotalVo cartTotalVo = new CartTotalVo();
@@ -191,7 +191,7 @@ public class CartController {
         cartTotalVoBaseRespVo.setData(cartTotalVo);
         return cartTotalVoBaseRespVo;
 
-    }
+    }*/
 
 //    @GetMapping("goodscount")
 //    public BaseRespVo goodscount() {
