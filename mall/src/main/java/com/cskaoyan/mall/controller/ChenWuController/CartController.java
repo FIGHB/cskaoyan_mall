@@ -97,8 +97,8 @@ public class CartController {
      * 立即插入一条数据到cart表再在操作之后将它的对应列名delete的值设为1（逻辑删除）从而导致它在购物车模块下不可选。
      * 这的number可用于order。
      *在立即购买firstadd中传的请求参数可以用来获取商品goods的信息以便处理之后
-     * 插入order表（如零售价格乘以number之后就是订单表中所需的商品总价格）以及在product中减少对应的库存。还要执行的
-     * 一个操作是将当前的商品添加到cart表中之后delete设为-1.
+     *      * 插入order表（如零售价格乘以number之后就是订单表中所需的商品总价格）以及在product中减少对应的库存。还要执行的
+     *      * 一个操作是将当前的商品添加到cart表中之后delete设为-1.
      */
 //    @PostMapping("fastadd")
     public BaseRespVo<Integer> fastadd(Integer goodsId, short number, Integer productId) {
