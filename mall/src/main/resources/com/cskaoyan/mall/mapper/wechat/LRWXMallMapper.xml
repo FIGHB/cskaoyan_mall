@@ -69,8 +69,9 @@
     </select>
 
     <select id="queryGoodsProductById" resultType="com.cskaoyan.mall.bean.GoodsProduct">
-        select specifications, `price`, `url`
+        select id, goods_id goodsId, specifications, `price`, `number`, `url`, add_time addTime, update_time updateTime
         from cskaoyan_mall_goods_product where goods_id = #{goodsId} and deleted = false
+        limit 0, 1
     </select>
 
     <insert id="insertCart">
@@ -128,4 +129,74 @@
         select * from cskaoyan_mall_cart where user_id = #{userId} and deleted = false
     </select>
 
+    <select id="queryOrdersByUser" resultMap="orderMap">
+        select * from cskaoyan_mall_order where user_id = #{userId} and deleted = false
+    </select>
+
+    <resultMap id="orderMap" type="com.cskaoyan.mall.bean.Order">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="order_sn" property="orderSn"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="consignee" property="consignee"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="message" property="message"/>
+        <result column="goods_price" property="goodsPrice"/>
+        <result column="freight_price" property="freightPrice"/>
+        <result column="coupon_price" property="couponPrice"/>
+        <result column="integral_price" property="integralPrice"/>
+        <result column="groupon_price" property="grouponPrice"/>
+        <result column="order_price" property="orderPrice"/>
+        <result column="actual_price" property="actualPrice"/>
+        <result column="pay_id" property="payId"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="ship_sn" property="ship_sn"/>
+        <result column="ship_channel" property="ship_channel"/>
+        <result column="ship_time" property="shipTime"/>
+        <result column="confirm_time" property="confirmTime"/>
+        <result column="comments" property="comments"/>
+        <result column="end_time" property="endTime"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <select id="queryLiOrdersByUser" resultMap="liOrderMap">
+        select * from cskaoyan_mall_order where user_id = #{userId} and deleted = false
+    </select>
+
+    <select id="queryLiOrdersByUserAndStatus" resultMap="liOrderMap">
+        select * from cskaoyan_mall_order
+        where user_id = #{userId} and order_status = #{status} and deleted = false
+    </select>
+
+    <resultMap id="liOrderMap" type="com.cskaoyan.mall.bean.wechat.LiOrderBean">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="order_sn" property="orderSn"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="consignee" property="consignee"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="message" property="message"/>
+        <result column="goods_price" property="goodsPrice"/>
+        <result column="freight_price" property="freightPrice"/>
+        <result column="coupon_price" property="couponPrice"/>
+        <result column="integral_price" property="integralPrice"/>
+        <result column="groupon_price" property="grouponPrice"/>
+        <result column="order_price" property="orderPrice"/>
+        <result column="actual_price" property="actualPrice"/>
+        <result column="pay_id" property="payId"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="ship_sn" property="shipSn"/>
+        <result column="ship_channel" property="shipChannel"/>
+        <result column="ship_time" property="shipTime"/>
+        <result column="confirm_time" property="confirmTime"/>
+        <result column="comments" property="comments"/>
+        <result column="end_time" property="endTime"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
 </mapper>

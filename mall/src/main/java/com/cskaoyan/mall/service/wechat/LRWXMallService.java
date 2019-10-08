@@ -2,6 +2,7 @@ package com.cskaoyan.mall.service.wechat;
 
 
 import com.cskaoyan.mall.bean.Cart;
+import com.cskaoyan.mall.vo.BaseRespVo;
 
 import java.util.List;
 import java.util.Map;
@@ -51,4 +52,6 @@ public interface LRWXMallService {
     int queryCartId(int userId);
 
     Object getCartIndex(int userId);
+
+    Object getOrderList(int userId, int showType, int page, int size);
 }

@@ -2,6 +2,7 @@ package com.cskaoyan.mall.service.wechat;
 
 
 import com.cskaoyan.mall.bean.*;
+import com.cskaoyan.mall.bean.wechat.LiOrderBean;
 import com.cskaoyan.mall.bean.wechat.UserCouponBean;
 import com.cskaoyan.mall.mapper.CategoryMapper;
 import com.cskaoyan.mall.mapper.GoodsMapper;
@@ -318,5 +319,115 @@ public class LRWXMallServiceImpl implements LRWXMallService {
         //购物车所有物品的总数
         cartTotal.setGoodsCount(goodsCount);
         return cartTotal;
+    }
+
+    @Override
+    public Object getOrderList(int userId, int showType, int page, int size) {
+        HashMap<Object, Object> map = new HashMap<>();
+        long total = 0;
+        int totalPages = 0;
+        int count = 0;
+        int status = getStatusByshowType(showType);
+        //订单列表
+//        List<Order> orders = null;
+        List<LiOrderBean> orders = null;
+        //查询订单列表
+        if(status == 0) {
+            PageHelper.startPage(page, size);
+//            orders = lrwxMallMapper.queryOrdersByUser(userId);
+            orders = lrwxMallMapper.queryLiOrdersByUser(userId);
+            PageInfo<LiOrderBean> orderPageInfo = new PageInfo<>(orders);
+            total = orderPageInfo.getTotal();
+        } else {
+            PageHelper.startPage(page, size);
+//            orders = lrwxMallMapper.queryOrdersByUserAndStatus(userId, status);
+            orders = lrwxMallMapper.queryLiOrdersByUserAndStatus(userId, status);
+            PageInfo<LiOrderBean> orderPageInfo = new PageInfo<>(orders);
+            total = orderPageInfo.getTotal();
+        }
+        /**************************************************************/
+        //添加返回数据
+        List<Map<Object, Object>> data = new ArrayList();
+        for (LiOrderBean order : orders) {
+            HashMap<Object, Object> hashMap = new HashMap<>();
+            float actualPrice = 0;
+            actualPrice = order.getGoodsPrice().floatValue();
+            List<Map> goodsList = new ArrayList<>();
+            GoodsProduct goodsProduct = lrwxMallMapper.queryGoodsProductById(Integer.parseInt(order.getOrderSn()));
+            goodsProduct.setPicUrl(goodsProduct.getUrl());
+            //设置返回的goodsList
+            goodsList.add(getGoods(goodsProduct, order));
+            hashMap.put("handleOption", getHandleOption());
+            hashMap.put("goodsList", goodsList);
+            hashMap.put("actualPrice", actualPrice);
+            hashMap.put("id", order.getId());
+            hashMap.put("isGroupin", false);
+            hashMap.put("orderSn", order.getOrderSn());
+            String statusText = getStatusTextByShowType(showType);
+            hashMap.put("orderStatusText", statusText);
+            data.add(hashMap);
+
+        }
+
+        totalPages = (int) (total/size);
+        map.put("totalPages", totalPages);
+        map.put("count", total);
+        map.put("data", data);
+        return map;
+    }
+
+    private Map getGoods(GoodsProduct goodsProduct, LiOrderBean order) {
+        HashMap<Object, Object> map = new HashMap<>();
+        Goods goods = lrwxMallMapper.queryGoodsById(goodsProduct.getGoodsId());
+        OrderGoods orderGoods = lrwxMallMapper.getOrderGoodsByorderId(order.getId());
+        map.put("goodsName", goods.getName());
+        map.put("id", goodsProduct.getId());
+        map.put("number", orderGoods.getNumber());
+        map.put("picUrl", goods.getPicUrl());
+        return map;
+    }
+
+    private Object getHandleOption() {
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("cancel", true);
+        map.put("comment", false);
+        map.put("confirm", false);
+        map.put("delete", false);
+        map.put("pay", true);
+        map.put("rebuy", false);
+        map.put("refund", false);
+        return map;
+    }
+
+    private String getStatusTextByShowType(int showType) {
+        String statusText;
+        switch (showType) {
+            case 1: statusText = "未付款";
+                break;
+            case 2: statusText = "待发货";
+                break;
+            case 3: statusText = "待收货";
+                break;
+            case 4: statusText = "待评价";
+                break;
+            default:statusText = "其他";
+        }
+        return statusText;
+    }
+
+    private int getStatusByshowType(int showType) {
+        int status = 0;
+        switch (showType) {
+            case 1: status = 101;
+            break;
+            case 2: status = 201;
+                break;
+            case 3: status = 301;
+                break;
+            case 4: status = 401;
+                break;
+            default:status = 0;
+        }
+        return status;
     }
 }
