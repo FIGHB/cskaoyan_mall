@@ -42,7 +42,7 @@
      from cskaoyan_mall_coupon
   </select>
   <sql id="queryConditions">
-    where 1=1
+    where deleted = 'false'
     <trim>
       <if test="name != null or name !=''">
         and name like '%${name}%'
@@ -55,9 +55,22 @@
       </if>
     </trim>
   </sql>
+
+  <select id="queryCodeTotal" resultType="int">
+    select count(id) from cskaoyan_mall_coupon
+    where code = #{code}
+  </select>
+
   <select id="queryTotal" resultType="long">
     select count(id) from cskaoyan_mall_coupon
     <include refid="queryConditions"/>
+  </select>
+
+  <select id="queryCouponByCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from cskaoyan_mall_coupon
+    where code = #{code}
   </select>
 
   <select id="queryCouponByCondition" resultMap="BaseResultMap">

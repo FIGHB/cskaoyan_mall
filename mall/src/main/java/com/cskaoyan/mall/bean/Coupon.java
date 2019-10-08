@@ -2,6 +2,7 @@ package com.cskaoyan.mall.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
 import java.util.Date;
 

@@ -3,7 +3,7 @@ package com.cskaoyan.mall.bean.wxfbean;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Coupon {
+public class StringCoupon {
     private Integer id;
 
     private String name;
@@ -12,13 +12,13 @@ public class Coupon {
 
     private String tag;
 
-    private Integer total;
+    private String total;
 
-    private BigDecimal discount;
+    private String discount;
 
-    private BigDecimal min;
+    private String min;
 
-    private Short limit;
+    private String limit;
 
     private Short type;
 
@@ -32,7 +32,7 @@ public class Coupon {
 
     private Short timeType;
 
-    private Short days;
+    private String days;
 
     private Date startTime;
 
@@ -57,7 +57,7 @@ public class Coupon {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getDesc() {
@@ -65,7 +65,7 @@ public class Coupon {
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+        this.desc = desc;
     }
 
     public String getTag() {
@@ -73,38 +73,38 @@ public class Coupon {
     }
 
     public void setTag(String tag) {
-        this.tag = tag == null ? null : tag.trim();
+        this.tag = tag;
     }
 
-    public Integer getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 
-    public BigDecimal getDiscount() {
+    public String getDiscount() {
         return discount;
     }
 
-    public void setDiscount(BigDecimal discount) {
+    public void setDiscount(String discount) {
         this.discount = discount;
     }
 
-    public BigDecimal getMin() {
+    public String getMin() {
         return min;
     }
 
-    public void setMin(BigDecimal min) {
+    public void setMin(String min) {
         this.min = min;
     }
 
-    public Short getLimit() {
+    public String getLimit() {
         return limit;
     }
 
-    public void setLimit(Short limit) {
+    public void setLimit(String limit) {
         this.limit = limit;
     }
 
@@ -137,7 +137,7 @@ public class Coupon {
     }
 
     public void setGoodsValue(String goodsValue) {
-        this.goodsValue = goodsValue == null ? null : goodsValue.trim();
+        this.goodsValue = goodsValue;
     }
 
     public String getCode() {
@@ -145,7 +145,7 @@ public class Coupon {
     }
 
     public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
+        this.code = code;
     }
 
     public Short getTimeType() {
@@ -156,11 +156,11 @@ public class Coupon {
         this.timeType = timeType;
     }
 
-    public Short getDays() {
+    public String getDays() {
         return days;
     }
 
-    public void setDays(Short days) {
+    public void setDays(String days) {
         this.days = days;
     }
 

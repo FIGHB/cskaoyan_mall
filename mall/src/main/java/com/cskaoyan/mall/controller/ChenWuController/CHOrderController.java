@@ -1,7 +1,9 @@
 package com.cskaoyan.mall.controller.ChenWuController;
+import com.cskaoyan.mall.bean.Order;
 import com.cskaoyan.mall.bean.OrderGoods;
 import com.cskaoyan.mall.service.ChenWuService.CartService;
 import com.cskaoyan.mall.service.ChenWuService.OrderService;
+import com.cskaoyan.mall.service.WXService.WxfOrderService;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CWOrderDetail;
 import com.cskaoyan.mall.vo.ChenWuWx.CWSubmit;
@@ -21,6 +23,8 @@ public class CHOrderController {
     CartService cartService;
     @Autowired
     OrderService orderService;
+    @Autowired
+    WxfOrderService wxfOrderService;
     @PostMapping("submit")
     public BaseRespVo<Integer> submit(@RequestBody CWSubmit cwSubmit) {
         orderService.insertOrder();
@@ -102,5 +106,14 @@ public class CHOrderController {
        cwOrderDetail.setOrderInfo(orderInfo);
         BaseRespVo ok = BaseRespVo.ok(cwOrderDetail);
         return ok;
+    }
+
+    /**
+     * 王小凤
+     */
+    @RequestMapping("/refund")
+    public BaseRespVo refund(@RequestBody OrderGoods orderGoods){
+        BaseRespVo delete = wxfOrderService.delete(orderGoods);
+        return delete;
     }
 }

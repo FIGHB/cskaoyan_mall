@@ -1,6 +1,8 @@
 package com.cskaoyan.mall.service.ChenWuService;
 
+import com.cskaoyan.mall.bean.Order;
 import com.cskaoyan.mall.bean.OrderGoods;
+import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CWOrderDetail;
 import com.cskaoyan.mall.vo.ChenWuWx.CWOrderListVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CWSubmit;
@@ -31,5 +33,7 @@ public interface OrderService {
 
     int updateOrderPrepay(Integer orderId);
 
+
     void insertOrder();
+
 }

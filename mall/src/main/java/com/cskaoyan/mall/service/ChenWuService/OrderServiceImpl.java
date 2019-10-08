@@ -4,6 +4,7 @@ import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.System;
 import com.cskaoyan.mall.mapper.*;
 import com.cskaoyan.mall.utils.CWDateBean;
+import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.ChenWuWx.*;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
@@ -366,11 +367,11 @@ public class OrderServiceImpl implements OrderService{
         return i;
     }
 
+
     @Override
     public void insertOrder() {
         orderMapper.insertOrder();
         orderMapper.insertOrderGoods();
     }
-
-
+    
 }

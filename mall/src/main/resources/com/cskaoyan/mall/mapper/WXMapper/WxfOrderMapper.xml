@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mall.mapper.WXMapper.WxfOrderMapper">
+  <resultMap id="BaseResultMap" type="com.cskaoyan.mall.bean.OrderGoods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_sn" jdbcType="VARCHAR" property="goodsSn" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="number" jdbcType="SMALLINT" property="number" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="specifications" jdbcType="VARCHAR" property="specifications" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="comment" jdbcType="INTEGER" property="comment" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+
+  <delete id="deleteByOrderId">
+    update cskaoyan_mall_order_goods set deleted = 1 where order_id = #{orderId}
+  </delete>
+
+  <update id="deleteById">
+    update cskaoyan_mall_order set deleted = 1 where id = #{orderId}
+  </update>
+
+  <select id="queryproductId" resultType="int">
+    select product_id from cskaoyan_mall_order_goods where order_id = #{orderId}
+  </select>
+
+</mapper>

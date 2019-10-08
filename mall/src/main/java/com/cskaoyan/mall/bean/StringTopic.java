@@ -2,18 +2,17 @@ package com.cskaoyan.mall.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Topic {
+public class StringTopic {
     private Integer id;
 
     private String title;
 
     private String subtitle;
 
-    private BigDecimal price;
+    private String price;
 
     private String readCount;
 
@@ -46,7 +45,7 @@ public class Topic {
     }
 
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+        this.title = title;
     }
 
     public String getSubtitle() {
@@ -54,14 +53,14 @@ public class Topic {
     }
 
     public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle == null ? null : subtitle.trim();
+        this.subtitle = subtitle;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -70,7 +69,7 @@ public class Topic {
     }
 
     public void setReadCount(String readCount) {
-        this.readCount = readCount == null ? null : readCount.trim();
+        this.readCount = readCount;
     }
 
     public String getPicUrl() {
@@ -78,7 +77,7 @@ public class Topic {
     }
 
     public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl == null ? null : picUrl.trim();
+        this.picUrl = picUrl;
     }
 
     public Integer getSortOrder() {
@@ -126,6 +125,6 @@ public class Topic {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 }

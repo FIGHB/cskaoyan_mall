@@ -3,6 +3,8 @@ package com.cskaoyan.mall.service;
 import com.cskaoyan.mall.bean.Coupon;
 import com.cskaoyan.mall.bean.CouponUser;
 import com.cskaoyan.mall.mapper.CouponMapper;
+import com.cskaoyan.mall.mapper.CouponUserMapper;
+import com.cskaoyan.mall.mapper.WXMapper.WxfUserMapper;
 import com.cskaoyan.mall.mapper.selfmapper.WxfCouponMapper;
 import com.cskaoyan.mall.mapper.selfmapper.WxfCouponUserMapper;
 import com.cskaoyan.mall.vo.BaseRespVo;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Random;
 
 @Service
 public class CouponServiceImpl implements CouponService {
@@ -23,8 +27,10 @@ public class CouponServiceImpl implements CouponService {
 
     @Autowired
     WxfCouponUserMapper wxfCouponUserMapper;
-
-
+    @Autowired
+    WxfUserMapper wxfUserMapper;
+    @Autowired
+    CouponUserMapper couponUserMapper;
     @Override
     public BaseRespVo queryCouponByCondition(int page, int limit, Coupon coupon) {
         PageHelper.startPage(page,limit);
@@ -35,7 +41,11 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public BaseRespVo delete(Coupon coupon) {
-        couponMapper.deleteByPrimaryKey(coupon.getId());
+        Coupon coupon1 = new Coupon();
+        coupon1.setId(coupon.getId());
+        coupon1.setDeleted(true);
+        //couponMapper.deleteByPrimaryKey(coupon.getId());
+        couponMapper.updateByPrimaryKeySelective(coupon1);
         return BaseRespVo.ok(null);
     }
 
@@ -85,9 +95,49 @@ public class CouponServiceImpl implements CouponService {
         }else {
             return BaseRespVo.fail(500,"参数不对");
         }
+        if(coupon.getType()==2){
+            Random random = new Random();
+            while (true){
+                int i = random.nextInt(1000000);
+                String code=i+"";
+                int total = wxfCouponMapper.queryCodeTotal(code);
+                if(total==0){
+                    coupon.setCode(code);
+                    break;
+                }
+            }
 
+        }
         wxfCouponMapper.insertSelective(coupon);
         Coupon couponResp = wxfCouponMapper.selectLastInsert();
         return BaseRespVo.ok(couponResp);
+    }
+
+    @Override
+    public BaseRespVo exchange(Coupon coupon,String username) {
+        int i = wxfCouponMapper.queryCodeTotal(coupon.getCode());//查询优惠是否存在
+        if(i!=0){
+            Coupon couponResp = wxfCouponMapper.queryCouponByCode(coupon.getCode());
+            Short limit = couponResp.getLimit();
+            int userId = wxfUserMapper.queryUserId(username);
+            CouponUser couponUser = new CouponUser();
+            couponUser.setCouponId(couponResp.getId());
+            couponUser.setUserId(userId);
+            CouponUser[] couponUsers = wxfCouponUserMapper.queryCouponUserByCondition(couponUser);
+            if(couponUsers.length<limit){
+                Date date = new Date();
+                couponUser.setAddTime(date);
+                couponUser.setUpdateTime(date);
+                couponUser.setStartTime(couponResp.getStartTime());
+                couponUser.setEndTime(couponResp.getEndTime());
+                couponUserMapper.insertSelective(couponUser);
+                //插入数据到cakaoyan_mall_coupon_user
+            }else {
+                return BaseRespVo.fail(741,"超出限领数量");
+            }
+        }else {
+            return BaseRespVo.fail(741,"优惠券不存在");
+        }
+        return BaseRespVo.ok(null);
     }
 }
