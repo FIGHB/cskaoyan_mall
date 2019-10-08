@@ -165,6 +165,13 @@ public class LRWXMallController {
         return BaseRespVo.ok(lrwxMallService.getCartIndex(userId));
     }
 
+    @GetMapping("/order/list")
+    public BaseRespVo getOrderList(int showType, int page, int size) {
+        int userId = getUserIdBySecurityUtils();
+        Object data = lrwxMallService.getOrderList(userId, showType, page, size);
+        return BaseRespVo.ok(data);
+    }
+
     private int getUserIdBySecurityUtils() {
         String username = getUsernameByShiro();
         if(username == null) return -1;

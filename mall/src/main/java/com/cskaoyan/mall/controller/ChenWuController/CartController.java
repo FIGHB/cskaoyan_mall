@@ -8,6 +8,7 @@ import com.cskaoyan.mall.mapper.GoodsProductMapper;
 import com.cskaoyan.mall.service.ChenWuService.CartService;
 import com.cskaoyan.mall.service.ChenWuService.OrderService;
 import com.cskaoyan.mall.service.wechat.LRWXMallService;
+import com.cskaoyan.mall.service.wechat.LRWXMallServiceImpl;
 import com.cskaoyan.mall.vo.BaseRespVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CWCheckVo;
 import com.cskaoyan.mall.vo.ChenWuWx.CartTotal;
@@ -52,7 +53,7 @@ public class CartController {
      * 多用逆向工程
      */
 //    @RequestMapping("index")
-    @ResponseBody
+//    @ResponseBody
     public BaseRespVo<CartTotalVo> index() {
         BaseRespVo<CartTotalVo> cartTotalVoBaseRespVo = new BaseRespVo<>();
         CartTotalVo cartTotalVo = new CartTotalVo();
@@ -203,11 +204,11 @@ public class CartController {
 //        baseRespVo.setErrno(0);
 //        return baseRespVo;
 //    }
-    @Autowired
-    LRWXMallService lrwxMallService;
+
 
 
     private int getUserIdBySecurityUtils() {
+        LRWXMallService lrwxMallService = new LRWXMallServiceImpl();
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
         if(username == null) return -1;
